@@ -1,4 +1,4 @@
-# Writing all output to: D:\DDS-2.1(Arton)\DDS-2.1(arton).log
+# Writing all output to: C:\Users\Red\Documents\GitHub\DSD-2.1\DDS-2.1(Arton)\DDS-2.1(arton).log
 set pad_wire_necking on
 bus diagonal
 fanout 5
@@ -8,4 +8,3 @@ route 90 16
 clean 2
 filter 5
 status_file
-
