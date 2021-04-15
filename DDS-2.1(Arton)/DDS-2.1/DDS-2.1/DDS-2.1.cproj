@@ -129,6 +129,12 @@
     <Compile Include="ADConverter.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="EepromDATA.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="EepromDATA.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>

@@ -4,6 +4,8 @@
 
 ADConverter.c
 
+EepromDATA.c
+
 main.c
 
 Omega.c

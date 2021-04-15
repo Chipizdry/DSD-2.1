@@ -30,12 +30,9 @@
 
 #include "ADConverter.h"
 #include "EepromDATA.h"
-#include "Voltmeter.h"
-#include "Inputs.h"
-#include "Led_driver.h"
 #include "Omega.h"
-#include "DHT.h"
-#include "MenuStatus.h"
+
+
 
 
 float hd;
@@ -84,9 +81,6 @@ int test;//авария датчика DHT
 unsigned char search;
 unsigned char al;
 unsigned char regim_fall;//невыход на режим
-unsigned char faza_fall;
-unsigned char faza_fall_1;
-unsigned char faza_fall_2;
 unsigned char revers;
 unsigned char time_loop;
 unsigned char receivemode;// состояние аварии DHT датчика
