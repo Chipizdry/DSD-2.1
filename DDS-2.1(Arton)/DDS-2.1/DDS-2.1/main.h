@@ -32,12 +32,7 @@
 #include "EepromDATA.h"
 #include "Omega.h"
 
-uint8_t data[5];
-char buff [16];  //буфер дисплея
-int mn_time;
-int milis;
-int millis;
-int interval;
+
 int delta_U;
 int delta_F;
 float delta_T;

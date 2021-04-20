@@ -17,7 +17,6 @@ input_bit           0x2               ADConverter.o
 delta_U             0x2               ADConverter.o
 pwr                 0x2               ADConverter.o
 volt_2              0x2               ADConverter.o
-buff                0x10              ADConverter.o
 w                   0x2               ADConverter.o
 working             0x1               ADConverter.o
 revers              0x1               ADConverter.o
@@ -41,10 +40,6 @@ preority            0x1               ADConverter.o
 al                  0x1               ADConverter.o
 tt                  0x2               ADConverter.o
 regim_fall          0x1               ADConverter.o
-data                0x5               ADConverter.o
-mn_time             0x2               ADConverter.o
-interval            0x2               ADConverter.o
-milis               0x2               ADConverter.o
 external            0x1               ADConverter.o
 technic             0x1               ADConverter.o
 stats1              0x2               ADConverter.o
@@ -55,11 +50,9 @@ adress              0x2               ADConverter.o
 w_curr              0x2               ADConverter.o
 hi_flag             0x1               ADConverter.o
 delta_T             0x4               ADConverter.o
-past2               0x2               main.o
 frame               0x2               ADConverter.o
 rd                  0x4               ADConverter.o
 u_curr              0x2               ADConverter.o
-past                0x2               main.o
 timer_U             0x2               ADConverter.o
 stats               0x2               ADConverter.o
 delta_F             0x2               ADConverter.o
@@ -71,7 +64,6 @@ volt_1              0x2               ADConverter.o
 time_loop           0x1               ADConverter.o
 receivemode         0x1               ADConverter.o
 u                   0x2               ADConverter.o
-millis              0x2               ADConverter.o
 
 Discarded input sections
 
@@ -80,8 +72,6 @@ Discarded input sections
  .text          0x00000000        0x0 ADConverter.o
  .data          0x00000000        0x0 ADConverter.o
  .bss           0x00000000        0x0 ADConverter.o
- .text.read_adc
-                0x00000000       0x1a ADConverter.o
  .text          0x00000000        0x0 EepromDATA.o
  .data          0x00000000        0x0 EepromDATA.o
  .bss           0x00000000        0x0 EepromDATA.o
@@ -92,8 +82,6 @@ Discarded input sections
  .bss           0x00000000        0x0 main.o
  .bss.read_enable
                 0x00000000        0x1 main.o
- .bss.temperatur
-                0x00000000        0x2 main.o
  .text          0x00000000        0x0 Omega.o
  .data          0x00000000        0x0 Omega.o
  .bss           0x00000000        0x0 Omega.o
@@ -274,7 +262,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0xae2
+.text           0x00000000      0xb12
  *(.vectors)
  .vectors       0x00000000       0x26 D:/Atmel/7.0/Packs/atmel/ATmega_DFP/1.3.300/gcc/dev/atmega8/avr4/crtatmega8.o
                 0x00000000                __vector_default
@@ -353,25 +341,28 @@ END GROUP
                 0x0000005c                __vector_18
                 0x0000005e                . = ALIGN (0x2)
  *(.text.*)
+ .text.read_adc
+                0x0000005e       0x1a ADConverter.o
+                0x0000005e                read_adc
  .text.EEPROM_read
-                0x0000005e        0xe EepromDATA.o
-                0x0000005e                EEPROM_read
+                0x00000078        0xe EepromDATA.o
+                0x00000078                EEPROM_read
  .text.__vector_6
-                0x0000006c       0x58 main.o
-                0x0000006c                __vector_6
- .text.main     0x000000c4       0xda main.o
-                0x000000c4                main
+                0x00000086       0x58 main.o
+                0x00000086                __vector_6
+ .text.main     0x000000de       0xf0 main.o
+                0x000000de                main
  .text.protocol
-                0x0000019e      0x64a Omega.o
-                0x0000019e                protocol
+                0x000001ce      0x64a Omega.o
+                0x000001ce                protocol
  .text.Omega_slave
-                0x000007e8      0x2f6 Omega.o
-                0x000007e8                Omega_slave
-                0x00000ade                . = ALIGN (0x2)
+                0x00000818      0x2f6 Omega.o
+                0x00000818                Omega_slave
+                0x00000b0e                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000ade        0x0 d:/atmel/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
-                0x00000ade                _exit
-                0x00000ade                exit
+ .fini9         0x00000b0e        0x0 d:/atmel/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
+                0x00000b0e                _exit
+                0x00000b0e                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -390,11 +381,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000ade        0x4 d:/atmel/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
+ .fini0         0x00000b0e        0x4 d:/atmel/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr4\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000ae2                _etext = .
+                0x00000b12                _etext = .
 
-.data           0x00800060        0x2 load address 0x00000ae2
+.data           0x00800060        0x2 load address 0x00000b12
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -408,88 +399,84 @@ END GROUP
                 0x00800062                _edata = .
                 0x00800062                PROVIDE (__data_end, .)
 
-.bss            0x00800062      0x1cd
+.bss            0x00800062      0x1b0
                 0x00800062                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
- .bss.preasure  0x00800062        0x2 main.o
-                0x00800062                preasure
- .bss.fire      0x00800064        0x2 main.o
-                0x00800064                fire
+ .bss.current   0x00800062        0x2 main.o
+                0x00800062                current
+ .bss.volts     0x00800064        0x2 main.o
+                0x00800064                volts
+ .bss.preasure  0x00800066        0x2 main.o
+                0x00800066                preasure
+ .bss.fire      0x00800068        0x2 main.o
+                0x00800068                fire
  *(COMMON)
- COMMON         0x00800066      0x1c3 ADConverter.o
-                0x00800066                tmp
-                0x00800068                tct
-                0x0080006a                search
-                0x0080006b                input_bit
-                0x0080006d                delta_U
-                0x0080006f                pwr
-                0x00800071                volt_2
-                0x00800073                buff
-                0x00800083                w
-                0x00800085                working
-                0x00800086                revers
-                0x00800087                temp_ID
-                0x00800089                relay
-                0x0080008b                v_curr
-                0x0080008d                volt_3
-                0x0080008f                active
-                0x00800091                adress_t
-                0x00800093                adres_call
-                0x00800095                norm
-                0x008000a9                mode
-                0x008000aa                delta_H
-                0x008000ae                test
-                0x008000b0                device_ID
-                0x008000b2                bit_flag
-                0x008000b3                low
-                0x008000b5                v
-                0x008000b7                timer_M
-                0x008000b9                preority
-                0x008000ba                al
-                0x008000bb                tt
-                0x008000bd                regim_fall
-                0x008000be                data
-                0x008000c3                mn_time
-                0x008000c5                interval
-                0x008000c7                milis
-                0x008000c9                external
-                0x008000ca                technic
-                0x008000cb                stats1
-                0x008000cd                autorun
-                0x008000ce                directive
-                0x008000d0                answer
-                0x008000d2                adress
-                0x008000d4                w_curr
-                0x008000d6                hi_flag
-                0x008000d7                delta_T
-                0x008000db                frame
-                0x008000dd                rd
-                0x008000e1                u_curr
-                0x008000e3                timer_U
-                0x008000e5                stats
-                0x008000e7                delta_F
-                0x008000e9                stat
-                0x008000fd                timer_FLV
-                0x008000ff                detect
-                0x00800221                volt_1
-                0x00800223                time_loop
-                0x00800224                receivemode
-                0x00800225                u
-                0x00800227                millis
- COMMON         0x00800229        0x6 main.o
-                0x00800229                past2
-                0x0080022b                past
-                0x0080022d                timing
-                0x0080022f                PROVIDE (__bss_end, .)
-                0x00000ae2                __data_load_start = LOADADDR (.data)
-                0x00000ae4                __data_load_end = (__data_load_start + SIZEOF (.data))
+ COMMON         0x0080006a      0x1a6 ADConverter.o
+                0x0080006a                tmp
+                0x0080006c                tct
+                0x0080006e                search
+                0x0080006f                input_bit
+                0x00800071                delta_U
+                0x00800073                pwr
+                0x00800075                volt_2
+                0x00800077                w
+                0x00800079                working
+                0x0080007a                revers
+                0x0080007b                temp_ID
+                0x0080007d                relay
+                0x0080007f                v_curr
+                0x00800081                volt_3
+                0x00800083                active
+                0x00800085                adress_t
+                0x00800087                adres_call
+                0x00800089                norm
+                0x0080009d                mode
+                0x0080009e                delta_H
+                0x008000a2                test
+                0x008000a4                device_ID
+                0x008000a6                bit_flag
+                0x008000a7                low
+                0x008000a9                v
+                0x008000ab                timer_M
+                0x008000ad                preority
+                0x008000ae                al
+                0x008000af                tt
+                0x008000b1                regim_fall
+                0x008000b2                external
+                0x008000b3                technic
+                0x008000b4                stats1
+                0x008000b6                autorun
+                0x008000b7                directive
+                0x008000b9                answer
+                0x008000bb                adress
+                0x008000bd                w_curr
+                0x008000bf                hi_flag
+                0x008000c0                delta_T
+                0x008000c4                frame
+                0x008000c6                rd
+                0x008000ca                u_curr
+                0x008000cc                timer_U
+                0x008000ce                stats
+                0x008000d0                delta_F
+                0x008000d2                stat
+                0x008000e6                timer_FLV
+                0x008000e8                detect
+                0x0080020a                volt_1
+                0x0080020c                time_loop
+                0x0080020d                receivemode
+                0x0080020e                u
+ COMMON         0x00800210        0x2 main.o
+                0x00800210                timing
+                0x00800212                PROVIDE (__bss_end, .)
+                0x00000b12                __data_load_start = LOADADDR (.data)
+                0x00000b14                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x0080022f        0x0
+.noinit         0x00800212        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
  *(.noinit*)
                 [!provide]                PROVIDE (__noinit_end, .)
-                0x0080022f                _end = .
+                0x00800212                _end = .
                 [!provide]                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
@@ -571,13 +558,13 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x1ac3
+.debug_info     0x00000000     0x18af
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x48c D:/Atmel/7.0/Packs/atmel/ATmega_DFP/1.3.300/gcc/dev/atmega8/avr4/crtatmega8.o
- .debug_info    0x0000048c      0x53b ADConverter.o
- .debug_info    0x000009c7      0x576 EepromDATA.o
- .debug_info    0x00000f3d      0x64a main.o
- .debug_info    0x00001587      0x53c Omega.o
+ .debug_info    0x0000048c      0x4af ADConverter.o
+ .debug_info    0x0000093b      0x4ea EepromDATA.o
+ .debug_info    0x00000e25      0x5da main.o
+ .debug_info    0x000013ff      0x4b0 Omega.o
 
 .debug_abbrev   0x00000000      0x736
  *(.debug_abbrev)
@@ -587,13 +574,13 @@ END GROUP
  .debug_abbrev  0x000005a7       0xe7 main.o
  .debug_abbrev  0x0000068e       0xa8 Omega.o
 
-.debug_line     0x00000000      0xb84
+.debug_line     0x00000000      0xbaa
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x109 D:/Atmel/7.0/Packs/atmel/ATmega_DFP/1.3.300/gcc/dev/atmega8/avr4/crtatmega8.o
  .debug_line    0x00000109       0xd5 ADConverter.o
  .debug_line    0x000001de      0x100 EepromDATA.o
- .debug_line    0x000002de      0x19e main.o
- .debug_line    0x0000047c      0x708 Omega.o
+ .debug_line    0x000002de      0x1c4 main.o
+ .debug_line    0x000004a2      0x708 Omega.o
 
 .debug_frame    0x00000000      0x114
  *(.debug_frame)
@@ -602,17 +589,17 @@ END GROUP
  .debug_frame   0x00000058       0x7c main.o
  .debug_frame   0x000000d4       0x40 Omega.o
 
-.debug_str      0x00000000      0x50c
+.debug_str      0x00000000      0x4dc
  *(.debug_str)
  .debug_str     0x00000000      0x17a D:/Atmel/7.0/Packs/atmel/ATmega_DFP/1.3.300/gcc/dev/atmega8/avr4/crtatmega8.o
- .debug_str     0x0000017a      0x2ef ADConverter.o
-                                0x32d (size before relaxing)
- .debug_str     0x00000469       0x3c EepromDATA.o
-                                0x34d (size before relaxing)
- .debug_str     0x000004a5       0x51 main.o
-                                0x36e (size before relaxing)
- .debug_str     0x000004f6       0x16 Omega.o
-                                0x32a (size before relaxing)
+ .debug_str     0x0000017a      0x2c7 ADConverter.o
+                                0x305 (size before relaxing)
+ .debug_str     0x00000441       0x3c EepromDATA.o
+                                0x325 (size before relaxing)
+ .debug_str     0x0000047d       0x49 main.o
+                                0x347 (size before relaxing)
+ .debug_str     0x000004c6       0x16 Omega.o
+                                0x302 (size before relaxing)
 
 .debug_loc      0x00000000      0x14b
  *(.debug_loc)
