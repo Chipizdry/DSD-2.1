@@ -4,7 +4,7 @@ main.d main.o: .././main.c \
  d:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\inttypes.h \
  d:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdint.h \
  d:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdint.h \
- D:\Atmel\7.0\Packs\atmel\ATmega_DFP\1.3.300\include/avr/iom8a.h \
+ D:\Atmel\7.0\Packs\atmel\ATmega_DFP\1.3.300\include/avr/iom8.h \
  d:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\portpins.h \
  d:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\common.h \
  d:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\version.h \
@@ -32,7 +32,7 @@ d:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stdint.
 
 d:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdint.h:
 
-D:\Atmel\7.0\Packs\atmel\ATmega_DFP\1.3.300\include/avr/iom8a.h:
+D:\Atmel\7.0\Packs\atmel\ATmega_DFP\1.3.300\include/avr/iom8.h:
 
 d:\atmel\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\portpins.h:
 

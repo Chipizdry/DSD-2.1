@@ -10,7 +10,7 @@
 #ifndef MAIN_H_
 #define MAIN_H_
 
-#define F_CPU              16000000UL
+#define F_CPU              3759000UL
 
 #define DHT_PORT        PORTD
 #define DHT_DDR         DDRD
