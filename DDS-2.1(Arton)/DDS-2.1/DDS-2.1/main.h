@@ -32,18 +32,6 @@
 #include "EepromDATA.h"
 #include "Omega.h"
 
-
-
-
-float hd;
-float tm;
-float dh;
-float dt;
-int dh1;
-int dt1;
-int dh2;
-int dt2;
-unsigned char hum;
 uint8_t data[5];
 char buff [16];  //буфер дисплея
 int mn_time;
@@ -57,10 +45,7 @@ float delta_H;
 int timer_M;
 int timer_U;
 int timer_FLV;//Таймер положения клапана
-unsigned char flv_alarm;// ОЗК закрыт
-unsigned char temp_alarm;
-unsigned char hum_alarm;
-unsigned char arm;       //пуск ручной
+
 int fire;
 int pwr;  //Питание НОРМА
 unsigned char preority;
@@ -68,13 +53,7 @@ int preasure;//состояние входа PS
 unsigned char technic;
 unsigned char working;
 unsigned char autorun;
-unsigned char flag1;
-unsigned char flag2;
-unsigned char flag3;
-int j;
-int d;
-unsigned char regim;      //режим работы ручной-авто
-unsigned char service;
+
 int stat[10];//Массив статуса аварий
 int norm[10];// Массив статуса НОРМА
 int test;//авария датчика DHT

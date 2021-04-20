@@ -9,6 +9,7 @@
 #include "main.h"
 
 int stats;
+int stats1;
 int active;
 int low;
 unsigned char bit_flag;
