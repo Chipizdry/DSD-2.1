@@ -6,7 +6,7 @@
  */ 
 
 
-#define F_CPU 3759000UL
+#define F_CPU 3579545UL
 #include <avr/io.h>
 #include <util/delay.h>
 #include <avr/interrupt.h>
@@ -68,7 +68,7 @@ int main(void)
 	
 	
 	adress=19;
-	device_ID=157;// 157-блок коммутации ,89-СПРА ,108-БСА, 26 -СПДОТА
+	device_ID=25;// 157-блок коммутации ,89-СПРА ,108-БСА, 25 -СПДОТА
 //===================================================================================================================================================	
  
  
@@ -78,8 +78,8 @@ int main(void)
  if(delta_U>42){delta_U=41;}       // Определение значений по умолчанию
  delta_F=EEPROM_read(0x09);
  if(delta_F>42){delta_F=41;}
- adress=EEPROM_read(0x10);
- if(adress>128){adress=0;}
+ //adress=EEPROM_read(0x10);
+ //if(adress>128){adress=0;}
  
  
  

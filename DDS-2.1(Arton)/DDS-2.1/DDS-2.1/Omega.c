@@ -9,15 +9,21 @@
  void Omega_slave() {
  
  
- PORTD|= (1 <<PD0); // Вспомогательная строб-индикация состояния 
+// PORTD|= (1 <<PD0); // Вспомогательная строб-индикация состояния 
  stats= (PINB & 0b0000001); //Чтение состояния входа
  stats1=(PINB & 0b0000100);
  if (( stats ==1)&&(bit_flag==0))
  {
 	 
-	 if((8<low)&& (low<11)){low=0;}    // интерпритация нуля
-	 if((17<low)&& (low<21)){low=1;}   // интерпритация единицы
-	 if((26<low)&& (low<35)){low=2;tct=0; input_bit=0;adress_t=0;directive=0;}  // команда начала приёма 
+	// if((8<low)&& (low<11)){low=0;}    // интерпритация нуля
+	// if((17<low)&& (low<21)){low=1;}   // интерпритация единицы
+	// if((26<low)&& (low<35)){low=2;tct=0; input_bit=0;adress_t=0;directive=0;}  // команда начала приёма 
+		 
+		 
+	  if((5<=low)&& (low<=7)){low=0;}    // интерпритация нуля
+	  if((10<=low)&& (low<12)){low=1;}   // интерпритация единицы
+	  if((14<low)&& (low<35)){low=2;tct=0; input_bit=0;adress_t=0;directive=0;}  // команда начала приёма	 
+		 
 	 if(low>1000){tct=0; input_bit=0;adress_t=0;directive=0;low=0;external=0;}
 	 detect[tct]=low;
 	 
@@ -39,7 +45,7 @@
 		 adres_call=adres_call+1;
 		 if(adres_call==adress)
 		    {
-			 adress_t=adres_call;{  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);} 	          
+			 adress_t=adres_call;{  PORTB |= (1 <<PB1); PORTB|= (1 <<PB4);} 	          
 		    }
 	  }
 		 tct=tct+1;
@@ -68,7 +74,7 @@
 		 low=low+1;
 	 }
 
-	 PORTD &=~(1 <<PD0);  // Вспомогательная строб-индикация состояния 
+	// PORTD &=~(1 <<PD0);  // Вспомогательная строб-индикация состояния 
 	 
 	 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	 
@@ -80,7 +86,7 @@
 		 }
 		 
 		if(tct==9) {  PORTB|= (1 <<PB1); PORTC|= (1 <<PC5);}   //OWR в активном состоянии при запросе от ППКП  
-		if(tct==13){  PORTB|= (1 <<PB1); PORTC|= (1 <<PC5);}   //OWR в активном состоянии при запросе от программатора/ППКП
+		if(tct==13){  PORTB|= (1 <<PB1); PORTB|= (1 <<PB4);}   //OWR в активном состоянии при запросе от программатора/ППКП
 		if((tct==14)&&((stat[0]==1)||(external==2)))   {  PORTB|= (1 <<PB1); PORTC|= (1 <<PC5);}   //СОСТОЯНИЕ ТРЕВОГИ 
 		 
 		 
@@ -94,7 +100,11 @@
 			if(tct==58){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  // Импульс синхронизации
 			if(tct==67){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  // Импульс синхронизации
 			if(tct==76){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  // Импульс синхронизации
-				
+		    if(tct==76){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  // Импульс синхронизации
+			if(tct==85){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  // Импульс синхронизации
+			if(tct==94){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  // Импульс синхронизации
+						
+							
 				
 		  switch(directive)
 		   {
@@ -186,22 +196,22 @@
 				 if(temp_ID==0){  PORTB &=~(1 <<PB1);}
 			    }   
 			 
-		   if((tct>=51)&&(tct<57))  //состояние АЦП входа AL
+		   if((tct>=51)&&(tct<57))  // Уровень фона датчика 
 			    {
 				  temp_ID|=((fire/4)>>(57-tct))&(0b1);
 				  if(temp_ID==1){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}
 				  if(temp_ID==0){  PORTB &=~ (1 <<PB1);}          
 			    }
 				
-		   if((tct>=60)&&(tct<67)) // температура
+		   if((tct>=60)&&(tct<67)) // Смещение (компенсатор)
 				{
 				  temp_ID|=(tmp>>(66-tct))&(0b1);
 				  if(temp_ID==1){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  
 				  if(temp_ID==0){  PORTB &=~ (1 <<PB1);}                
 				}
-		   if((tct>=69)&&(tct<76))  //состояние АЦП входа PS
+		   if((tct>=69)&&(tct<76))  //Температура 
 			    {
-				temp_ID|=((preasure/4)>>(75-tct))&(0b1);
+				temp_ID|=((25)>>(75-tct))&(0b1);
 				if(temp_ID==1){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                
 				if(temp_ID==0){  PORTB &=~ (1 <<PB1);}               
 			    } 
