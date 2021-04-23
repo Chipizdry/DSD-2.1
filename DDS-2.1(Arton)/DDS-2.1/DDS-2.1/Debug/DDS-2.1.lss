@@ -1447,8 +1447,8 @@ int main(void)
 	 {
 		  PORTB &=~ (1 <<PB1);                // digitalWrite(13,LOW);
  aa2:	c1 98       	cbi	0x18, 1	; 24
-		  PORTC&=~ (1 <<PC5);
- aa4:	ad 98       	cbi	0x15, 5	; 21
+		  PORTB&=~ (1 <<PB4);
+ aa4:	c4 98       	cbi	0x18, 4	; 24
 		 hi_flag=1;
  aa6:	81 e0       	ldi	r24, 0x01	; 1
  aa8:	80 93 bd 00 	sts	0x00BD, r24	; 0x8000bd <hi_flag>

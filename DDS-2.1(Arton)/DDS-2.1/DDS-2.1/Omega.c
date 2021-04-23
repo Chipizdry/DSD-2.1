@@ -61,7 +61,7 @@
 	 if (( stats ==0)&&(hi_flag==0))
 	 {
 		  PORTB &=~ (1 <<PB1);                // digitalWrite(13,LOW);
-		  PORTC&=~ (1 <<PC5);
+		  PORTB&=~ (1 <<PB4);
 		 hi_flag=1;
 		 bit_flag=0;
 		 active=0;
