@@ -42,6 +42,9 @@ int timer_U;
 int timer_FLV;//Таймер положения клапана
 
 int fire;
+int zero_point; //уровень фона 
+
+
 int pwr;  //Питание НОРМА
 unsigned char preority;
 int preasure;//состояние входа PS

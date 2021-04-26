@@ -15,6 +15,7 @@
 
 
 int fire =0;                //пуск авто
+
 int preasure=0;             //сработка датчика давления
 int volts=0;    // Напряжение питания 
 int current=0;
@@ -49,7 +50,7 @@ int main(void)
 	ADCSRA |=(0<<ADPS0)|(1<<ADPS1)|(1<<ADPS2)|(0<<ADFR); //частота предделителя
    // ACSR |= (1 << ACD);//отключаем аналоговый компаратор
     // Настройка портов ввода/вывода
-    DDRC = 0b00000000;
+    DDRC = 0b00000010;
 	DDRB = 0b00111010;
 	PORTB= 0b00000000;
     DDRD = 0b11111111;
@@ -95,11 +96,16 @@ int main(void)
 	
   {
 	  
-	PORTD|=(1<<PD1);
+	PORTB|=(1<<PB3);
 	fire=read_adc(0); //Чтение состояния входа ПОЖАР
+	PORTC|=(1<<PC1);
+	fire=read_adc(0); //Чтение состояния входа ПОЖАР
+	PORTC&=~(1<<PC1);
+	
 	volts =read_adc(7); // Чтение напряжения питания 
 	current=read_adc(6); //Ток светодиода
-	PORTD&=~(1<<PD1);
+	PORTB&=~(1<<PB3);
+	_delay_ms(20);
   }
   
   

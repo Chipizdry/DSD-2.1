@@ -62,6 +62,7 @@
 	 {
 		  PORTB &=~ (1 <<PB1);                // digitalWrite(13,LOW);
 		  PORTB&=~ (1 <<PB4);
+		   PORTB&=~ (1 <<PB5);
 		 hi_flag=1;
 		 bit_flag=0;
 		 active=0;
@@ -93,7 +94,7 @@
 		if(tct>=13)
 		{ 
 			
-			if(tct==22){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  // Импульс синхронизации
+			if(tct==22){  PORTB |= (1 <<PB1); PORTC|= (1 <<PB4);}                  // Импульс синхронизации
 			if(tct==31){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  // Импульс синхронизации
 			if(tct==40){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  // Импульс синхронизации
 			if(tct==49){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  // Импульс синхронизации
@@ -198,7 +199,7 @@
 			 
 		   if((tct>=51)&&(tct<57))  // Уровень фона датчика 
 			    {
-				  temp_ID|=((fire/4)>>(57-tct))&(0b1);
+				  temp_ID|=((fire-512)>>(57-tct))&(0b1);
 				  if(temp_ID==1){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}
 				  if(temp_ID==0){  PORTB &=~ (1 <<PB1);}          
 			    }
