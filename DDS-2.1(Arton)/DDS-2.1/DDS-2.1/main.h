@@ -51,7 +51,9 @@ int preasure;//состояние входа PS
 unsigned char technic;
 unsigned char working;
 unsigned char autorun;
-
+int smoke;
+int current;
+int volts;
 int stat[10];//Массив статуса аварий
 int norm[10];// Массив статуса НОРМА
 int test;//авария датчика DHT

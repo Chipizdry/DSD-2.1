@@ -142,6 +142,8 @@
 		   if(tct==58){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  // Импульс синхронизации
 		   if(tct==67){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  // Импульс синхронизации
 		   if(tct==76){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  // Импульс синхронизации
+		   if(tct==85){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  // Импульс синхронизации
+		   if(tct==95){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  // Импульс синхронизации
 		
 	   	   if((tct>=14)&&(tct<22))   //индентификатор устройства
 			    {
@@ -189,23 +191,33 @@
 			}
 		*/	
 				 
-		   if((tct>=39)&&(tct<40))  //авария датчика DHT
+		   if((tct>=39)&&(tct<40))  //авария 
 			    {
 				 temp_ID|=((receivemode)&(0b1));
 				 if(temp_ID==1){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}
 				 if(temp_ID==0){  PORTB &=~(1 <<PB1);}
 			    }   
 			 
-		   if((tct>=51)&&(tct<57))  // Уровень фона датчика 
+			 if((tct>=42)&&(tct<49))  // Уровень задымлённости
+			 {
+				 temp_ID|=((fire-512)>>(48-tct))&(0b1);
+				 if(temp_ID==1){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}
+				 if(temp_ID==0){  PORTB &=~ (1 <<PB1);}
+			 } 
+			 
+			 
+			 
+			 
+		   if((tct>=51)&&(tct<58))  // Уровень фона датчика 
 			    {
-				  temp_ID|=((fire-512)>>(57-tct))&(0b1);
+				  temp_ID|=((smoke)>>(57-tct))&(0b1);
 				  if(temp_ID==1){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}
 				  if(temp_ID==0){  PORTB &=~ (1 <<PB1);}          
 			    }
 				
 		   if((tct>=60)&&(tct<67)) // Смещение (компенсатор)
 				{
-				  temp_ID|=(tmp>>(66-tct))&(0b1);
+				  temp_ID|=(smoke>>(66-tct))&(0b1);
 				  if(temp_ID==1){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  
 				  if(temp_ID==0){  PORTB &=~ (1 <<PB1);}                
 				}
@@ -215,7 +227,23 @@
 				if(temp_ID==1){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                
 				if(temp_ID==0){  PORTB &=~ (1 <<PB1);}               
 			    } 
-			   
+				
+				
+		  if((tct>=78)&&(tct<86))  //Ток светодиода
+			    {
+				    temp_ID|=((current*3)>>(84-tct))&(0b1);
+				    if(temp_ID==1){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}
+				    if(temp_ID==0){  PORTB &=~ (1 <<PB1);}
+			    }
+			
+			
+		  if((tct>=86)&&(tct<95))  //Напряжение питания
+		       {
+			        temp_ID|=((volts)>>(93-tct))&(0b1);
+			        if(temp_ID==1){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}
+			        if(temp_ID==0){  PORTB &=~ (1 <<PB1);}
+		       }	
+				
 		   break;
 		   
 		   case 14 :

@@ -3,31 +3,31 @@ DDS-2.1.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         00000afc  00000000  00000000  00000094  2**1
+  0 .text         00000c58  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         00000002  00800060  00000afc  00000b90  2**0
+  1 .data         00000002  00800060  00000c58  00000cec  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .bss          000001b0  00800062  00800062  00000b92  2**0
+  2 .bss          000001b2  00800062  00800062  00000cee  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  00000b92  2**0
+  3 .comment      00000030  00000000  00000000  00000cee  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000bc4  2**2
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000d20  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 00000098  00000000  00000000  00000c00  2**0
+  5 .debug_aranges 00000098  00000000  00000000  00000d5c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00001978  00000000  00000000  00000c98  2**0
+  6 .debug_info   00001a2c  00000000  00000000  00000df4  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 000007a7  00000000  00000000  00002610  2**0
+  7 .debug_abbrev 000007a7  00000000  00000000  00002820  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00000c9c  00000000  00000000  00002db7  2**0
+  8 .debug_line   00000d39  00000000  00000000  00002fc7  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000114  00000000  00000000  00003a54  2**2
+  9 .debug_frame  00000114  00000000  00000000  00003d00  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00000536  00000000  00000000  00003b68  2**0
+ 10 .debug_str    0000053c  00000000  00000000  00003e14  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    0000014b  00000000  00000000  0000409e  2**0
+ 11 .debug_loc    0000014b  00000000  00000000  00004350  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000058  00000000  00000000  000041e9  2**0
+ 12 .debug_ranges 00000058  00000000  00000000  0000449b  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -65,8 +65,8 @@ Disassembly of section .text:
   32:	10 e0       	ldi	r17, 0x00	; 0
   34:	a0 e6       	ldi	r26, 0x60	; 96
   36:	b0 e0       	ldi	r27, 0x00	; 0
-  38:	ec ef       	ldi	r30, 0xFC	; 252
-  3a:	fa e0       	ldi	r31, 0x0A	; 10
+  38:	e8 e5       	ldi	r30, 0x58	; 88
+  3a:	fc e0       	ldi	r31, 0x0C	; 12
   3c:	02 c0       	rjmp	.+4      	; 0x42 <__SREG__+0x3>
   3e:	05 90       	lpm	r0, Z+
   40:	0d 92       	st	X+, r0
@@ -84,11 +84,11 @@ Disassembly of section .text:
   50:	1d 92       	st	X+, r1
 
 00000052 <.do_clear_bss_start>:
-  52:	a2 31       	cpi	r26, 0x12	; 18
+  52:	a4 31       	cpi	r26, 0x14	; 20
   54:	b2 07       	cpc	r27, r18
   56:	e1 f7       	brne	.-8      	; 0x50 <.do_clear_bss_loop>
   58:	42 d0       	rcall	.+132    	; 0xde <main>
-  5a:	4e c5       	rjmp	.+2716   	; 0xaf8 <_exit>
+  5a:	fc c5       	rjmp	.+3064   	; 0xc54 <_exit>
 
 0000005c <__bad_interrupt>:
   5c:	d1 cf       	rjmp	.-94     	; 0x0 <__vectors>
@@ -164,13 +164,13 @@ unsigned char EEPROM_read(unsigned int uiAddress)
   a4:	ef 93       	push	r30
   a6:	ff 93       	push	r31
 	  timing++;
-  a8:	80 91 10 02 	lds	r24, 0x0210	; 0x800210 <timing>
-  ac:	90 91 11 02 	lds	r25, 0x0211	; 0x800211 <timing+0x1>
+  a8:	80 91 12 02 	lds	r24, 0x0212	; 0x800212 <timing>
+  ac:	90 91 13 02 	lds	r25, 0x0213	; 0x800213 <timing+0x1>
   b0:	01 96       	adiw	r24, 0x01	; 1
-  b2:	90 93 11 02 	sts	0x0211, r25	; 0x800211 <timing+0x1>
-  b6:	80 93 10 02 	sts	0x0210, r24	; 0x800210 <timing>
+  b2:	90 93 13 02 	sts	0x0213, r25	; 0x800213 <timing+0x1>
+  b6:	80 93 12 02 	sts	0x0212, r24	; 0x800212 <timing>
 	  Omega_slave(); 
-  ba:	a2 d3       	rcall	.+1860   	; 0x800 <Omega_slave>
+  ba:	50 d4       	rcall	.+2208   	; 0x95c <Omega_slave>
   }
   bc:	ff 91       	pop	r31
   be:	ef 91       	pop	r30
@@ -213,1302 +213,1469 @@ int main(void)
   f0:	86 b9       	out	0x06, r24	; 6
    // ACSR |= (1 << ACD);//отключаем аналоговый компаратор
     // Настройка портов ввода/вывода
-    DDRC = 0b00000010;
-  f2:	82 e0       	ldi	r24, 0x02	; 2
-  f4:	84 bb       	out	0x14, r24	; 20
+    DDRC = 0b00000000;
+  f2:	14 ba       	out	0x14, r1	; 20
 	DDRB = 0b00111010;
-  f6:	8a e3       	ldi	r24, 0x3A	; 58
-  f8:	87 bb       	out	0x17, r24	; 23
+  f4:	8a e3       	ldi	r24, 0x3A	; 58
+  f6:	87 bb       	out	0x17, r24	; 23
 	PORTB= 0b00000000;
-  fa:	18 ba       	out	0x18, r1	; 24
+  f8:	18 ba       	out	0x18, r1	; 24
     DDRD = 0b11111111;
-  fc:	8f ef       	ldi	r24, 0xFF	; 255
-  fe:	81 bb       	out	0x11, r24	; 17
+  fa:	8f ef       	ldi	r24, 0xFF	; 255
+  fc:	81 bb       	out	0x11, r24	; 17
 	PORTC= 0b00000000;
- 100:	15 ba       	out	0x15, r1	; 21
+  fe:	15 ba       	out	0x15, r1	; 21
 	PORTD= 0b00000000;
- 102:	12 ba       	out	0x12, r1	; 18
+ 100:	12 ba       	out	0x12, r1	; 18
 //_________________________________________________________________________________________________
     
 	TCCR1B |= (1<<WGM12); // устанавливаем режим СТС (сброс по совпадению)
- 104:	8e b5       	in	r24, 0x2e	; 46
- 106:	88 60       	ori	r24, 0x08	; 8
- 108:	8e bd       	out	0x2e, r24	; 46
+ 102:	8e b5       	in	r24, 0x2e	; 46
+ 104:	88 60       	ori	r24, 0x08	; 8
+ 106:	8e bd       	out	0x2e, r24	; 46
 	TIMSK |= (1<<OCIE1A);	//устанавливаем бит разрешения прерывания 1ого счетчика по совпадению с OCR1A(H и L)
- 10a:	89 b7       	in	r24, 0x39	; 57
- 10c:	80 61       	ori	r24, 0x10	; 16
- 10e:	89 bf       	out	0x39, r24	; 57
+ 108:	89 b7       	in	r24, 0x39	; 57
+ 10a:	80 61       	ori	r24, 0x10	; 16
+ 10c:	89 bf       	out	0x39, r24	; 57
 	OCR1A = 100;  //записываем в регистр число для сравнения
- 110:	84 e6       	ldi	r24, 0x64	; 100
- 112:	90 e0       	ldi	r25, 0x00	; 0
- 114:	9b bd       	out	0x2b, r25	; 43
- 116:	8a bd       	out	0x2a, r24	; 42
+ 10e:	84 e6       	ldi	r24, 0x64	; 100
+ 110:	90 e0       	ldi	r25, 0x00	; 0
+ 112:	9b bd       	out	0x2b, r25	; 43
+ 114:	8a bd       	out	0x2a, r24	; 42
 	TCCR1B |= (1<<CS11);//установим делитель.
- 118:	8e b5       	in	r24, 0x2e	; 46
- 11a:	82 60       	ori	r24, 0x02	; 2
- 11c:	8e bd       	out	0x2e, r24	; 46
+ 116:	8e b5       	in	r24, 0x2e	; 46
+ 118:	82 60       	ori	r24, 0x02	; 2
+ 11a:	8e bd       	out	0x2e, r24	; 46
 	
 	
 	
 	
 	
 	adress=19;
- 11e:	83 e1       	ldi	r24, 0x13	; 19
- 120:	90 e0       	ldi	r25, 0x00	; 0
- 122:	90 93 bc 00 	sts	0x00BC, r25	; 0x8000bc <adress+0x1>
- 126:	80 93 bb 00 	sts	0x00BB, r24	; 0x8000bb <adress>
+ 11c:	83 e1       	ldi	r24, 0x13	; 19
+ 11e:	90 e0       	ldi	r25, 0x00	; 0
+ 120:	90 93 bc 00 	sts	0x00BC, r25	; 0x8000bc <adress+0x1>
+ 124:	80 93 bb 00 	sts	0x00BB, r24	; 0x8000bb <adress>
 	device_ID=25;// 157-блок коммутации ,89-СПРА ,108-БСА, 25 -СПДОТА
- 12a:	89 e1       	ldi	r24, 0x19	; 25
- 12c:	90 e0       	ldi	r25, 0x00	; 0
- 12e:	90 93 a5 00 	sts	0x00A5, r25	; 0x8000a5 <device_ID+0x1>
- 132:	80 93 a4 00 	sts	0x00A4, r24	; 0x8000a4 <device_ID>
+ 128:	89 e1       	ldi	r24, 0x19	; 25
+ 12a:	90 e0       	ldi	r25, 0x00	; 0
+ 12c:	90 93 a3 00 	sts	0x00A3, r25	; 0x8000a3 <device_ID+0x1>
+ 130:	80 93 a2 00 	sts	0x00A2, r24	; 0x8000a2 <device_ID>
 //===================================================================================================================================================	
  
  
  k=EEPROM_read(0x03);          // ОТКЛОНЕНИЕ НАПРЯЯЖЕНИЙ
- 136:	83 e0       	ldi	r24, 0x03	; 3
- 138:	90 e0       	ldi	r25, 0x00	; 0
- 13a:	9e df       	rcall	.-196    	; 0x78 <EEPROM_read>
- 13c:	90 e0       	ldi	r25, 0x00	; 0
- 13e:	90 93 61 00 	sts	0x0061, r25	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
- 142:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__DATA_REGION_ORIGIN__>
+ 134:	83 e0       	ldi	r24, 0x03	; 3
+ 136:	90 e0       	ldi	r25, 0x00	; 0
+ 138:	9f df       	rcall	.-194    	; 0x78 <EEPROM_read>
+ 13a:	90 e0       	ldi	r25, 0x00	; 0
+ 13c:	90 93 61 00 	sts	0x0061, r25	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
+ 140:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__DATA_REGION_ORIGIN__>
  
  delta_U=EEPROM_read(0x08);	 
- 146:	88 e0       	ldi	r24, 0x08	; 8
- 148:	90 e0       	ldi	r25, 0x00	; 0
- 14a:	96 df       	rcall	.-212    	; 0x78 <EEPROM_read>
- 14c:	90 e0       	ldi	r25, 0x00	; 0
- 14e:	90 93 72 00 	sts	0x0072, r25	; 0x800072 <delta_U+0x1>
- 152:	80 93 71 00 	sts	0x0071, r24	; 0x800071 <delta_U>
+ 144:	88 e0       	ldi	r24, 0x08	; 8
+ 146:	90 e0       	ldi	r25, 0x00	; 0
+ 148:	97 df       	rcall	.-210    	; 0x78 <EEPROM_read>
+ 14a:	90 e0       	ldi	r25, 0x00	; 0
+ 14c:	90 93 70 00 	sts	0x0070, r25	; 0x800070 <delta_U+0x1>
+ 150:	80 93 6f 00 	sts	0x006F, r24	; 0x80006f <delta_U>
  if(delta_U>42){delta_U=41;}       // Определение значений по умолчанию
- 156:	8b 97       	sbiw	r24, 0x2b	; 43
- 158:	34 f0       	brlt	.+12     	; 0x166 <main+0x88>
- 15a:	89 e2       	ldi	r24, 0x29	; 41
- 15c:	90 e0       	ldi	r25, 0x00	; 0
- 15e:	90 93 72 00 	sts	0x0072, r25	; 0x800072 <delta_U+0x1>
- 162:	80 93 71 00 	sts	0x0071, r24	; 0x800071 <delta_U>
+ 154:	8b 97       	sbiw	r24, 0x2b	; 43
+ 156:	34 f0       	brlt	.+12     	; 0x164 <main+0x86>
+ 158:	89 e2       	ldi	r24, 0x29	; 41
+ 15a:	90 e0       	ldi	r25, 0x00	; 0
+ 15c:	90 93 70 00 	sts	0x0070, r25	; 0x800070 <delta_U+0x1>
+ 160:	80 93 6f 00 	sts	0x006F, r24	; 0x80006f <delta_U>
  delta_F=EEPROM_read(0x09);
- 166:	89 e0       	ldi	r24, 0x09	; 9
- 168:	90 e0       	ldi	r25, 0x00	; 0
- 16a:	86 df       	rcall	.-244    	; 0x78 <EEPROM_read>
- 16c:	90 e0       	ldi	r25, 0x00	; 0
- 16e:	90 93 d1 00 	sts	0x00D1, r25	; 0x8000d1 <delta_F+0x1>
- 172:	80 93 d0 00 	sts	0x00D0, r24	; 0x8000d0 <delta_F>
+ 164:	89 e0       	ldi	r24, 0x09	; 9
+ 166:	90 e0       	ldi	r25, 0x00	; 0
+ 168:	87 df       	rcall	.-242    	; 0x78 <EEPROM_read>
+ 16a:	90 e0       	ldi	r25, 0x00	; 0
+ 16c:	90 93 d1 00 	sts	0x00D1, r25	; 0x8000d1 <delta_F+0x1>
+ 170:	80 93 d0 00 	sts	0x00D0, r24	; 0x8000d0 <delta_F>
  if(delta_F>42){delta_F=41;}
- 176:	8b 97       	sbiw	r24, 0x2b	; 43
- 178:	34 f0       	brlt	.+12     	; 0x186 <main+0xa8>
- 17a:	89 e2       	ldi	r24, 0x29	; 41
- 17c:	90 e0       	ldi	r25, 0x00	; 0
- 17e:	90 93 d1 00 	sts	0x00D1, r25	; 0x8000d1 <delta_F+0x1>
- 182:	80 93 d0 00 	sts	0x00D0, r24	; 0x8000d0 <delta_F>
+ 174:	8b 97       	sbiw	r24, 0x2b	; 43
+ 176:	34 f0       	brlt	.+12     	; 0x184 <main+0xa6>
+ 178:	89 e2       	ldi	r24, 0x29	; 41
+ 17a:	90 e0       	ldi	r25, 0x00	; 0
+ 17c:	90 93 d1 00 	sts	0x00D1, r25	; 0x8000d1 <delta_F+0x1>
+ 180:	80 93 d0 00 	sts	0x00D0, r24	; 0x8000d0 <delta_F>
   // fire=read_adc(0); //Чтение состояния входа ПОЖАР
 // preasure=read_adc(1); // Состояние входа ВЫХОД НА РЕЖИМ
 
 
 
   sei();
- 186:	78 94       	sei
+ 184:	78 94       	sei
 
     while (1) 
 	
   {
-	  
+	  if(timing>=10000){
+ 186:	80 91 12 02 	lds	r24, 0x0212	; 0x800212 <timing>
+ 18a:	90 91 13 02 	lds	r25, 0x0213	; 0x800213 <timing+0x1>
+ 18e:	80 31       	cpi	r24, 0x10	; 16
+ 190:	97 42       	sbci	r25, 0x27	; 39
+ 192:	d4 f0       	brlt	.+52     	; 0x1c8 <main+0xea>
+	   cli(); 
+ 194:	f8 94       	cli
+	 smoke=read_adc(0);
+ 196:	80 e0       	ldi	r24, 0x00	; 0
+ 198:	62 df       	rcall	.-316    	; 0x5e <read_adc>
+ 19a:	90 93 11 02 	sts	0x0211, r25	; 0x800211 <smoke+0x1>
+ 19e:	80 93 10 02 	sts	0x0210, r24	; 0x800210 <smoke>
 	PORTB|=(1<<PB3);
- 188:	c3 9a       	sbi	0x18, 3	; 24
+ 1a2:	c3 9a       	sbi	0x18, 3	; 24
+	//_delay_us(20);
 	fire=read_adc(0); //Чтение состояния входа ПОЖАР
- 18a:	80 e0       	ldi	r24, 0x00	; 0
- 18c:	68 df       	rcall	.-304    	; 0x5e <read_adc>
- 18e:	90 93 67 00 	sts	0x0067, r25	; 0x800067 <fire+0x1>
- 192:	80 93 66 00 	sts	0x0066, r24	; 0x800066 <fire>
-	PORTC|=(1<<PC1);
- 196:	a9 9a       	sbi	0x15, 1	; 21
-	fire=read_adc(0); //Чтение состояния входа ПОЖАР
- 198:	80 e0       	ldi	r24, 0x00	; 0
- 19a:	61 df       	rcall	.-318    	; 0x5e <read_adc>
- 19c:	90 93 67 00 	sts	0x0067, r25	; 0x800067 <fire+0x1>
- 1a0:	80 93 66 00 	sts	0x0066, r24	; 0x800066 <fire>
-	PORTC&=~(1<<PC1);
- 1a4:	a9 98       	cbi	0x15, 1	; 21
-	
-	volts =read_adc(7); // Чтение напряжения питания 
- 1a6:	87 e0       	ldi	r24, 0x07	; 7
- 1a8:	5a df       	rcall	.-332    	; 0x5e <read_adc>
- 1aa:	90 93 65 00 	sts	0x0065, r25	; 0x800065 <volts+0x1>
- 1ae:	80 93 64 00 	sts	0x0064, r24	; 0x800064 <volts>
+ 1a4:	80 e0       	ldi	r24, 0x00	; 0
+ 1a6:	5b df       	rcall	.-330    	; 0x5e <read_adc>
+ 1a8:	90 93 65 00 	sts	0x0065, r25	; 0x800065 <fire+0x1>
+ 1ac:	80 93 64 00 	sts	0x0064, r24	; 0x800064 <fire>
+	sei();
+ 1b0:	78 94       	sei
 	current=read_adc(6); //Ток светодиода
  1b2:	86 e0       	ldi	r24, 0x06	; 6
  1b4:	54 df       	rcall	.-344    	; 0x5e <read_adc>
- 1b6:	90 93 63 00 	sts	0x0063, r25	; 0x800063 <__data_end+0x1>
- 1ba:	80 93 62 00 	sts	0x0062, r24	; 0x800062 <__data_end>
+ 1b6:	90 93 a6 00 	sts	0x00A6, r25	; 0x8000a6 <current+0x1>
+ 1ba:	80 93 a5 00 	sts	0x00A5, r24	; 0x8000a5 <current>
 	PORTB&=~(1<<PB3);
  1be:	c3 98       	cbi	0x18, 3	; 24
+	timing=0;
+ 1c0:	10 92 13 02 	sts	0x0213, r1	; 0x800213 <timing+0x1>
+ 1c4:	10 92 12 02 	sts	0x0212, r1	; 0x800212 <timing>
+}
+	
+	volts =read_adc(7); // Чтение напряжения питания 
+ 1c8:	87 e0       	ldi	r24, 0x07	; 7
+ 1ca:	49 df       	rcall	.-366    	; 0x5e <read_adc>
+ 1cc:	90 93 63 00 	sts	0x0063, r25	; 0x800063 <__data_end+0x1>
+ 1d0:	80 93 62 00 	sts	0x0062, r24	; 0x800062 <__data_end>
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
 	#endif
 
 	__builtin_avr_delay_cycles(__ticks_dc);
- 1c0:	89 ee       	ldi	r24, 0xE9	; 233
- 1c2:	95 e4       	ldi	r25, 0x45	; 69
- 1c4:	01 97       	sbiw	r24, 0x01	; 1
- 1c6:	f1 f7       	brne	.-4      	; 0x1c4 <main+0xe6>
- 1c8:	00 c0       	rjmp	.+0      	; 0x1ca <main+0xec>
- 1ca:	de cf       	rjmp	.-68     	; 0x188 <main+0xaa>
+ 1d4:	8d e4       	ldi	r24, 0x4D	; 77
+ 1d6:	9f e2       	ldi	r25, 0x2F	; 47
+ 1d8:	22 e0       	ldi	r18, 0x02	; 2
+ 1da:	81 50       	subi	r24, 0x01	; 1
+ 1dc:	90 40       	sbci	r25, 0x00	; 0
+ 1de:	20 40       	sbci	r18, 0x00	; 0
+ 1e0:	e1 f7       	brne	.-8      	; 0x1da <main+0xfc>
+ 1e2:	00 c0       	rjmp	.+0      	; 0x1e4 <main+0x106>
+ 1e4:	d0 cf       	rjmp	.-96     	; 0x186 <main+0xa8>
 
-000001cc <protocol>:
+000001e6 <protocol>:
 	PORTD &=~(1 <<PD0);  // Вспомогательная строб-индикация состояния 
 	 
 	 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	 
 	 void protocol(void)
 	 {
- 1cc:	cf 93       	push	r28
- 1ce:	df 93       	push	r29
+ 1e6:	cf 93       	push	r28
+ 1e8:	df 93       	push	r29
 		 if (tct==13)
- 1d0:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- 1d4:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- 1d8:	0d 97       	sbiw	r24, 0x0d	; 13
- 1da:	41 f5       	brne	.+80     	; 0x22c <protocol+0x60>
+ 1ea:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 1ee:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 1f2:	0d 97       	sbiw	r24, 0x0d	; 13
+ 1f4:	41 f5       	brne	.+80     	; 0x246 <protocol+0x60>
 		 {
 			 directive|=(detect[10]<<3)|(detect[11]<<2)|(detect[12]<<1)|(detect[13]) ; //Определение типа запроса 
- 1dc:	c8 ee       	ldi	r28, 0xE8	; 232
- 1de:	d0 e0       	ldi	r29, 0x00	; 0
- 1e0:	2a 8d       	ldd	r18, Y+26	; 0x1a
- 1e2:	3b 8d       	ldd	r19, Y+27	; 0x1b
- 1e4:	80 91 b7 00 	lds	r24, 0x00B7	; 0x8000b7 <directive>
- 1e8:	90 91 b8 00 	lds	r25, 0x00B8	; 0x8000b8 <directive+0x1>
- 1ec:	82 2b       	or	r24, r18
- 1ee:	93 2b       	or	r25, r19
- 1f0:	2c 89       	ldd	r18, Y+20	; 0x14
- 1f2:	3d 89       	ldd	r19, Y+21	; 0x15
- 1f4:	22 0f       	add	r18, r18
- 1f6:	33 1f       	adc	r19, r19
- 1f8:	22 0f       	add	r18, r18
- 1fa:	33 1f       	adc	r19, r19
- 1fc:	22 0f       	add	r18, r18
- 1fe:	33 1f       	adc	r19, r19
- 200:	82 2b       	or	r24, r18
- 202:	93 2b       	or	r25, r19
- 204:	2e 89       	ldd	r18, Y+22	; 0x16
- 206:	3f 89       	ldd	r19, Y+23	; 0x17
- 208:	22 0f       	add	r18, r18
- 20a:	33 1f       	adc	r19, r19
- 20c:	22 0f       	add	r18, r18
- 20e:	33 1f       	adc	r19, r19
- 210:	82 2b       	or	r24, r18
- 212:	93 2b       	or	r25, r19
- 214:	28 8d       	ldd	r18, Y+24	; 0x18
- 216:	39 8d       	ldd	r19, Y+25	; 0x19
- 218:	22 0f       	add	r18, r18
- 21a:	33 1f       	adc	r19, r19
- 21c:	82 2b       	or	r24, r18
- 21e:	93 2b       	or	r25, r19
- 220:	90 93 b8 00 	sts	0x00B8, r25	; 0x8000b8 <directive+0x1>
- 224:	80 93 b7 00 	sts	0x00B7, r24	; 0x8000b7 <directive>
+ 1f6:	c8 ee       	ldi	r28, 0xE8	; 232
+ 1f8:	d0 e0       	ldi	r29, 0x00	; 0
+ 1fa:	2a 8d       	ldd	r18, Y+26	; 0x1a
+ 1fc:	3b 8d       	ldd	r19, Y+27	; 0x1b
+ 1fe:	80 91 b7 00 	lds	r24, 0x00B7	; 0x8000b7 <directive>
+ 202:	90 91 b8 00 	lds	r25, 0x00B8	; 0x8000b8 <directive+0x1>
+ 206:	82 2b       	or	r24, r18
+ 208:	93 2b       	or	r25, r19
+ 20a:	2c 89       	ldd	r18, Y+20	; 0x14
+ 20c:	3d 89       	ldd	r19, Y+21	; 0x15
+ 20e:	22 0f       	add	r18, r18
+ 210:	33 1f       	adc	r19, r19
+ 212:	22 0f       	add	r18, r18
+ 214:	33 1f       	adc	r19, r19
+ 216:	22 0f       	add	r18, r18
+ 218:	33 1f       	adc	r19, r19
+ 21a:	82 2b       	or	r24, r18
+ 21c:	93 2b       	or	r25, r19
+ 21e:	2e 89       	ldd	r18, Y+22	; 0x16
+ 220:	3f 89       	ldd	r19, Y+23	; 0x17
+ 222:	22 0f       	add	r18, r18
+ 224:	33 1f       	adc	r19, r19
+ 226:	22 0f       	add	r18, r18
+ 228:	33 1f       	adc	r19, r19
+ 22a:	82 2b       	or	r24, r18
+ 22c:	93 2b       	or	r25, r19
+ 22e:	28 8d       	ldd	r18, Y+24	; 0x18
+ 230:	39 8d       	ldd	r19, Y+25	; 0x19
+ 232:	22 0f       	add	r18, r18
+ 234:	33 1f       	adc	r19, r19
+ 236:	82 2b       	or	r24, r18
+ 238:	93 2b       	or	r25, r19
+ 23a:	90 93 b8 00 	sts	0x00B8, r25	; 0x8000b8 <directive+0x1>
+ 23e:	80 93 b7 00 	sts	0x00B7, r24	; 0x8000b7 <directive>
 		 }
 		 
 		//if(tct==9) {  PORTB|= (1 <<PB1); PORTB|= (1 <<PB4);}   //OWR в активном состоянии при запросе от ППКП  
 		if(tct==13){PORTB|=(1<<PB1); PORTB|=(1<<PB4);}   //OWR в активном состоянии при запросе от программатора/ППКП
- 228:	c1 9a       	sbi	0x18, 1	; 24
- 22a:	c4 9a       	sbi	0x18, 4	; 24
+ 242:	c1 9a       	sbi	0x18, 1	; 24
+ 244:	c4 9a       	sbi	0x18, 4	; 24
 		if((tct==14)&&((stat[0]==1)||(external==2)))   {  PORTB|= (1 <<PB1); PORTB|= (1 <<PB4);}   //СОСТОЯНИЕ ТРЕВОГИ 
- 22c:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- 230:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- 234:	0e 97       	sbiw	r24, 0x0e	; 14
- 236:	61 f4       	brne	.+24     	; 0x250 <protocol+0x84>
- 238:	80 91 d2 00 	lds	r24, 0x00D2	; 0x8000d2 <stat>
- 23c:	90 91 d3 00 	lds	r25, 0x00D3	; 0x8000d3 <stat+0x1>
- 240:	01 97       	sbiw	r24, 0x01	; 1
- 242:	21 f0       	breq	.+8      	; 0x24c <protocol+0x80>
- 244:	80 91 b2 00 	lds	r24, 0x00B2	; 0x8000b2 <external>
- 248:	82 30       	cpi	r24, 0x02	; 2
- 24a:	b1 f4       	brne	.+44     	; 0x278 <protocol+0xac>
- 24c:	c1 9a       	sbi	0x18, 1	; 24
- 24e:	c4 9a       	sbi	0x18, 4	; 24
+ 246:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 24a:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 24e:	0e 97       	sbiw	r24, 0x0e	; 14
+ 250:	61 f4       	brne	.+24     	; 0x26a <protocol+0x84>
+ 252:	80 91 d2 00 	lds	r24, 0x00D2	; 0x8000d2 <stat>
+ 256:	90 91 d3 00 	lds	r25, 0x00D3	; 0x8000d3 <stat+0x1>
+ 25a:	01 97       	sbiw	r24, 0x01	; 1
+ 25c:	21 f0       	breq	.+8      	; 0x266 <protocol+0x80>
+ 25e:	80 91 b2 00 	lds	r24, 0x00B2	; 0x8000b2 <external>
+ 262:	82 30       	cpi	r24, 0x02	; 2
+ 264:	b1 f4       	brne	.+44     	; 0x292 <protocol+0xac>
+ 266:	c1 9a       	sbi	0x18, 1	; 24
+ 268:	c4 9a       	sbi	0x18, 4	; 24
 		 
 		 
 		if(tct>=13)
- 250:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- 254:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- 258:	8d 30       	cpi	r24, 0x0D	; 13
- 25a:	91 05       	cpc	r25, r1
- 25c:	0c f4       	brge	.+2      	; 0x260 <protocol+0x94>
- 25e:	cd c2       	rjmp	.+1434   	; 0x7fa <__stack+0x39b>
+ 26a:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 26e:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 272:	8d 30       	cpi	r24, 0x0D	; 13
+ 274:	91 05       	cpc	r25, r1
+ 276:	0c f4       	brge	.+2      	; 0x27a <protocol+0x94>
+ 278:	6e c3       	rjmp	.+1756   	; 0x956 <__stack+0x4f7>
 		{ 
 			
 			if(tct==22){  PORTB |= (1 <<PB1); PORTB|= (1 <<PB4);}                  // Импульс синхронизации
- 260:	46 97       	sbiw	r24, 0x16	; 22
- 262:	11 f4       	brne	.+4      	; 0x268 <protocol+0x9c>
- 264:	c1 9a       	sbi	0x18, 1	; 24
- 266:	c4 9a       	sbi	0x18, 4	; 24
+ 27a:	46 97       	sbiw	r24, 0x16	; 22
+ 27c:	11 f4       	brne	.+4      	; 0x282 <protocol+0x9c>
+ 27e:	c1 9a       	sbi	0x18, 1	; 24
+ 280:	c4 9a       	sbi	0x18, 4	; 24
 			if(tct==31){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  // Импульс синхронизации
- 268:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- 26c:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- 270:	4f 97       	sbiw	r24, 0x1f	; 31
- 272:	11 f4       	brne	.+4      	; 0x278 <protocol+0xac>
- 274:	c1 9a       	sbi	0x18, 1	; 24
- 276:	ad 9a       	sbi	0x15, 5	; 21
+ 282:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 286:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 28a:	4f 97       	sbiw	r24, 0x1f	; 31
+ 28c:	11 f4       	brne	.+4      	; 0x292 <protocol+0xac>
+ 28e:	c1 9a       	sbi	0x18, 1	; 24
+ 290:	ad 9a       	sbi	0x15, 5	; 21
 			if(tct==40){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  // Импульс синхронизации
- 278:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- 27c:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- 280:	88 97       	sbiw	r24, 0x28	; 40
- 282:	11 f4       	brne	.+4      	; 0x288 <protocol+0xbc>
- 284:	c1 9a       	sbi	0x18, 1	; 24
- 286:	ad 9a       	sbi	0x15, 5	; 21
+ 292:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 296:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 29a:	88 97       	sbiw	r24, 0x28	; 40
+ 29c:	11 f4       	brne	.+4      	; 0x2a2 <protocol+0xbc>
+ 29e:	c1 9a       	sbi	0x18, 1	; 24
+ 2a0:	ad 9a       	sbi	0x15, 5	; 21
 			if(tct==49){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  // Импульс синхронизации
- 288:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- 28c:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- 290:	c1 97       	sbiw	r24, 0x31	; 49
- 292:	11 f4       	brne	.+4      	; 0x298 <protocol+0xcc>
- 294:	c1 9a       	sbi	0x18, 1	; 24
- 296:	ad 9a       	sbi	0x15, 5	; 21
+ 2a2:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 2a6:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 2aa:	c1 97       	sbiw	r24, 0x31	; 49
+ 2ac:	11 f4       	brne	.+4      	; 0x2b2 <protocol+0xcc>
+ 2ae:	c1 9a       	sbi	0x18, 1	; 24
+ 2b0:	ad 9a       	sbi	0x15, 5	; 21
 			if(tct==58){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  // Импульс синхронизации
- 298:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- 29c:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- 2a0:	ca 97       	sbiw	r24, 0x3a	; 58
- 2a2:	11 f4       	brne	.+4      	; 0x2a8 <protocol+0xdc>
- 2a4:	c1 9a       	sbi	0x18, 1	; 24
- 2a6:	ad 9a       	sbi	0x15, 5	; 21
+ 2b2:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 2b6:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 2ba:	ca 97       	sbiw	r24, 0x3a	; 58
+ 2bc:	11 f4       	brne	.+4      	; 0x2c2 <protocol+0xdc>
+ 2be:	c1 9a       	sbi	0x18, 1	; 24
+ 2c0:	ad 9a       	sbi	0x15, 5	; 21
 			if(tct==67){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  // Импульс синхронизации
- 2a8:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- 2ac:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- 2b0:	83 34       	cpi	r24, 0x43	; 67
- 2b2:	91 05       	cpc	r25, r1
- 2b4:	11 f4       	brne	.+4      	; 0x2ba <protocol+0xee>
- 2b6:	c1 9a       	sbi	0x18, 1	; 24
- 2b8:	ad 9a       	sbi	0x15, 5	; 21
+ 2c2:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 2c6:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 2ca:	83 34       	cpi	r24, 0x43	; 67
+ 2cc:	91 05       	cpc	r25, r1
+ 2ce:	11 f4       	brne	.+4      	; 0x2d4 <protocol+0xee>
+ 2d0:	c1 9a       	sbi	0x18, 1	; 24
+ 2d2:	ad 9a       	sbi	0x15, 5	; 21
 			if(tct==76){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  // Импульс синхронизации
- 2ba:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- 2be:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- 2c2:	8c 34       	cpi	r24, 0x4C	; 76
- 2c4:	91 05       	cpc	r25, r1
- 2c6:	59 f4       	brne	.+22     	; 0x2de <protocol+0x112>
- 2c8:	c1 9a       	sbi	0x18, 1	; 24
- 2ca:	ad 9a       	sbi	0x15, 5	; 21
+ 2d4:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 2d8:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 2dc:	8c 34       	cpi	r24, 0x4C	; 76
+ 2de:	91 05       	cpc	r25, r1
+ 2e0:	59 f4       	brne	.+22     	; 0x2f8 <protocol+0x112>
+ 2e2:	c1 9a       	sbi	0x18, 1	; 24
+ 2e4:	ad 9a       	sbi	0x15, 5	; 21
 		    if(tct==76){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  // Импульс синхронизации
- 2cc:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- 2d0:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- 2d4:	8c 34       	cpi	r24, 0x4C	; 76
- 2d6:	91 05       	cpc	r25, r1
- 2d8:	11 f4       	brne	.+4      	; 0x2de <protocol+0x112>
- 2da:	c1 9a       	sbi	0x18, 1	; 24
- 2dc:	ad 9a       	sbi	0x15, 5	; 21
+ 2e6:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 2ea:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 2ee:	8c 34       	cpi	r24, 0x4C	; 76
+ 2f0:	91 05       	cpc	r25, r1
+ 2f2:	11 f4       	brne	.+4      	; 0x2f8 <protocol+0x112>
+ 2f4:	c1 9a       	sbi	0x18, 1	; 24
+ 2f6:	ad 9a       	sbi	0x15, 5	; 21
 			if(tct==85){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  // Импульс синхронизации
- 2de:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- 2e2:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- 2e6:	85 35       	cpi	r24, 0x55	; 85
- 2e8:	91 05       	cpc	r25, r1
- 2ea:	11 f4       	brne	.+4      	; 0x2f0 <protocol+0x124>
- 2ec:	c1 9a       	sbi	0x18, 1	; 24
- 2ee:	ad 9a       	sbi	0x15, 5	; 21
+ 2f8:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 2fc:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 300:	85 35       	cpi	r24, 0x55	; 85
+ 302:	91 05       	cpc	r25, r1
+ 304:	11 f4       	brne	.+4      	; 0x30a <protocol+0x124>
+ 306:	c1 9a       	sbi	0x18, 1	; 24
+ 308:	ad 9a       	sbi	0x15, 5	; 21
 			if(tct==94){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  // Импульс синхронизации
- 2f0:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- 2f4:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- 2f8:	8e 35       	cpi	r24, 0x5E	; 94
- 2fa:	91 05       	cpc	r25, r1
- 2fc:	11 f4       	brne	.+4      	; 0x302 <protocol+0x136>
- 2fe:	c1 9a       	sbi	0x18, 1	; 24
- 300:	ad 9a       	sbi	0x15, 5	; 21
+ 30a:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 30e:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 312:	8e 35       	cpi	r24, 0x5E	; 94
+ 314:	91 05       	cpc	r25, r1
+ 316:	11 f4       	brne	.+4      	; 0x31c <protocol+0x136>
+ 318:	c1 9a       	sbi	0x18, 1	; 24
+ 31a:	ad 9a       	sbi	0x15, 5	; 21
 						
 							
 				
 		  switch(directive)
- 302:	80 91 b7 00 	lds	r24, 0x00B7	; 0x8000b7 <directive>
- 306:	90 91 b8 00 	lds	r25, 0x00B8	; 0x8000b8 <directive+0x1>
- 30a:	82 30       	cpi	r24, 0x02	; 2
- 30c:	91 05       	cpc	r25, r1
- 30e:	09 f4       	brne	.+2      	; 0x312 <protocol+0x146>
- 310:	62 c0       	rjmp	.+196    	; 0x3d6 <protocol+0x20a>
- 312:	1c f4       	brge	.+6      	; 0x31a <protocol+0x14e>
- 314:	89 2b       	or	r24, r25
- 316:	49 f0       	breq	.+18     	; 0x32a <protocol+0x15e>
- 318:	70 c2       	rjmp	.+1248   	; 0x7fa <__stack+0x39b>
- 31a:	83 30       	cpi	r24, 0x03	; 3
- 31c:	91 05       	cpc	r25, r1
- 31e:	09 f4       	brne	.+2      	; 0x322 <protocol+0x156>
- 320:	77 c0       	rjmp	.+238    	; 0x410 <__LOCK_REGION_LENGTH__+0x10>
- 322:	0e 97       	sbiw	r24, 0x0e	; 14
- 324:	09 f4       	brne	.+2      	; 0x328 <protocol+0x15c>
- 326:	08 c2       	rjmp	.+1040   	; 0x738 <__stack+0x2d9>
- 328:	68 c2       	rjmp	.+1232   	; 0x7fa <__stack+0x39b>
+ 31c:	80 91 b7 00 	lds	r24, 0x00B7	; 0x8000b7 <directive>
+ 320:	90 91 b8 00 	lds	r25, 0x00B8	; 0x8000b8 <directive+0x1>
+ 324:	82 30       	cpi	r24, 0x02	; 2
+ 326:	91 05       	cpc	r25, r1
+ 328:	09 f4       	brne	.+2      	; 0x32c <protocol+0x146>
+ 32a:	62 c0       	rjmp	.+196    	; 0x3f0 <protocol+0x20a>
+ 32c:	1c f4       	brge	.+6      	; 0x334 <protocol+0x14e>
+ 32e:	89 2b       	or	r24, r25
+ 330:	49 f0       	breq	.+18     	; 0x344 <protocol+0x15e>
+ 332:	11 c3       	rjmp	.+1570   	; 0x956 <__stack+0x4f7>
+ 334:	83 30       	cpi	r24, 0x03	; 3
+ 336:	91 05       	cpc	r25, r1
+ 338:	09 f4       	brne	.+2      	; 0x33c <protocol+0x156>
+ 33a:	77 c0       	rjmp	.+238    	; 0x42a <__LOCK_REGION_LENGTH__+0x2a>
+ 33c:	0e 97       	sbiw	r24, 0x0e	; 14
+ 33e:	09 f4       	brne	.+2      	; 0x342 <protocol+0x15c>
+ 340:	a9 c2       	rjmp	.+1362   	; 0x894 <__stack+0x435>
+ 342:	09 c3       	rjmp	.+1554   	; 0x956 <__stack+0x4f7>
 		   {
 			   
 		   case 0 :
 		 //  if(tct==9) {  PORTB|= (1 <<PB1); PORTB|= (1 <<PB4);}                 //OWR в активном состоянии при запросе от ППКП
 		   if(tct==13){  PORTB|= (1 <<PB1); PORTB|= (1 <<PB4);}                  //OWR в активном состоянии при запросе от программатора/ППКП   
- 32a:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- 32e:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- 332:	0d 97       	sbiw	r24, 0x0d	; 13
- 334:	11 f4       	brne	.+4      	; 0x33a <protocol+0x16e>
- 336:	c1 9a       	sbi	0x18, 1	; 24
- 338:	c4 9a       	sbi	0x18, 4	; 24
+ 344:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 348:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 34c:	0d 97       	sbiw	r24, 0x0d	; 13
+ 34e:	11 f4       	brne	.+4      	; 0x354 <protocol+0x16e>
+ 350:	c1 9a       	sbi	0x18, 1	; 24
+ 352:	c4 9a       	sbi	0x18, 4	; 24
 		   if((tct==14)&&((stat[0]==1)||(external==2)))   {  PORTB|= (1 <<PB1); PORTC|= (1 <<PC5);}   //СОСТОЯНИЕ ТРЕВОГИ
- 33a:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- 33e:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- 342:	0e 97       	sbiw	r24, 0x0e	; 14
- 344:	61 f4       	brne	.+24     	; 0x35e <protocol+0x192>
- 346:	80 91 d2 00 	lds	r24, 0x00D2	; 0x8000d2 <stat>
- 34a:	90 91 d3 00 	lds	r25, 0x00D3	; 0x8000d3 <stat+0x1>
- 34e:	01 97       	sbiw	r24, 0x01	; 1
- 350:	21 f0       	breq	.+8      	; 0x35a <protocol+0x18e>
- 352:	80 91 b2 00 	lds	r24, 0x00B2	; 0x8000b2 <external>
- 356:	82 30       	cpi	r24, 0x02	; 2
- 358:	91 f4       	brne	.+36     	; 0x37e <protocol+0x1b2>
- 35a:	c1 9a       	sbi	0x18, 1	; 24
- 35c:	ad 9a       	sbi	0x15, 5	; 21
+ 354:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 358:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 35c:	0e 97       	sbiw	r24, 0x0e	; 14
+ 35e:	61 f4       	brne	.+24     	; 0x378 <protocol+0x192>
+ 360:	80 91 d2 00 	lds	r24, 0x00D2	; 0x8000d2 <stat>
+ 364:	90 91 d3 00 	lds	r25, 0x00D3	; 0x8000d3 <stat+0x1>
+ 368:	01 97       	sbiw	r24, 0x01	; 1
+ 36a:	21 f0       	breq	.+8      	; 0x374 <protocol+0x18e>
+ 36c:	80 91 b2 00 	lds	r24, 0x00B2	; 0x8000b2 <external>
+ 370:	82 30       	cpi	r24, 0x02	; 2
+ 372:	91 f4       	brne	.+36     	; 0x398 <protocol+0x1b2>
+ 374:	c1 9a       	sbi	0x18, 1	; 24
+ 376:	ad 9a       	sbi	0x15, 5	; 21
 			   
 			   if(tct==22){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  // Импульс синхронизации
- 35e:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- 362:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- 366:	46 97       	sbiw	r24, 0x16	; 22
- 368:	11 f4       	brne	.+4      	; 0x36e <protocol+0x1a2>
- 36a:	c1 9a       	sbi	0x18, 1	; 24
- 36c:	ad 9a       	sbi	0x15, 5	; 21
+ 378:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 37c:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 380:	46 97       	sbiw	r24, 0x16	; 22
+ 382:	11 f4       	brne	.+4      	; 0x388 <protocol+0x1a2>
+ 384:	c1 9a       	sbi	0x18, 1	; 24
+ 386:	ad 9a       	sbi	0x15, 5	; 21
 			   if(tct==31){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  // Импульс синхронизации
- 36e:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- 372:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- 376:	4f 97       	sbiw	r24, 0x1f	; 31
- 378:	11 f4       	brne	.+4      	; 0x37e <protocol+0x1b2>
- 37a:	c1 9a       	sbi	0x18, 1	; 24
- 37c:	ad 9a       	sbi	0x15, 5	; 21
+ 388:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 38c:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 390:	4f 97       	sbiw	r24, 0x1f	; 31
+ 392:	11 f4       	brne	.+4      	; 0x398 <protocol+0x1b2>
+ 394:	c1 9a       	sbi	0x18, 1	; 24
+ 396:	ad 9a       	sbi	0x15, 5	; 21
 			   if(tct==40){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  // Импульс синхронизации
- 37e:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- 382:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- 386:	88 97       	sbiw	r24, 0x28	; 40
- 388:	11 f4       	brne	.+4      	; 0x38e <protocol+0x1c2>
- 38a:	c1 9a       	sbi	0x18, 1	; 24
- 38c:	ad 9a       	sbi	0x15, 5	; 21
+ 398:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 39c:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 3a0:	88 97       	sbiw	r24, 0x28	; 40
+ 3a2:	11 f4       	brne	.+4      	; 0x3a8 <protocol+0x1c2>
+ 3a4:	c1 9a       	sbi	0x18, 1	; 24
+ 3a6:	ad 9a       	sbi	0x15, 5	; 21
 			   if(tct==49){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  // Импульс синхронизации
- 38e:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- 392:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- 396:	c1 97       	sbiw	r24, 0x31	; 49
- 398:	11 f4       	brne	.+4      	; 0x39e <protocol+0x1d2>
- 39a:	c1 9a       	sbi	0x18, 1	; 24
- 39c:	ad 9a       	sbi	0x15, 5	; 21
+ 3a8:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 3ac:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 3b0:	c1 97       	sbiw	r24, 0x31	; 49
+ 3b2:	11 f4       	brne	.+4      	; 0x3b8 <protocol+0x1d2>
+ 3b4:	c1 9a       	sbi	0x18, 1	; 24
+ 3b6:	ad 9a       	sbi	0x15, 5	; 21
 			   if(tct==58){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  // Импульс синхронизации
- 39e:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- 3a2:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- 3a6:	ca 97       	sbiw	r24, 0x3a	; 58
- 3a8:	11 f4       	brne	.+4      	; 0x3ae <protocol+0x1e2>
- 3aa:	c1 9a       	sbi	0x18, 1	; 24
- 3ac:	ad 9a       	sbi	0x15, 5	; 21
+ 3b8:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 3bc:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 3c0:	ca 97       	sbiw	r24, 0x3a	; 58
+ 3c2:	11 f4       	brne	.+4      	; 0x3c8 <protocol+0x1e2>
+ 3c4:	c1 9a       	sbi	0x18, 1	; 24
+ 3c6:	ad 9a       	sbi	0x15, 5	; 21
 			   if(tct==67){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  // Импульс синхронизации
- 3ae:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- 3b2:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- 3b6:	83 34       	cpi	r24, 0x43	; 67
- 3b8:	91 05       	cpc	r25, r1
- 3ba:	11 f4       	brne	.+4      	; 0x3c0 <protocol+0x1f4>
- 3bc:	c1 9a       	sbi	0x18, 1	; 24
- 3be:	ad 9a       	sbi	0x15, 5	; 21
+ 3c8:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 3cc:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 3d0:	83 34       	cpi	r24, 0x43	; 67
+ 3d2:	91 05       	cpc	r25, r1
+ 3d4:	11 f4       	brne	.+4      	; 0x3da <protocol+0x1f4>
+ 3d6:	c1 9a       	sbi	0x18, 1	; 24
+ 3d8:	ad 9a       	sbi	0x15, 5	; 21
 			   if(tct==76){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  // Импульс синхронизации
- 3c0:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- 3c4:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- 3c8:	8c 34       	cpi	r24, 0x4C	; 76
- 3ca:	91 05       	cpc	r25, r1
- 3cc:	09 f0       	breq	.+2      	; 0x3d0 <protocol+0x204>
- 3ce:	15 c2       	rjmp	.+1066   	; 0x7fa <__stack+0x39b>
- 3d0:	c1 9a       	sbi	0x18, 1	; 24
- 3d2:	ad 9a       	sbi	0x15, 5	; 21
- 3d4:	12 c2       	rjmp	.+1060   	; 0x7fa <__stack+0x39b>
+ 3da:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 3de:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 3e2:	8c 34       	cpi	r24, 0x4C	; 76
+ 3e4:	91 05       	cpc	r25, r1
+ 3e6:	09 f0       	breq	.+2      	; 0x3ea <protocol+0x204>
+ 3e8:	b6 c2       	rjmp	.+1388   	; 0x956 <__stack+0x4f7>
+ 3ea:	c1 9a       	sbi	0x18, 1	; 24
+ 3ec:	ad 9a       	sbi	0x15, 5	; 21
+ 3ee:	b3 c2       	rjmp	.+1382   	; 0x956 <__stack+0x4f7>
 			   
 		   break;
 		   
 		   case 2 :
 		  
 		   if(tct==13){  PORTB|= (1 <<PB1); PORTC|= (1 <<PC5);}                  //OWR в активном состоянии при запросе от программатора/ППКП
- 3d6:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- 3da:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- 3de:	0d 97       	sbiw	r24, 0x0d	; 13
- 3e0:	11 f4       	brne	.+4      	; 0x3e6 <protocol+0x21a>
- 3e2:	c1 9a       	sbi	0x18, 1	; 24
- 3e4:	ad 9a       	sbi	0x15, 5	; 21
+ 3f0:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 3f4:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 3f8:	0d 97       	sbiw	r24, 0x0d	; 13
+ 3fa:	11 f4       	brne	.+4      	; 0x400 <__LOCK_REGION_LENGTH__>
+ 3fc:	c1 9a       	sbi	0x18, 1	; 24
+ 3fe:	ad 9a       	sbi	0x15, 5	; 21
 		   if((tct==14)&&((stat[0]==1)||(external==2)))   {  PORTB|= (1 <<PB1); PORTC|= (1 <<PC5);}   //СОСТОЯНИЕ ТРЕВОГИ
- 3e6:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- 3ea:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- 3ee:	0e 97       	sbiw	r24, 0x0e	; 14
- 3f0:	09 f0       	breq	.+2      	; 0x3f4 <protocol+0x228>
- 3f2:	03 c2       	rjmp	.+1030   	; 0x7fa <__stack+0x39b>
- 3f4:	80 91 d2 00 	lds	r24, 0x00D2	; 0x8000d2 <stat>
- 3f8:	90 91 d3 00 	lds	r25, 0x00D3	; 0x8000d3 <stat+0x1>
- 3fc:	01 97       	sbiw	r24, 0x01	; 1
- 3fe:	29 f0       	breq	.+10     	; 0x40a <__LOCK_REGION_LENGTH__+0xa>
- 400:	80 91 b2 00 	lds	r24, 0x00B2	; 0x8000b2 <external>
- 404:	82 30       	cpi	r24, 0x02	; 2
- 406:	09 f0       	breq	.+2      	; 0x40a <__LOCK_REGION_LENGTH__+0xa>
- 408:	f8 c1       	rjmp	.+1008   	; 0x7fa <__stack+0x39b>
- 40a:	c1 9a       	sbi	0x18, 1	; 24
- 40c:	ad 9a       	sbi	0x15, 5	; 21
- 40e:	f5 c1       	rjmp	.+1002   	; 0x7fa <__stack+0x39b>
+ 400:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 404:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 408:	0e 97       	sbiw	r24, 0x0e	; 14
+ 40a:	09 f0       	breq	.+2      	; 0x40e <__LOCK_REGION_LENGTH__+0xe>
+ 40c:	a4 c2       	rjmp	.+1352   	; 0x956 <__stack+0x4f7>
+ 40e:	80 91 d2 00 	lds	r24, 0x00D2	; 0x8000d2 <stat>
+ 412:	90 91 d3 00 	lds	r25, 0x00D3	; 0x8000d3 <stat+0x1>
+ 416:	01 97       	sbiw	r24, 0x01	; 1
+ 418:	29 f0       	breq	.+10     	; 0x424 <__LOCK_REGION_LENGTH__+0x24>
+ 41a:	80 91 b2 00 	lds	r24, 0x00B2	; 0x8000b2 <external>
+ 41e:	82 30       	cpi	r24, 0x02	; 2
+ 420:	09 f0       	breq	.+2      	; 0x424 <__LOCK_REGION_LENGTH__+0x24>
+ 422:	99 c2       	rjmp	.+1330   	; 0x956 <__stack+0x4f7>
+ 424:	c1 9a       	sbi	0x18, 1	; 24
+ 426:	ad 9a       	sbi	0x15, 5	; 21
+ 428:	96 c2       	rjmp	.+1324   	; 0x956 <__stack+0x4f7>
 		   break;
 		   
 		   case 3 :
 		 
 		   if(tct==13){  PORTB|= (1 <<PB1); PORTC|= (1 <<PC5);}                  //OWR в активном состоянии при запросе от программатора/ППКП
- 410:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- 414:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- 418:	0d 97       	sbiw	r24, 0x0d	; 13
- 41a:	11 f4       	brne	.+4      	; 0x420 <__LOCK_REGION_LENGTH__+0x20>
- 41c:	c1 9a       	sbi	0x18, 1	; 24
- 41e:	ad 9a       	sbi	0x15, 5	; 21
+ 42a:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 42e:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 432:	0d 97       	sbiw	r24, 0x0d	; 13
+ 434:	11 f4       	brne	.+4      	; 0x43a <__LOCK_REGION_LENGTH__+0x3a>
+ 436:	c1 9a       	sbi	0x18, 1	; 24
+ 438:	ad 9a       	sbi	0x15, 5	; 21
 		   if((tct==14)&&((stat[0]==1)||(external==2)))   {  PORTB|= (1 <<PB1); PORTC|= (1 <<PC5);}   //СОСТОЯНИЕ ТРЕВОГИ
- 420:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- 424:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- 428:	0e 97       	sbiw	r24, 0x0e	; 14
- 42a:	61 f4       	brne	.+24     	; 0x444 <__LOCK_REGION_LENGTH__+0x44>
- 42c:	80 91 d2 00 	lds	r24, 0x00D2	; 0x8000d2 <stat>
- 430:	90 91 d3 00 	lds	r25, 0x00D3	; 0x8000d3 <stat+0x1>
- 434:	01 97       	sbiw	r24, 0x01	; 1
- 436:	21 f0       	breq	.+8      	; 0x440 <__LOCK_REGION_LENGTH__+0x40>
- 438:	80 91 b2 00 	lds	r24, 0x00B2	; 0x8000b2 <external>
- 43c:	82 30       	cpi	r24, 0x02	; 2
- 43e:	91 f4       	brne	.+36     	; 0x464 <__stack+0x5>
- 440:	c1 9a       	sbi	0x18, 1	; 24
- 442:	ad 9a       	sbi	0x15, 5	; 21
+ 43a:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 43e:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 442:	0e 97       	sbiw	r24, 0x0e	; 14
+ 444:	61 f4       	brne	.+24     	; 0x45e <__LOCK_REGION_LENGTH__+0x5e>
+ 446:	80 91 d2 00 	lds	r24, 0x00D2	; 0x8000d2 <stat>
+ 44a:	90 91 d3 00 	lds	r25, 0x00D3	; 0x8000d3 <stat+0x1>
+ 44e:	01 97       	sbiw	r24, 0x01	; 1
+ 450:	21 f0       	breq	.+8      	; 0x45a <__LOCK_REGION_LENGTH__+0x5a>
+ 452:	80 91 b2 00 	lds	r24, 0x00B2	; 0x8000b2 <external>
+ 456:	82 30       	cpi	r24, 0x02	; 2
+ 458:	91 f4       	brne	.+36     	; 0x47e <__stack+0x1f>
+ 45a:	c1 9a       	sbi	0x18, 1	; 24
+ 45c:	ad 9a       	sbi	0x15, 5	; 21
 		
 		   if(tct==22){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  // Импульс синхронизации 
- 444:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- 448:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- 44c:	46 97       	sbiw	r24, 0x16	; 22
- 44e:	11 f4       	brne	.+4      	; 0x454 <__LOCK_REGION_LENGTH__+0x54>
- 450:	c1 9a       	sbi	0x18, 1	; 24
- 452:	ad 9a       	sbi	0x15, 5	; 21
+ 45e:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 462:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 466:	46 97       	sbiw	r24, 0x16	; 22
+ 468:	11 f4       	brne	.+4      	; 0x46e <__stack+0xf>
+ 46a:	c1 9a       	sbi	0x18, 1	; 24
+ 46c:	ad 9a       	sbi	0x15, 5	; 21
 		   if(tct==31){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  // Импульс синхронизации
- 454:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- 458:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- 45c:	4f 97       	sbiw	r24, 0x1f	; 31
- 45e:	11 f4       	brne	.+4      	; 0x464 <__stack+0x5>
- 460:	c1 9a       	sbi	0x18, 1	; 24
- 462:	ad 9a       	sbi	0x15, 5	; 21
+ 46e:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 472:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 476:	4f 97       	sbiw	r24, 0x1f	; 31
+ 478:	11 f4       	brne	.+4      	; 0x47e <__stack+0x1f>
+ 47a:	c1 9a       	sbi	0x18, 1	; 24
+ 47c:	ad 9a       	sbi	0x15, 5	; 21
 		   if(tct==40){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  // Импульс синхронизации
- 464:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- 468:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- 46c:	88 97       	sbiw	r24, 0x28	; 40
- 46e:	11 f4       	brne	.+4      	; 0x474 <__stack+0x15>
- 470:	c1 9a       	sbi	0x18, 1	; 24
- 472:	ad 9a       	sbi	0x15, 5	; 21
+ 47e:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 482:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 486:	88 97       	sbiw	r24, 0x28	; 40
+ 488:	11 f4       	brne	.+4      	; 0x48e <__stack+0x2f>
+ 48a:	c1 9a       	sbi	0x18, 1	; 24
+ 48c:	ad 9a       	sbi	0x15, 5	; 21
 		   if(tct==49){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  // Импульс синхронизации
- 474:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- 478:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- 47c:	c1 97       	sbiw	r24, 0x31	; 49
- 47e:	11 f4       	brne	.+4      	; 0x484 <__stack+0x25>
- 480:	c1 9a       	sbi	0x18, 1	; 24
- 482:	ad 9a       	sbi	0x15, 5	; 21
+ 48e:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 492:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 496:	c1 97       	sbiw	r24, 0x31	; 49
+ 498:	11 f4       	brne	.+4      	; 0x49e <__stack+0x3f>
+ 49a:	c1 9a       	sbi	0x18, 1	; 24
+ 49c:	ad 9a       	sbi	0x15, 5	; 21
 		   if(tct==58){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  // Импульс синхронизации
- 484:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- 488:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- 48c:	ca 97       	sbiw	r24, 0x3a	; 58
- 48e:	11 f4       	brne	.+4      	; 0x494 <__stack+0x35>
- 490:	c1 9a       	sbi	0x18, 1	; 24
- 492:	ad 9a       	sbi	0x15, 5	; 21
+ 49e:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 4a2:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 4a6:	ca 97       	sbiw	r24, 0x3a	; 58
+ 4a8:	11 f4       	brne	.+4      	; 0x4ae <__stack+0x4f>
+ 4aa:	c1 9a       	sbi	0x18, 1	; 24
+ 4ac:	ad 9a       	sbi	0x15, 5	; 21
 		   if(tct==67){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  // Импульс синхронизации
- 494:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- 498:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- 49c:	83 34       	cpi	r24, 0x43	; 67
- 49e:	91 05       	cpc	r25, r1
- 4a0:	11 f4       	brne	.+4      	; 0x4a6 <__stack+0x47>
- 4a2:	c1 9a       	sbi	0x18, 1	; 24
- 4a4:	ad 9a       	sbi	0x15, 5	; 21
+ 4ae:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 4b2:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 4b6:	83 34       	cpi	r24, 0x43	; 67
+ 4b8:	91 05       	cpc	r25, r1
+ 4ba:	11 f4       	brne	.+4      	; 0x4c0 <__stack+0x61>
+ 4bc:	c1 9a       	sbi	0x18, 1	; 24
+ 4be:	ad 9a       	sbi	0x15, 5	; 21
 		   if(tct==76){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  // Импульс синхронизации
- 4a6:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- 4aa:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- 4ae:	8c 34       	cpi	r24, 0x4C	; 76
- 4b0:	91 05       	cpc	r25, r1
- 4b2:	11 f4       	brne	.+4      	; 0x4b8 <__stack+0x59>
- 4b4:	c1 9a       	sbi	0x18, 1	; 24
- 4b6:	ad 9a       	sbi	0x15, 5	; 21
+ 4c0:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 4c4:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 4c8:	8c 34       	cpi	r24, 0x4C	; 76
+ 4ca:	91 05       	cpc	r25, r1
+ 4cc:	11 f4       	brne	.+4      	; 0x4d2 <__stack+0x73>
+ 4ce:	c1 9a       	sbi	0x18, 1	; 24
+ 4d0:	ad 9a       	sbi	0x15, 5	; 21
+		   if(tct==85){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  // Импульс синхронизации
+ 4d2:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 4d6:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 4da:	85 35       	cpi	r24, 0x55	; 85
+ 4dc:	91 05       	cpc	r25, r1
+ 4de:	11 f4       	brne	.+4      	; 0x4e4 <__stack+0x85>
+ 4e0:	c1 9a       	sbi	0x18, 1	; 24
+ 4e2:	ad 9a       	sbi	0x15, 5	; 21
+		   if(tct==95){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  // Импульс синхронизации
+ 4e4:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 4e8:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 4ec:	8f 35       	cpi	r24, 0x5F	; 95
+ 4ee:	91 05       	cpc	r25, r1
+ 4f0:	11 f4       	brne	.+4      	; 0x4f6 <__stack+0x97>
+ 4f2:	c1 9a       	sbi	0x18, 1	; 24
+ 4f4:	ad 9a       	sbi	0x15, 5	; 21
 		
 	   	   if((tct>=14)&&(tct<22))   //индентификатор устройства
- 4b8:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- 4bc:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- 4c0:	9c 01       	movw	r18, r24
- 4c2:	2e 50       	subi	r18, 0x0E	; 14
- 4c4:	31 09       	sbc	r19, r1
- 4c6:	28 30       	cpi	r18, 0x08	; 8
- 4c8:	31 05       	cpc	r19, r1
- 4ca:	20 f5       	brcc	.+72     	; 0x514 <__stack+0xb5>
+ 4f6:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 4fa:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 4fe:	9c 01       	movw	r18, r24
+ 500:	2e 50       	subi	r18, 0x0E	; 14
+ 502:	31 09       	sbc	r19, r1
+ 504:	28 30       	cpi	r18, 0x08	; 8
+ 506:	31 05       	cpc	r19, r1
+ 508:	20 f5       	brcc	.+72     	; 0x552 <__stack+0xf3>
 			    {
 				 temp_ID|=(device_ID>>(21-tct))&(0b1);
- 4cc:	25 e1       	ldi	r18, 0x15	; 21
- 4ce:	30 e0       	ldi	r19, 0x00	; 0
- 4d0:	28 1b       	sub	r18, r24
- 4d2:	39 0b       	sbc	r19, r25
- 4d4:	80 91 a4 00 	lds	r24, 0x00A4	; 0x8000a4 <device_ID>
- 4d8:	90 91 a5 00 	lds	r25, 0x00A5	; 0x8000a5 <device_ID+0x1>
- 4dc:	02 c0       	rjmp	.+4      	; 0x4e2 <__stack+0x83>
- 4de:	95 95       	asr	r25
- 4e0:	87 95       	ror	r24
- 4e2:	2a 95       	dec	r18
- 4e4:	e2 f7       	brpl	.-8      	; 0x4de <__stack+0x7f>
- 4e6:	81 70       	andi	r24, 0x01	; 1
- 4e8:	99 27       	eor	r25, r25
- 4ea:	20 91 7b 00 	lds	r18, 0x007B	; 0x80007b <temp_ID>
- 4ee:	30 91 7c 00 	lds	r19, 0x007C	; 0x80007c <temp_ID+0x1>
- 4f2:	82 2b       	or	r24, r18
- 4f4:	93 2b       	or	r25, r19
- 4f6:	90 93 7c 00 	sts	0x007C, r25	; 0x80007c <temp_ID+0x1>
- 4fa:	80 93 7b 00 	sts	0x007B, r24	; 0x80007b <temp_ID>
+ 50a:	25 e1       	ldi	r18, 0x15	; 21
+ 50c:	30 e0       	ldi	r19, 0x00	; 0
+ 50e:	28 1b       	sub	r18, r24
+ 510:	39 0b       	sbc	r19, r25
+ 512:	80 91 a2 00 	lds	r24, 0x00A2	; 0x8000a2 <device_ID>
+ 516:	90 91 a3 00 	lds	r25, 0x00A3	; 0x8000a3 <device_ID+0x1>
+ 51a:	02 c0       	rjmp	.+4      	; 0x520 <__stack+0xc1>
+ 51c:	95 95       	asr	r25
+ 51e:	87 95       	ror	r24
+ 520:	2a 95       	dec	r18
+ 522:	e2 f7       	brpl	.-8      	; 0x51c <__stack+0xbd>
+ 524:	81 70       	andi	r24, 0x01	; 1
+ 526:	99 27       	eor	r25, r25
+ 528:	20 91 79 00 	lds	r18, 0x0079	; 0x800079 <temp_ID>
+ 52c:	30 91 7a 00 	lds	r19, 0x007A	; 0x80007a <temp_ID+0x1>
+ 530:	82 2b       	or	r24, r18
+ 532:	93 2b       	or	r25, r19
+ 534:	90 93 7a 00 	sts	0x007A, r25	; 0x80007a <temp_ID+0x1>
+ 538:	80 93 79 00 	sts	0x0079, r24	; 0x800079 <temp_ID>
 				 if(temp_ID==1){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}
- 4fe:	01 97       	sbiw	r24, 0x01	; 1
- 500:	11 f4       	brne	.+4      	; 0x506 <__stack+0xa7>
- 502:	c1 9a       	sbi	0x18, 1	; 24
- 504:	ad 9a       	sbi	0x15, 5	; 21
+ 53c:	01 97       	sbiw	r24, 0x01	; 1
+ 53e:	11 f4       	brne	.+4      	; 0x544 <__stack+0xe5>
+ 540:	c1 9a       	sbi	0x18, 1	; 24
+ 542:	ad 9a       	sbi	0x15, 5	; 21
 				 if(temp_ID==0){  PORTB &=~ (1 <<PB1);}
- 506:	80 91 7b 00 	lds	r24, 0x007B	; 0x80007b <temp_ID>
- 50a:	90 91 7c 00 	lds	r25, 0x007C	; 0x80007c <temp_ID+0x1>
- 50e:	89 2b       	or	r24, r25
- 510:	09 f4       	brne	.+2      	; 0x514 <__stack+0xb5>
- 512:	c1 98       	cbi	0x18, 1	; 24
+ 544:	80 91 79 00 	lds	r24, 0x0079	; 0x800079 <temp_ID>
+ 548:	90 91 7a 00 	lds	r25, 0x007A	; 0x80007a <temp_ID+0x1>
+ 54c:	89 2b       	or	r24, r25
+ 54e:	09 f4       	brne	.+2      	; 0x552 <__stack+0xf3>
+ 550:	c1 98       	cbi	0x18, 1	; 24
 			    }  
 				
 			if((tct==30)&&(tct<32))  //Активация выхода -тревога
- 514:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- 518:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- 51c:	4e 97       	sbiw	r24, 0x1e	; 30
- 51e:	e1 f4       	brne	.+56     	; 0x558 <__stack+0xf9>
+ 552:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 556:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 55a:	4e 97       	sbiw	r24, 0x1e	; 30
+ 55c:	e1 f4       	brne	.+56     	; 0x596 <__stack+0x137>
 			{
 				temp_ID|=((external)&(0b1));
- 520:	80 91 b2 00 	lds	r24, 0x00B2	; 0x8000b2 <external>
- 524:	e8 2f       	mov	r30, r24
- 526:	e1 70       	andi	r30, 0x01	; 1
- 528:	f0 e0       	ldi	r31, 0x00	; 0
- 52a:	80 91 7b 00 	lds	r24, 0x007B	; 0x80007b <temp_ID>
- 52e:	90 91 7c 00 	lds	r25, 0x007C	; 0x80007c <temp_ID+0x1>
- 532:	e8 2b       	or	r30, r24
- 534:	f9 2b       	or	r31, r25
- 536:	f0 93 7c 00 	sts	0x007C, r31	; 0x80007c <temp_ID+0x1>
- 53a:	e0 93 7b 00 	sts	0x007B, r30	; 0x80007b <temp_ID>
+ 55e:	80 91 b2 00 	lds	r24, 0x00B2	; 0x8000b2 <external>
+ 562:	e8 2f       	mov	r30, r24
+ 564:	e1 70       	andi	r30, 0x01	; 1
+ 566:	f0 e0       	ldi	r31, 0x00	; 0
+ 568:	80 91 79 00 	lds	r24, 0x0079	; 0x800079 <temp_ID>
+ 56c:	90 91 7a 00 	lds	r25, 0x007A	; 0x80007a <temp_ID+0x1>
+ 570:	e8 2b       	or	r30, r24
+ 572:	f9 2b       	or	r31, r25
+ 574:	f0 93 7a 00 	sts	0x007A, r31	; 0x80007a <temp_ID+0x1>
+ 578:	e0 93 79 00 	sts	0x0079, r30	; 0x800079 <temp_ID>
 				if(temp_ID==1){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}
- 53e:	e1 30       	cpi	r30, 0x01	; 1
- 540:	f1 05       	cpc	r31, r1
- 542:	09 f0       	breq	.+2      	; 0x546 <__stack+0xe7>
- 544:	52 c1       	rjmp	.+676    	; 0x7ea <__stack+0x38b>
- 546:	c1 9a       	sbi	0x18, 1	; 24
- 548:	ad 9a       	sbi	0x15, 5	; 21
+ 57c:	e1 30       	cpi	r30, 0x01	; 1
+ 57e:	f1 05       	cpc	r31, r1
+ 580:	09 f0       	breq	.+2      	; 0x584 <__stack+0x125>
+ 582:	e1 c1       	rjmp	.+962    	; 0x946 <__stack+0x4e7>
+ 584:	c1 9a       	sbi	0x18, 1	; 24
+ 586:	ad 9a       	sbi	0x15, 5	; 21
 				if(temp_ID==0){  PORTB &=~(1 <<PB1);}
- 54a:	80 91 7b 00 	lds	r24, 0x007B	; 0x80007b <temp_ID>
- 54e:	90 91 7c 00 	lds	r25, 0x007C	; 0x80007c <temp_ID+0x1>
- 552:	89 2b       	or	r24, r25
- 554:	09 f4       	brne	.+2      	; 0x558 <__stack+0xf9>
- 556:	c1 98       	cbi	0x18, 1	; 24
+ 588:	80 91 79 00 	lds	r24, 0x0079	; 0x800079 <temp_ID>
+ 58c:	90 91 7a 00 	lds	r25, 0x007A	; 0x80007a <temp_ID+0x1>
+ 590:	89 2b       	or	r24, r25
+ 592:	09 f4       	brne	.+2      	; 0x596 <__stack+0x137>
+ 594:	c1 98       	cbi	0x18, 1	; 24
 			}	
 				
 				
 				
 		   if((tct>=34)&&(tct<36))  //ручной режим (НЕ АВТО)
- 558:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- 55c:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- 560:	82 97       	sbiw	r24, 0x22	; 34
- 562:	02 97       	sbiw	r24, 0x02	; 2
- 564:	d0 f4       	brcc	.+52     	; 0x59a <__stack+0x13b>
+ 596:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 59a:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 59e:	82 97       	sbiw	r24, 0x22	; 34
+ 5a0:	02 97       	sbiw	r24, 0x02	; 2
+ 5a2:	d0 f4       	brcc	.+52     	; 0x5d8 <__stack+0x179>
 			    {
 				 temp_ID|=((mode)&(0b1));
- 566:	80 91 9d 00 	lds	r24, 0x009D	; 0x80009d <mode>
- 56a:	a8 2f       	mov	r26, r24
- 56c:	a1 70       	andi	r26, 0x01	; 1
- 56e:	b0 e0       	ldi	r27, 0x00	; 0
- 570:	80 91 7b 00 	lds	r24, 0x007B	; 0x80007b <temp_ID>
- 574:	90 91 7c 00 	lds	r25, 0x007C	; 0x80007c <temp_ID+0x1>
- 578:	a8 2b       	or	r26, r24
- 57a:	b9 2b       	or	r27, r25
- 57c:	b0 93 7c 00 	sts	0x007C, r27	; 0x80007c <temp_ID+0x1>
- 580:	a0 93 7b 00 	sts	0x007B, r26	; 0x80007b <temp_ID>
+ 5a4:	80 91 9b 00 	lds	r24, 0x009B	; 0x80009b <mode>
+ 5a8:	a8 2f       	mov	r26, r24
+ 5aa:	a1 70       	andi	r26, 0x01	; 1
+ 5ac:	b0 e0       	ldi	r27, 0x00	; 0
+ 5ae:	80 91 79 00 	lds	r24, 0x0079	; 0x800079 <temp_ID>
+ 5b2:	90 91 7a 00 	lds	r25, 0x007A	; 0x80007a <temp_ID+0x1>
+ 5b6:	a8 2b       	or	r26, r24
+ 5b8:	b9 2b       	or	r27, r25
+ 5ba:	b0 93 7a 00 	sts	0x007A, r27	; 0x80007a <temp_ID+0x1>
+ 5be:	a0 93 79 00 	sts	0x0079, r26	; 0x800079 <temp_ID>
 				 if(temp_ID==1){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}
- 584:	11 97       	sbiw	r26, 0x01	; 1
- 586:	11 f4       	brne	.+4      	; 0x58c <__stack+0x12d>
- 588:	c1 9a       	sbi	0x18, 1	; 24
- 58a:	ad 9a       	sbi	0x15, 5	; 21
+ 5c2:	11 97       	sbiw	r26, 0x01	; 1
+ 5c4:	11 f4       	brne	.+4      	; 0x5ca <__stack+0x16b>
+ 5c6:	c1 9a       	sbi	0x18, 1	; 24
+ 5c8:	ad 9a       	sbi	0x15, 5	; 21
 				 if(temp_ID==0){  PORTB &=~ (1 <<PB1);}
- 58c:	80 91 7b 00 	lds	r24, 0x007B	; 0x80007b <temp_ID>
- 590:	90 91 7c 00 	lds	r25, 0x007C	; 0x80007c <temp_ID+0x1>
- 594:	89 2b       	or	r24, r25
- 596:	09 f4       	brne	.+2      	; 0x59a <__stack+0x13b>
- 598:	c1 98       	cbi	0x18, 1	; 24
+ 5ca:	80 91 79 00 	lds	r24, 0x0079	; 0x800079 <temp_ID>
+ 5ce:	90 91 7a 00 	lds	r25, 0x007A	; 0x80007a <temp_ID+0x1>
+ 5d2:	89 2b       	or	r24, r25
+ 5d4:	09 f4       	brne	.+2      	; 0x5d8 <__stack+0x179>
+ 5d6:	c1 98       	cbi	0x18, 1	; 24
 			    }
        ///////////////////////////////////////////////////////////////////////////// 
 			if((tct>=36)&&(tct<40))  //Активация выхода -тревога
- 59a:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- 59e:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- 5a2:	84 97       	sbiw	r24, 0x24	; 36
- 5a4:	04 97       	sbiw	r24, 0x04	; 4
- 5a6:	d8 f4       	brcc	.+54     	; 0x5de <__stack+0x17f>
+ 5d8:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 5dc:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 5e0:	84 97       	sbiw	r24, 0x24	; 36
+ 5e2:	04 97       	sbiw	r24, 0x04	; 4
+ 5e4:	d8 f4       	brcc	.+54     	; 0x61c <__stack+0x1bd>
 			{
 				temp_ID|=((external)&(0b1));
- 5a8:	80 91 b2 00 	lds	r24, 0x00B2	; 0x8000b2 <external>
- 5ac:	48 2f       	mov	r20, r24
- 5ae:	41 70       	andi	r20, 0x01	; 1
- 5b0:	50 e0       	ldi	r21, 0x00	; 0
- 5b2:	80 91 7b 00 	lds	r24, 0x007B	; 0x80007b <temp_ID>
- 5b6:	90 91 7c 00 	lds	r25, 0x007C	; 0x80007c <temp_ID+0x1>
- 5ba:	48 2b       	or	r20, r24
- 5bc:	59 2b       	or	r21, r25
- 5be:	50 93 7c 00 	sts	0x007C, r21	; 0x80007c <temp_ID+0x1>
- 5c2:	40 93 7b 00 	sts	0x007B, r20	; 0x80007b <temp_ID>
+ 5e6:	80 91 b2 00 	lds	r24, 0x00B2	; 0x8000b2 <external>
+ 5ea:	48 2f       	mov	r20, r24
+ 5ec:	41 70       	andi	r20, 0x01	; 1
+ 5ee:	50 e0       	ldi	r21, 0x00	; 0
+ 5f0:	80 91 79 00 	lds	r24, 0x0079	; 0x800079 <temp_ID>
+ 5f4:	90 91 7a 00 	lds	r25, 0x007A	; 0x80007a <temp_ID+0x1>
+ 5f8:	48 2b       	or	r20, r24
+ 5fa:	59 2b       	or	r21, r25
+ 5fc:	50 93 7a 00 	sts	0x007A, r21	; 0x80007a <temp_ID+0x1>
+ 600:	40 93 79 00 	sts	0x0079, r20	; 0x800079 <temp_ID>
 				if(temp_ID==1){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}
- 5c6:	41 30       	cpi	r20, 0x01	; 1
- 5c8:	51 05       	cpc	r21, r1
- 5ca:	11 f4       	brne	.+4      	; 0x5d0 <__stack+0x171>
- 5cc:	c1 9a       	sbi	0x18, 1	; 24
- 5ce:	ad 9a       	sbi	0x15, 5	; 21
+ 604:	41 30       	cpi	r20, 0x01	; 1
+ 606:	51 05       	cpc	r21, r1
+ 608:	11 f4       	brne	.+4      	; 0x60e <__stack+0x1af>
+ 60a:	c1 9a       	sbi	0x18, 1	; 24
+ 60c:	ad 9a       	sbi	0x15, 5	; 21
 				if(temp_ID==0){  PORTB &=~(1 <<PB1);}
- 5d0:	80 91 7b 00 	lds	r24, 0x007B	; 0x80007b <temp_ID>
- 5d4:	90 91 7c 00 	lds	r25, 0x007C	; 0x80007c <temp_ID+0x1>
- 5d8:	89 2b       	or	r24, r25
- 5da:	09 f4       	brne	.+2      	; 0x5de <__stack+0x17f>
- 5dc:	c1 98       	cbi	0x18, 1	; 24
+ 60e:	80 91 79 00 	lds	r24, 0x0079	; 0x800079 <temp_ID>
+ 612:	90 91 7a 00 	lds	r25, 0x007A	; 0x80007a <temp_ID+0x1>
+ 616:	89 2b       	or	r24, r25
+ 618:	09 f4       	brne	.+2      	; 0x61c <__stack+0x1bd>
+ 61a:	c1 98       	cbi	0x18, 1	; 24
 				if(temp_ID==1){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}
 				if(temp_ID==0){  PORTB &=~(1 <<PB1);}
 			}
 		*/	
 				 
-		   if((tct>=39)&&(tct<40))  //авария датчика DHT
- 5de:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- 5e2:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- 5e6:	87 97       	sbiw	r24, 0x27	; 39
- 5e8:	e1 f4       	brne	.+56     	; 0x622 <__stack+0x1c3>
+		   if((tct>=39)&&(tct<40))  //авария 
+ 61c:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 620:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 624:	87 97       	sbiw	r24, 0x27	; 39
+ 626:	e1 f4       	brne	.+56     	; 0x660 <__stack+0x201>
 			    {
 				 temp_ID|=((receivemode)&(0b1));
- 5ea:	80 91 0d 02 	lds	r24, 0x020D	; 0x80020d <receivemode>
- 5ee:	68 2f       	mov	r22, r24
- 5f0:	61 70       	andi	r22, 0x01	; 1
- 5f2:	70 e0       	ldi	r23, 0x00	; 0
- 5f4:	80 91 7b 00 	lds	r24, 0x007B	; 0x80007b <temp_ID>
- 5f8:	90 91 7c 00 	lds	r25, 0x007C	; 0x80007c <temp_ID+0x1>
- 5fc:	68 2b       	or	r22, r24
- 5fe:	79 2b       	or	r23, r25
- 600:	70 93 7c 00 	sts	0x007C, r23	; 0x80007c <temp_ID+0x1>
- 604:	60 93 7b 00 	sts	0x007B, r22	; 0x80007b <temp_ID>
+ 628:	80 91 0d 02 	lds	r24, 0x020D	; 0x80020d <receivemode>
+ 62c:	68 2f       	mov	r22, r24
+ 62e:	61 70       	andi	r22, 0x01	; 1
+ 630:	70 e0       	ldi	r23, 0x00	; 0
+ 632:	80 91 79 00 	lds	r24, 0x0079	; 0x800079 <temp_ID>
+ 636:	90 91 7a 00 	lds	r25, 0x007A	; 0x80007a <temp_ID+0x1>
+ 63a:	68 2b       	or	r22, r24
+ 63c:	79 2b       	or	r23, r25
+ 63e:	70 93 7a 00 	sts	0x007A, r23	; 0x80007a <temp_ID+0x1>
+ 642:	60 93 79 00 	sts	0x0079, r22	; 0x800079 <temp_ID>
 				 if(temp_ID==1){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}
- 608:	61 30       	cpi	r22, 0x01	; 1
- 60a:	71 05       	cpc	r23, r1
- 60c:	09 f0       	breq	.+2      	; 0x610 <__stack+0x1b1>
- 60e:	f1 c0       	rjmp	.+482    	; 0x7f2 <__stack+0x393>
- 610:	c1 9a       	sbi	0x18, 1	; 24
- 612:	ad 9a       	sbi	0x15, 5	; 21
+ 646:	61 30       	cpi	r22, 0x01	; 1
+ 648:	71 05       	cpc	r23, r1
+ 64a:	09 f0       	breq	.+2      	; 0x64e <__stack+0x1ef>
+ 64c:	80 c1       	rjmp	.+768    	; 0x94e <__stack+0x4ef>
+ 64e:	c1 9a       	sbi	0x18, 1	; 24
+ 650:	ad 9a       	sbi	0x15, 5	; 21
 				 if(temp_ID==0){  PORTB &=~(1 <<PB1);}
- 614:	80 91 7b 00 	lds	r24, 0x007B	; 0x80007b <temp_ID>
- 618:	90 91 7c 00 	lds	r25, 0x007C	; 0x80007c <temp_ID+0x1>
- 61c:	89 2b       	or	r24, r25
- 61e:	09 f4       	brne	.+2      	; 0x622 <__stack+0x1c3>
- 620:	c1 98       	cbi	0x18, 1	; 24
+ 652:	80 91 79 00 	lds	r24, 0x0079	; 0x800079 <temp_ID>
+ 656:	90 91 7a 00 	lds	r25, 0x007A	; 0x80007a <temp_ID+0x1>
+ 65a:	89 2b       	or	r24, r25
+ 65c:	09 f4       	brne	.+2      	; 0x660 <__stack+0x201>
+ 65e:	c1 98       	cbi	0x18, 1	; 24
 			    }   
 			 
-		   if((tct>=51)&&(tct<57))  // Уровень фона датчика 
- 622:	20 91 6a 00 	lds	r18, 0x006A	; 0x80006a <tct>
- 626:	30 91 6b 00 	lds	r19, 0x006B	; 0x80006b <tct+0x1>
- 62a:	c9 01       	movw	r24, r18
- 62c:	c3 97       	sbiw	r24, 0x33	; 51
- 62e:	06 97       	sbiw	r24, 0x06	; 6
- 630:	30 f5       	brcc	.+76     	; 0x67e <__stack+0x21f>
+			 if((tct>=42)&&(tct<49))  // Уровень задымлённости
+ 660:	20 91 68 00 	lds	r18, 0x0068	; 0x800068 <tct>
+ 664:	30 91 69 00 	lds	r19, 0x0069	; 0x800069 <tct+0x1>
+ 668:	c9 01       	movw	r24, r18
+ 66a:	8a 97       	sbiw	r24, 0x2a	; 42
+ 66c:	07 97       	sbiw	r24, 0x07	; 7
+ 66e:	30 f5       	brcc	.+76     	; 0x6bc <__stack+0x25d>
+			 {
+				 temp_ID|=((fire-512)>>(48-tct))&(0b1);
+ 670:	80 91 64 00 	lds	r24, 0x0064	; 0x800064 <fire>
+ 674:	90 91 65 00 	lds	r25, 0x0065	; 0x800065 <fire+0x1>
+ 678:	92 50       	subi	r25, 0x02	; 2
+ 67a:	40 e3       	ldi	r20, 0x30	; 48
+ 67c:	50 e0       	ldi	r21, 0x00	; 0
+ 67e:	ba 01       	movw	r22, r20
+ 680:	62 1b       	sub	r22, r18
+ 682:	73 0b       	sbc	r23, r19
+ 684:	02 c0       	rjmp	.+4      	; 0x68a <__stack+0x22b>
+ 686:	95 95       	asr	r25
+ 688:	87 95       	ror	r24
+ 68a:	6a 95       	dec	r22
+ 68c:	e2 f7       	brpl	.-8      	; 0x686 <__stack+0x227>
+ 68e:	81 70       	andi	r24, 0x01	; 1
+ 690:	99 27       	eor	r25, r25
+ 692:	20 91 79 00 	lds	r18, 0x0079	; 0x800079 <temp_ID>
+ 696:	30 91 7a 00 	lds	r19, 0x007A	; 0x80007a <temp_ID+0x1>
+ 69a:	82 2b       	or	r24, r18
+ 69c:	93 2b       	or	r25, r19
+ 69e:	90 93 7a 00 	sts	0x007A, r25	; 0x80007a <temp_ID+0x1>
+ 6a2:	80 93 79 00 	sts	0x0079, r24	; 0x800079 <temp_ID>
+				 if(temp_ID==1){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}
+ 6a6:	01 97       	sbiw	r24, 0x01	; 1
+ 6a8:	11 f4       	brne	.+4      	; 0x6ae <__stack+0x24f>
+ 6aa:	c1 9a       	sbi	0x18, 1	; 24
+ 6ac:	ad 9a       	sbi	0x15, 5	; 21
+				 if(temp_ID==0){  PORTB &=~ (1 <<PB1);}
+ 6ae:	80 91 79 00 	lds	r24, 0x0079	; 0x800079 <temp_ID>
+ 6b2:	90 91 7a 00 	lds	r25, 0x007A	; 0x80007a <temp_ID+0x1>
+ 6b6:	89 2b       	or	r24, r25
+ 6b8:	09 f4       	brne	.+2      	; 0x6bc <__stack+0x25d>
+ 6ba:	c1 98       	cbi	0x18, 1	; 24
+			 } 
+			 
+			 
+			 
+			 
+		   if((tct>=51)&&(tct<58))  // Уровень фона датчика 
+ 6bc:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 6c0:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 6c4:	9c 01       	movw	r18, r24
+ 6c6:	23 53       	subi	r18, 0x33	; 51
+ 6c8:	31 09       	sbc	r19, r1
+ 6ca:	27 30       	cpi	r18, 0x07	; 7
+ 6cc:	31 05       	cpc	r19, r1
+ 6ce:	20 f5       	brcc	.+72     	; 0x718 <__stack+0x2b9>
 			    {
-				  temp_ID|=((fire-512)>>(57-tct))&(0b1);
- 632:	80 91 66 00 	lds	r24, 0x0066	; 0x800066 <fire>
- 636:	90 91 67 00 	lds	r25, 0x0067	; 0x800067 <fire+0x1>
- 63a:	92 50       	subi	r25, 0x02	; 2
- 63c:	49 e3       	ldi	r20, 0x39	; 57
- 63e:	50 e0       	ldi	r21, 0x00	; 0
- 640:	ba 01       	movw	r22, r20
- 642:	62 1b       	sub	r22, r18
- 644:	73 0b       	sbc	r23, r19
- 646:	02 c0       	rjmp	.+4      	; 0x64c <__stack+0x1ed>
- 648:	95 95       	asr	r25
- 64a:	87 95       	ror	r24
- 64c:	6a 95       	dec	r22
- 64e:	e2 f7       	brpl	.-8      	; 0x648 <__stack+0x1e9>
- 650:	81 70       	andi	r24, 0x01	; 1
- 652:	99 27       	eor	r25, r25
- 654:	20 91 7b 00 	lds	r18, 0x007B	; 0x80007b <temp_ID>
- 658:	30 91 7c 00 	lds	r19, 0x007C	; 0x80007c <temp_ID+0x1>
- 65c:	82 2b       	or	r24, r18
- 65e:	93 2b       	or	r25, r19
- 660:	90 93 7c 00 	sts	0x007C, r25	; 0x80007c <temp_ID+0x1>
- 664:	80 93 7b 00 	sts	0x007B, r24	; 0x80007b <temp_ID>
+				  temp_ID|=((smoke)>>(57-tct))&(0b1);
+ 6d0:	29 e3       	ldi	r18, 0x39	; 57
+ 6d2:	30 e0       	ldi	r19, 0x00	; 0
+ 6d4:	28 1b       	sub	r18, r24
+ 6d6:	39 0b       	sbc	r19, r25
+ 6d8:	80 91 10 02 	lds	r24, 0x0210	; 0x800210 <smoke>
+ 6dc:	90 91 11 02 	lds	r25, 0x0211	; 0x800211 <smoke+0x1>
+ 6e0:	02 c0       	rjmp	.+4      	; 0x6e6 <__stack+0x287>
+ 6e2:	95 95       	asr	r25
+ 6e4:	87 95       	ror	r24
+ 6e6:	2a 95       	dec	r18
+ 6e8:	e2 f7       	brpl	.-8      	; 0x6e2 <__stack+0x283>
+ 6ea:	81 70       	andi	r24, 0x01	; 1
+ 6ec:	99 27       	eor	r25, r25
+ 6ee:	20 91 79 00 	lds	r18, 0x0079	; 0x800079 <temp_ID>
+ 6f2:	30 91 7a 00 	lds	r19, 0x007A	; 0x80007a <temp_ID+0x1>
+ 6f6:	82 2b       	or	r24, r18
+ 6f8:	93 2b       	or	r25, r19
+ 6fa:	90 93 7a 00 	sts	0x007A, r25	; 0x80007a <temp_ID+0x1>
+ 6fe:	80 93 79 00 	sts	0x0079, r24	; 0x800079 <temp_ID>
 				  if(temp_ID==1){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}
- 668:	01 97       	sbiw	r24, 0x01	; 1
- 66a:	11 f4       	brne	.+4      	; 0x670 <__stack+0x211>
- 66c:	c1 9a       	sbi	0x18, 1	; 24
- 66e:	ad 9a       	sbi	0x15, 5	; 21
+ 702:	01 97       	sbiw	r24, 0x01	; 1
+ 704:	11 f4       	brne	.+4      	; 0x70a <__stack+0x2ab>
+ 706:	c1 9a       	sbi	0x18, 1	; 24
+ 708:	ad 9a       	sbi	0x15, 5	; 21
 				  if(temp_ID==0){  PORTB &=~ (1 <<PB1);}          
- 670:	80 91 7b 00 	lds	r24, 0x007B	; 0x80007b <temp_ID>
- 674:	90 91 7c 00 	lds	r25, 0x007C	; 0x80007c <temp_ID+0x1>
- 678:	89 2b       	or	r24, r25
- 67a:	09 f4       	brne	.+2      	; 0x67e <__stack+0x21f>
- 67c:	c1 98       	cbi	0x18, 1	; 24
+ 70a:	80 91 79 00 	lds	r24, 0x0079	; 0x800079 <temp_ID>
+ 70e:	90 91 7a 00 	lds	r25, 0x007A	; 0x80007a <temp_ID+0x1>
+ 712:	89 2b       	or	r24, r25
+ 714:	09 f4       	brne	.+2      	; 0x718 <__stack+0x2b9>
+ 716:	c1 98       	cbi	0x18, 1	; 24
 			    }
 				
 		   if((tct>=60)&&(tct<67)) // Смещение (компенсатор)
- 67e:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- 682:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- 686:	9c 01       	movw	r18, r24
- 688:	2c 53       	subi	r18, 0x3C	; 60
- 68a:	31 09       	sbc	r19, r1
- 68c:	27 30       	cpi	r18, 0x07	; 7
- 68e:	31 05       	cpc	r19, r1
- 690:	20 f5       	brcc	.+72     	; 0x6da <__stack+0x27b>
+ 718:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 71c:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 720:	9c 01       	movw	r18, r24
+ 722:	2c 53       	subi	r18, 0x3C	; 60
+ 724:	31 09       	sbc	r19, r1
+ 726:	27 30       	cpi	r18, 0x07	; 7
+ 728:	31 05       	cpc	r19, r1
+ 72a:	20 f5       	brcc	.+72     	; 0x774 <__stack+0x315>
 				{
-				  temp_ID|=(tmp>>(66-tct))&(0b1);
- 692:	22 e4       	ldi	r18, 0x42	; 66
- 694:	30 e0       	ldi	r19, 0x00	; 0
- 696:	28 1b       	sub	r18, r24
- 698:	39 0b       	sbc	r19, r25
- 69a:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tmp>
- 69e:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tmp+0x1>
- 6a2:	02 c0       	rjmp	.+4      	; 0x6a8 <__stack+0x249>
- 6a4:	95 95       	asr	r25
- 6a6:	87 95       	ror	r24
- 6a8:	2a 95       	dec	r18
- 6aa:	e2 f7       	brpl	.-8      	; 0x6a4 <__stack+0x245>
- 6ac:	81 70       	andi	r24, 0x01	; 1
- 6ae:	99 27       	eor	r25, r25
- 6b0:	20 91 7b 00 	lds	r18, 0x007B	; 0x80007b <temp_ID>
- 6b4:	30 91 7c 00 	lds	r19, 0x007C	; 0x80007c <temp_ID+0x1>
- 6b8:	82 2b       	or	r24, r18
- 6ba:	93 2b       	or	r25, r19
- 6bc:	90 93 7c 00 	sts	0x007C, r25	; 0x80007c <temp_ID+0x1>
- 6c0:	80 93 7b 00 	sts	0x007B, r24	; 0x80007b <temp_ID>
+				  temp_ID|=(smoke>>(66-tct))&(0b1);
+ 72c:	22 e4       	ldi	r18, 0x42	; 66
+ 72e:	30 e0       	ldi	r19, 0x00	; 0
+ 730:	28 1b       	sub	r18, r24
+ 732:	39 0b       	sbc	r19, r25
+ 734:	80 91 10 02 	lds	r24, 0x0210	; 0x800210 <smoke>
+ 738:	90 91 11 02 	lds	r25, 0x0211	; 0x800211 <smoke+0x1>
+ 73c:	02 c0       	rjmp	.+4      	; 0x742 <__stack+0x2e3>
+ 73e:	95 95       	asr	r25
+ 740:	87 95       	ror	r24
+ 742:	2a 95       	dec	r18
+ 744:	e2 f7       	brpl	.-8      	; 0x73e <__stack+0x2df>
+ 746:	81 70       	andi	r24, 0x01	; 1
+ 748:	99 27       	eor	r25, r25
+ 74a:	20 91 79 00 	lds	r18, 0x0079	; 0x800079 <temp_ID>
+ 74e:	30 91 7a 00 	lds	r19, 0x007A	; 0x80007a <temp_ID+0x1>
+ 752:	82 2b       	or	r24, r18
+ 754:	93 2b       	or	r25, r19
+ 756:	90 93 7a 00 	sts	0x007A, r25	; 0x80007a <temp_ID+0x1>
+ 75a:	80 93 79 00 	sts	0x0079, r24	; 0x800079 <temp_ID>
 				  if(temp_ID==1){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  
- 6c4:	01 97       	sbiw	r24, 0x01	; 1
- 6c6:	11 f4       	brne	.+4      	; 0x6cc <__stack+0x26d>
- 6c8:	c1 9a       	sbi	0x18, 1	; 24
- 6ca:	ad 9a       	sbi	0x15, 5	; 21
+ 75e:	01 97       	sbiw	r24, 0x01	; 1
+ 760:	11 f4       	brne	.+4      	; 0x766 <__stack+0x307>
+ 762:	c1 9a       	sbi	0x18, 1	; 24
+ 764:	ad 9a       	sbi	0x15, 5	; 21
 				  if(temp_ID==0){  PORTB &=~ (1 <<PB1);}                
- 6cc:	80 91 7b 00 	lds	r24, 0x007B	; 0x80007b <temp_ID>
- 6d0:	90 91 7c 00 	lds	r25, 0x007C	; 0x80007c <temp_ID+0x1>
- 6d4:	89 2b       	or	r24, r25
- 6d6:	09 f4       	brne	.+2      	; 0x6da <__stack+0x27b>
- 6d8:	c1 98       	cbi	0x18, 1	; 24
+ 766:	80 91 79 00 	lds	r24, 0x0079	; 0x800079 <temp_ID>
+ 76a:	90 91 7a 00 	lds	r25, 0x007A	; 0x80007a <temp_ID+0x1>
+ 76e:	89 2b       	or	r24, r25
+ 770:	09 f4       	brne	.+2      	; 0x774 <__stack+0x315>
+ 772:	c1 98       	cbi	0x18, 1	; 24
 				}
 		   if((tct>=69)&&(tct<76))  //Температура 
- 6da:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- 6de:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- 6e2:	9c 01       	movw	r18, r24
- 6e4:	25 54       	subi	r18, 0x45	; 69
- 6e6:	31 09       	sbc	r19, r1
- 6e8:	27 30       	cpi	r18, 0x07	; 7
- 6ea:	31 05       	cpc	r19, r1
- 6ec:	08 f0       	brcs	.+2      	; 0x6f0 <__stack+0x291>
- 6ee:	85 c0       	rjmp	.+266    	; 0x7fa <__stack+0x39b>
+ 774:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 778:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 77c:	9c 01       	movw	r18, r24
+ 77e:	25 54       	subi	r18, 0x45	; 69
+ 780:	31 09       	sbc	r19, r1
+ 782:	27 30       	cpi	r18, 0x07	; 7
+ 784:	31 05       	cpc	r19, r1
+ 786:	10 f5       	brcc	.+68     	; 0x7cc <__stack+0x36d>
 			    {
 				temp_ID|=((25)>>(75-tct))&(0b1);
- 6f0:	2b e4       	ldi	r18, 0x4B	; 75
- 6f2:	30 e0       	ldi	r19, 0x00	; 0
- 6f4:	28 1b       	sub	r18, r24
- 6f6:	39 0b       	sbc	r19, r25
- 6f8:	89 e1       	ldi	r24, 0x19	; 25
- 6fa:	90 e0       	ldi	r25, 0x00	; 0
- 6fc:	02 c0       	rjmp	.+4      	; 0x702 <__stack+0x2a3>
- 6fe:	95 95       	asr	r25
- 700:	87 95       	ror	r24
- 702:	2a 95       	dec	r18
- 704:	e2 f7       	brpl	.-8      	; 0x6fe <__stack+0x29f>
- 706:	81 70       	andi	r24, 0x01	; 1
- 708:	99 27       	eor	r25, r25
- 70a:	20 91 7b 00 	lds	r18, 0x007B	; 0x80007b <temp_ID>
- 70e:	30 91 7c 00 	lds	r19, 0x007C	; 0x80007c <temp_ID+0x1>
- 712:	82 2b       	or	r24, r18
- 714:	93 2b       	or	r25, r19
- 716:	90 93 7c 00 	sts	0x007C, r25	; 0x80007c <temp_ID+0x1>
- 71a:	80 93 7b 00 	sts	0x007B, r24	; 0x80007b <temp_ID>
+ 788:	2b e4       	ldi	r18, 0x4B	; 75
+ 78a:	30 e0       	ldi	r19, 0x00	; 0
+ 78c:	28 1b       	sub	r18, r24
+ 78e:	39 0b       	sbc	r19, r25
+ 790:	89 e1       	ldi	r24, 0x19	; 25
+ 792:	90 e0       	ldi	r25, 0x00	; 0
+ 794:	02 c0       	rjmp	.+4      	; 0x79a <__stack+0x33b>
+ 796:	95 95       	asr	r25
+ 798:	87 95       	ror	r24
+ 79a:	2a 95       	dec	r18
+ 79c:	e2 f7       	brpl	.-8      	; 0x796 <__stack+0x337>
+ 79e:	81 70       	andi	r24, 0x01	; 1
+ 7a0:	99 27       	eor	r25, r25
+ 7a2:	20 91 79 00 	lds	r18, 0x0079	; 0x800079 <temp_ID>
+ 7a6:	30 91 7a 00 	lds	r19, 0x007A	; 0x80007a <temp_ID+0x1>
+ 7aa:	82 2b       	or	r24, r18
+ 7ac:	93 2b       	or	r25, r19
+ 7ae:	90 93 7a 00 	sts	0x007A, r25	; 0x80007a <temp_ID+0x1>
+ 7b2:	80 93 79 00 	sts	0x0079, r24	; 0x800079 <temp_ID>
 				if(temp_ID==1){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                
- 71e:	01 97       	sbiw	r24, 0x01	; 1
- 720:	11 f4       	brne	.+4      	; 0x726 <__stack+0x2c7>
- 722:	c1 9a       	sbi	0x18, 1	; 24
- 724:	ad 9a       	sbi	0x15, 5	; 21
+ 7b6:	01 97       	sbiw	r24, 0x01	; 1
+ 7b8:	11 f4       	brne	.+4      	; 0x7be <__stack+0x35f>
+ 7ba:	c1 9a       	sbi	0x18, 1	; 24
+ 7bc:	ad 9a       	sbi	0x15, 5	; 21
 				if(temp_ID==0){  PORTB &=~ (1 <<PB1);}               
- 726:	80 91 7b 00 	lds	r24, 0x007B	; 0x80007b <temp_ID>
- 72a:	90 91 7c 00 	lds	r25, 0x007C	; 0x80007c <temp_ID+0x1>
- 72e:	89 2b       	or	r24, r25
- 730:	09 f0       	breq	.+2      	; 0x734 <__stack+0x2d5>
- 732:	63 c0       	rjmp	.+198    	; 0x7fa <__stack+0x39b>
- 734:	c1 98       	cbi	0x18, 1	; 24
- 736:	61 c0       	rjmp	.+194    	; 0x7fa <__stack+0x39b>
+ 7be:	80 91 79 00 	lds	r24, 0x0079	; 0x800079 <temp_ID>
+ 7c2:	90 91 7a 00 	lds	r25, 0x007A	; 0x80007a <temp_ID+0x1>
+ 7c6:	89 2b       	or	r24, r25
+ 7c8:	09 f4       	brne	.+2      	; 0x7cc <__stack+0x36d>
+ 7ca:	c1 98       	cbi	0x18, 1	; 24
 			    } 
-			   
+				
+				
+		  if((tct>=78)&&(tct<86))  //Ток светодиода
+ 7cc:	20 91 68 00 	lds	r18, 0x0068	; 0x800068 <tct>
+ 7d0:	30 91 69 00 	lds	r19, 0x0069	; 0x800069 <tct+0x1>
+ 7d4:	c9 01       	movw	r24, r18
+ 7d6:	8e 54       	subi	r24, 0x4E	; 78
+ 7d8:	91 09       	sbc	r25, r1
+ 7da:	08 97       	sbiw	r24, 0x08	; 8
+ 7dc:	50 f5       	brcc	.+84     	; 0x832 <__stack+0x3d3>
+			    {
+				    temp_ID|=((current*3)>>(84-tct))&(0b1);
+ 7de:	80 91 a5 00 	lds	r24, 0x00A5	; 0x8000a5 <current>
+ 7e2:	90 91 a6 00 	lds	r25, 0x00A6	; 0x8000a6 <current+0x1>
+ 7e6:	ac 01       	movw	r20, r24
+ 7e8:	44 0f       	add	r20, r20
+ 7ea:	55 1f       	adc	r21, r21
+ 7ec:	84 0f       	add	r24, r20
+ 7ee:	95 1f       	adc	r25, r21
+ 7f0:	44 e5       	ldi	r20, 0x54	; 84
+ 7f2:	50 e0       	ldi	r21, 0x00	; 0
+ 7f4:	ba 01       	movw	r22, r20
+ 7f6:	62 1b       	sub	r22, r18
+ 7f8:	73 0b       	sbc	r23, r19
+ 7fa:	02 c0       	rjmp	.+4      	; 0x800 <__stack+0x3a1>
+ 7fc:	95 95       	asr	r25
+ 7fe:	87 95       	ror	r24
+ 800:	6a 95       	dec	r22
+ 802:	e2 f7       	brpl	.-8      	; 0x7fc <__stack+0x39d>
+ 804:	81 70       	andi	r24, 0x01	; 1
+ 806:	99 27       	eor	r25, r25
+ 808:	20 91 79 00 	lds	r18, 0x0079	; 0x800079 <temp_ID>
+ 80c:	30 91 7a 00 	lds	r19, 0x007A	; 0x80007a <temp_ID+0x1>
+ 810:	82 2b       	or	r24, r18
+ 812:	93 2b       	or	r25, r19
+ 814:	90 93 7a 00 	sts	0x007A, r25	; 0x80007a <temp_ID+0x1>
+ 818:	80 93 79 00 	sts	0x0079, r24	; 0x800079 <temp_ID>
+				    if(temp_ID==1){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}
+ 81c:	01 97       	sbiw	r24, 0x01	; 1
+ 81e:	11 f4       	brne	.+4      	; 0x824 <__stack+0x3c5>
+ 820:	c1 9a       	sbi	0x18, 1	; 24
+ 822:	ad 9a       	sbi	0x15, 5	; 21
+				    if(temp_ID==0){  PORTB &=~ (1 <<PB1);}
+ 824:	80 91 79 00 	lds	r24, 0x0079	; 0x800079 <temp_ID>
+ 828:	90 91 7a 00 	lds	r25, 0x007A	; 0x80007a <temp_ID+0x1>
+ 82c:	89 2b       	or	r24, r25
+ 82e:	09 f4       	brne	.+2      	; 0x832 <__stack+0x3d3>
+ 830:	c1 98       	cbi	0x18, 1	; 24
+			    }
+			
+			
+		  if((tct>=86)&&(tct<95))  //Напряжение питания
+ 832:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 836:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 83a:	9c 01       	movw	r18, r24
+ 83c:	26 55       	subi	r18, 0x56	; 86
+ 83e:	31 09       	sbc	r19, r1
+ 840:	29 30       	cpi	r18, 0x09	; 9
+ 842:	31 05       	cpc	r19, r1
+ 844:	08 f0       	brcs	.+2      	; 0x848 <__stack+0x3e9>
+ 846:	87 c0       	rjmp	.+270    	; 0x956 <__stack+0x4f7>
+		       {
+			        temp_ID|=((volts)>>(93-tct))&(0b1);
+ 848:	2d e5       	ldi	r18, 0x5D	; 93
+ 84a:	30 e0       	ldi	r19, 0x00	; 0
+ 84c:	28 1b       	sub	r18, r24
+ 84e:	39 0b       	sbc	r19, r25
+ 850:	80 91 62 00 	lds	r24, 0x0062	; 0x800062 <__data_end>
+ 854:	90 91 63 00 	lds	r25, 0x0063	; 0x800063 <__data_end+0x1>
+ 858:	02 c0       	rjmp	.+4      	; 0x85e <__stack+0x3ff>
+ 85a:	95 95       	asr	r25
+ 85c:	87 95       	ror	r24
+ 85e:	2a 95       	dec	r18
+ 860:	e2 f7       	brpl	.-8      	; 0x85a <__stack+0x3fb>
+ 862:	81 70       	andi	r24, 0x01	; 1
+ 864:	99 27       	eor	r25, r25
+ 866:	20 91 79 00 	lds	r18, 0x0079	; 0x800079 <temp_ID>
+ 86a:	30 91 7a 00 	lds	r19, 0x007A	; 0x80007a <temp_ID+0x1>
+ 86e:	82 2b       	or	r24, r18
+ 870:	93 2b       	or	r25, r19
+ 872:	90 93 7a 00 	sts	0x007A, r25	; 0x80007a <temp_ID+0x1>
+ 876:	80 93 79 00 	sts	0x0079, r24	; 0x800079 <temp_ID>
+			        if(temp_ID==1){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}
+ 87a:	01 97       	sbiw	r24, 0x01	; 1
+ 87c:	11 f4       	brne	.+4      	; 0x882 <__stack+0x423>
+ 87e:	c1 9a       	sbi	0x18, 1	; 24
+ 880:	ad 9a       	sbi	0x15, 5	; 21
+			        if(temp_ID==0){  PORTB &=~ (1 <<PB1);}
+ 882:	80 91 79 00 	lds	r24, 0x0079	; 0x800079 <temp_ID>
+ 886:	90 91 7a 00 	lds	r25, 0x007A	; 0x80007a <temp_ID+0x1>
+ 88a:	89 2b       	or	r24, r25
+ 88c:	09 f0       	breq	.+2      	; 0x890 <__stack+0x431>
+ 88e:	63 c0       	rjmp	.+198    	; 0x956 <__stack+0x4f7>
+ 890:	c1 98       	cbi	0x18, 1	; 24
+ 892:	61 c0       	rjmp	.+194    	; 0x956 <__stack+0x4f7>
+		       }	
+				
 		   break;
 		   
 		   case 14 :
 		   if(tct==13){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                 
- 738:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- 73c:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- 740:	0d 97       	sbiw	r24, 0x0d	; 13
- 742:	11 f4       	brne	.+4      	; 0x748 <__stack+0x2e9>
- 744:	c1 9a       	sbi	0x18, 1	; 24
- 746:	ad 9a       	sbi	0x15, 5	; 21
+ 894:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 898:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 89c:	0d 97       	sbiw	r24, 0x0d	; 13
+ 89e:	11 f4       	brne	.+4      	; 0x8a4 <__stack+0x445>
+ 8a0:	c1 9a       	sbi	0x18, 1	; 24
+ 8a2:	ad 9a       	sbi	0x15, 5	; 21
 		   if(tct==30){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}
- 748:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- 74c:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- 750:	4e 97       	sbiw	r24, 0x1e	; 30
- 752:	11 f4       	brne	.+4      	; 0x758 <__stack+0x2f9>
- 754:	c1 9a       	sbi	0x18, 1	; 24
- 756:	ad 9a       	sbi	0x15, 5	; 21
+ 8a4:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 8a8:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 8ac:	4e 97       	sbiw	r24, 0x1e	; 30
+ 8ae:	11 f4       	brne	.+4      	; 0x8b4 <__stack+0x455>
+ 8b0:	c1 9a       	sbi	0x18, 1	; 24
+ 8b2:	ad 9a       	sbi	0x15, 5	; 21
 		   if(tct==45){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}
- 758:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- 75c:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- 760:	8d 97       	sbiw	r24, 0x2d	; 45
- 762:	11 f4       	brne	.+4      	; 0x768 <__stack+0x309>
- 764:	c1 9a       	sbi	0x18, 1	; 24
- 766:	ad 9a       	sbi	0x15, 5	; 21
+ 8b4:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 8b8:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 8bc:	8d 97       	sbiw	r24, 0x2d	; 45
+ 8be:	11 f4       	brne	.+4      	; 0x8c4 <__stack+0x465>
+ 8c0:	c1 9a       	sbi	0x18, 1	; 24
+ 8c2:	ad 9a       	sbi	0x15, 5	; 21
 		   if(tct==46)
- 768:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- 76c:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- 770:	8e 97       	sbiw	r24, 0x2e	; 46
- 772:	09 f0       	breq	.+2      	; 0x776 <__stack+0x317>
- 774:	42 c0       	rjmp	.+132    	; 0x7fa <__stack+0x39b>
+ 8c4:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ 8c8:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ 8cc:	8e 97       	sbiw	r24, 0x2e	; 46
+ 8ce:	09 f0       	breq	.+2      	; 0x8d2 <__stack+0x473>
+ 8d0:	42 c0       	rjmp	.+132    	; 0x956 <__stack+0x4f7>
 		   {
 			   if((detect[35]==1)&&(detect[42]==1)) {external=0;}
- 776:	80 91 2e 01 	lds	r24, 0x012E	; 0x80012e <detect+0x46>
- 77a:	90 91 2f 01 	lds	r25, 0x012F	; 0x80012f <detect+0x47>
- 77e:	01 97       	sbiw	r24, 0x01	; 1
- 780:	41 f4       	brne	.+16     	; 0x792 <__stack+0x333>
- 782:	80 91 3c 01 	lds	r24, 0x013C	; 0x80013c <detect+0x54>
- 786:	90 91 3d 01 	lds	r25, 0x013D	; 0x80013d <detect+0x55>
- 78a:	01 97       	sbiw	r24, 0x01	; 1
- 78c:	11 f4       	brne	.+4      	; 0x792 <__stack+0x333>
- 78e:	10 92 b2 00 	sts	0x00B2, r1	; 0x8000b2 <external>
+ 8d2:	80 91 2e 01 	lds	r24, 0x012E	; 0x80012e <detect+0x46>
+ 8d6:	90 91 2f 01 	lds	r25, 0x012F	; 0x80012f <detect+0x47>
+ 8da:	01 97       	sbiw	r24, 0x01	; 1
+ 8dc:	41 f4       	brne	.+16     	; 0x8ee <__stack+0x48f>
+ 8de:	80 91 3c 01 	lds	r24, 0x013C	; 0x80013c <detect+0x54>
+ 8e2:	90 91 3d 01 	lds	r25, 0x013D	; 0x80013d <detect+0x55>
+ 8e6:	01 97       	sbiw	r24, 0x01	; 1
+ 8e8:	11 f4       	brne	.+4      	; 0x8ee <__stack+0x48f>
+ 8ea:	10 92 b2 00 	sts	0x00B2, r1	; 0x8000b2 <external>
 			   if((detect[36]==1)&&(detect[43]==1)) {external=0;}
- 792:	80 91 30 01 	lds	r24, 0x0130	; 0x800130 <detect+0x48>
- 796:	90 91 31 01 	lds	r25, 0x0131	; 0x800131 <detect+0x49>
- 79a:	01 97       	sbiw	r24, 0x01	; 1
- 79c:	41 f4       	brne	.+16     	; 0x7ae <__stack+0x34f>
- 79e:	80 91 3e 01 	lds	r24, 0x013E	; 0x80013e <detect+0x56>
- 7a2:	90 91 3f 01 	lds	r25, 0x013F	; 0x80013f <detect+0x57>
- 7a6:	01 97       	sbiw	r24, 0x01	; 1
- 7a8:	11 f4       	brne	.+4      	; 0x7ae <__stack+0x34f>
- 7aa:	10 92 b2 00 	sts	0x00B2, r1	; 0x8000b2 <external>
+ 8ee:	80 91 30 01 	lds	r24, 0x0130	; 0x800130 <detect+0x48>
+ 8f2:	90 91 31 01 	lds	r25, 0x0131	; 0x800131 <detect+0x49>
+ 8f6:	01 97       	sbiw	r24, 0x01	; 1
+ 8f8:	41 f4       	brne	.+16     	; 0x90a <__stack+0x4ab>
+ 8fa:	80 91 3e 01 	lds	r24, 0x013E	; 0x80013e <detect+0x56>
+ 8fe:	90 91 3f 01 	lds	r25, 0x013F	; 0x80013f <detect+0x57>
+ 902:	01 97       	sbiw	r24, 0x01	; 1
+ 904:	11 f4       	brne	.+4      	; 0x90a <__stack+0x4ab>
+ 906:	10 92 b2 00 	sts	0x00B2, r1	; 0x8000b2 <external>
 			   if((detect[38]==1)&&(detect[45]==1)) {external=1;}
- 7ae:	80 91 34 01 	lds	r24, 0x0134	; 0x800134 <detect+0x4c>
- 7b2:	90 91 35 01 	lds	r25, 0x0135	; 0x800135 <detect+0x4d>
- 7b6:	01 97       	sbiw	r24, 0x01	; 1
- 7b8:	49 f4       	brne	.+18     	; 0x7cc <__stack+0x36d>
- 7ba:	80 91 42 01 	lds	r24, 0x0142	; 0x800142 <detect+0x5a>
- 7be:	90 91 43 01 	lds	r25, 0x0143	; 0x800143 <detect+0x5b>
- 7c2:	01 97       	sbiw	r24, 0x01	; 1
- 7c4:	19 f4       	brne	.+6      	; 0x7cc <__stack+0x36d>
- 7c6:	81 e0       	ldi	r24, 0x01	; 1
- 7c8:	80 93 b2 00 	sts	0x00B2, r24	; 0x8000b2 <external>
+ 90a:	80 91 34 01 	lds	r24, 0x0134	; 0x800134 <detect+0x4c>
+ 90e:	90 91 35 01 	lds	r25, 0x0135	; 0x800135 <detect+0x4d>
+ 912:	01 97       	sbiw	r24, 0x01	; 1
+ 914:	49 f4       	brne	.+18     	; 0x928 <__stack+0x4c9>
+ 916:	80 91 42 01 	lds	r24, 0x0142	; 0x800142 <detect+0x5a>
+ 91a:	90 91 43 01 	lds	r25, 0x0143	; 0x800143 <detect+0x5b>
+ 91e:	01 97       	sbiw	r24, 0x01	; 1
+ 920:	19 f4       	brne	.+6      	; 0x928 <__stack+0x4c9>
+ 922:	81 e0       	ldi	r24, 0x01	; 1
+ 924:	80 93 b2 00 	sts	0x00B2, r24	; 0x8000b2 <external>
 			   if((detect[37]==1)&&(detect[44]==1)) {external=0;}
- 7cc:	80 91 32 01 	lds	r24, 0x0132	; 0x800132 <detect+0x4a>
- 7d0:	90 91 33 01 	lds	r25, 0x0133	; 0x800133 <detect+0x4b>
- 7d4:	01 97       	sbiw	r24, 0x01	; 1
- 7d6:	89 f4       	brne	.+34     	; 0x7fa <__stack+0x39b>
- 7d8:	80 91 40 01 	lds	r24, 0x0140	; 0x800140 <detect+0x58>
- 7dc:	90 91 41 01 	lds	r25, 0x0141	; 0x800141 <detect+0x59>
- 7e0:	01 97       	sbiw	r24, 0x01	; 1
- 7e2:	59 f4       	brne	.+22     	; 0x7fa <__stack+0x39b>
- 7e4:	10 92 b2 00 	sts	0x00B2, r1	; 0x8000b2 <external>
+ 928:	80 91 32 01 	lds	r24, 0x0132	; 0x800132 <detect+0x4a>
+ 92c:	90 91 33 01 	lds	r25, 0x0133	; 0x800133 <detect+0x4b>
+ 930:	01 97       	sbiw	r24, 0x01	; 1
+ 932:	89 f4       	brne	.+34     	; 0x956 <__stack+0x4f7>
+ 934:	80 91 40 01 	lds	r24, 0x0140	; 0x800140 <detect+0x58>
+ 938:	90 91 41 01 	lds	r25, 0x0141	; 0x800141 <detect+0x59>
+ 93c:	01 97       	sbiw	r24, 0x01	; 1
+ 93e:	59 f4       	brne	.+22     	; 0x956 <__stack+0x4f7>
+ 940:	10 92 b2 00 	sts	0x00B2, r1	; 0x8000b2 <external>
 		   break;
 		   
 		 }
 	  }
 		 
- 7e8:	08 c0       	rjmp	.+16     	; 0x7fa <__stack+0x39b>
+ 944:	08 c0       	rjmp	.+16     	; 0x956 <__stack+0x4f7>
 				
 			if((tct==30)&&(tct<32))  //Активация выхода -тревога
 			{
 				temp_ID|=((external)&(0b1));
 				if(temp_ID==1){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}
 				if(temp_ID==0){  PORTB &=~(1 <<PB1);}
- 7ea:	ef 2b       	or	r30, r31
- 7ec:	09 f4       	brne	.+2      	; 0x7f0 <__stack+0x391>
- 7ee:	b3 ce       	rjmp	.-666    	; 0x556 <__stack+0xf7>
- 7f0:	f6 ce       	rjmp	.-532    	; 0x5de <__stack+0x17f>
+ 946:	ef 2b       	or	r30, r31
+ 948:	09 f4       	brne	.+2      	; 0x94c <__stack+0x4ed>
+ 94a:	24 ce       	rjmp	.-952    	; 0x594 <__stack+0x135>
+ 94c:	67 ce       	rjmp	.-818    	; 0x61c <__stack+0x1bd>
 				 
-		   if((tct>=39)&&(tct<40))  //авария датчика DHT
+		   if((tct>=39)&&(tct<40))  //авария 
 			    {
 				 temp_ID|=((receivemode)&(0b1));
 				 if(temp_ID==1){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}
 				 if(temp_ID==0){  PORTB &=~(1 <<PB1);}
- 7f2:	67 2b       	or	r22, r23
- 7f4:	09 f4       	brne	.+2      	; 0x7f8 <__stack+0x399>
- 7f6:	14 cf       	rjmp	.-472    	; 0x620 <__stack+0x1c1>
- 7f8:	70 cf       	rjmp	.-288    	; 0x6da <__stack+0x27b>
+ 94e:	67 2b       	or	r22, r23
+ 950:	09 f4       	brne	.+2      	; 0x954 <__stack+0x4f5>
+ 952:	85 ce       	rjmp	.-758    	; 0x65e <__stack+0x1ff>
+ 954:	e1 ce       	rjmp	.-574    	; 0x718 <__stack+0x2b9>
 		   break;
 		   
 		 }
 	  }
 		 
- 7fa:	df 91       	pop	r29
- 7fc:	cf 91       	pop	r28
- 7fe:	08 95       	ret
+ 956:	df 91       	pop	r29
+ 958:	cf 91       	pop	r28
+ 95a:	08 95       	ret
 
-00000800 <Omega_slave>:
+0000095c <Omega_slave>:
 
  #include "Omega.h"
  void Omega_slave() {
  
  
   PORTD|= (1 <<PD0); // Вспомогательная строб-индикация состояния 
- 800:	90 9a       	sbi	0x12, 0	; 18
+ 95c:	90 9a       	sbi	0x12, 0	; 18
  stats= (PINB & 0b0000001); //Чтение состояния входа
- 802:	86 b3       	in	r24, 0x16	; 22
- 804:	28 2f       	mov	r18, r24
- 806:	21 70       	andi	r18, 0x01	; 1
- 808:	30 e0       	ldi	r19, 0x00	; 0
- 80a:	30 93 cf 00 	sts	0x00CF, r19	; 0x8000cf <stats+0x1>
- 80e:	20 93 ce 00 	sts	0x00CE, r18	; 0x8000ce <stats>
+ 95e:	86 b3       	in	r24, 0x16	; 22
+ 960:	28 2f       	mov	r18, r24
+ 962:	21 70       	andi	r18, 0x01	; 1
+ 964:	30 e0       	ldi	r19, 0x00	; 0
+ 966:	30 93 cf 00 	sts	0x00CF, r19	; 0x8000cf <stats+0x1>
+ 96a:	20 93 ce 00 	sts	0x00CE, r18	; 0x8000ce <stats>
  stats1=(PINB & 0b0000100);
- 812:	86 b3       	in	r24, 0x16	; 22
- 814:	84 70       	andi	r24, 0x04	; 4
- 816:	90 e0       	ldi	r25, 0x00	; 0
- 818:	90 93 b5 00 	sts	0x00B5, r25	; 0x8000b5 <stats1+0x1>
- 81c:	80 93 b4 00 	sts	0x00B4, r24	; 0x8000b4 <stats1>
+ 96e:	86 b3       	in	r24, 0x16	; 22
+ 970:	84 70       	andi	r24, 0x04	; 4
+ 972:	90 e0       	ldi	r25, 0x00	; 0
+ 974:	90 93 b5 00 	sts	0x00B5, r25	; 0x8000b5 <stats1+0x1>
+ 978:	80 93 b4 00 	sts	0x00B4, r24	; 0x8000b4 <stats1>
  if ((stats==1)&&(bit_flag==0))
- 820:	21 30       	cpi	r18, 0x01	; 1
- 822:	31 05       	cpc	r19, r1
- 824:	09 f0       	breq	.+2      	; 0x828 <Omega_slave+0x28>
- 826:	29 c1       	rjmp	.+594    	; 0xa7a <Omega_slave+0x27a>
- 828:	80 91 a6 00 	lds	r24, 0x00A6	; 0x8000a6 <bit_flag>
- 82c:	81 11       	cpse	r24, r1
- 82e:	5e c1       	rjmp	.+700    	; 0xaec <Omega_slave+0x2ec>
+ 97c:	21 30       	cpi	r18, 0x01	; 1
+ 97e:	31 05       	cpc	r19, r1
+ 980:	09 f0       	breq	.+2      	; 0x984 <Omega_slave+0x28>
+ 982:	29 c1       	rjmp	.+594    	; 0xbd6 <Omega_slave+0x27a>
+ 984:	80 91 a4 00 	lds	r24, 0x00A4	; 0x8000a4 <bit_flag>
+ 988:	81 11       	cpse	r24, r1
+ 98a:	5e c1       	rjmp	.+700    	; 0xc48 <Omega_slave+0x2ec>
 	// if((8<low)&& (low<11)){low=0;}    // интерпритация нуля
 	// if((17<low)&& (low<21)){low=1;}   // интерпритация единицы
 	// if((26<low)&& (low<35)){low=2;tct=0; input_bit=0;adress_t=0;directive=0;}  // команда начала приёма 
 		 
 		 
 	  if((5<=low)&& (low<=7)){low=0;}    // интерпритация нуля
- 830:	80 91 a7 00 	lds	r24, 0x00A7	; 0x8000a7 <low>
- 834:	90 91 a8 00 	lds	r25, 0x00A8	; 0x8000a8 <low+0x1>
- 838:	9c 01       	movw	r18, r24
- 83a:	25 50       	subi	r18, 0x05	; 5
- 83c:	31 09       	sbc	r19, r1
- 83e:	23 30       	cpi	r18, 0x03	; 3
- 840:	31 05       	cpc	r19, r1
- 842:	28 f4       	brcc	.+10     	; 0x84e <Omega_slave+0x4e>
- 844:	10 92 a8 00 	sts	0x00A8, r1	; 0x8000a8 <low+0x1>
- 848:	10 92 a7 00 	sts	0x00A7, r1	; 0x8000a7 <low>
- 84c:	2e c0       	rjmp	.+92     	; 0x8aa <Omega_slave+0xaa>
+ 98c:	80 91 a7 00 	lds	r24, 0x00A7	; 0x8000a7 <low>
+ 990:	90 91 a8 00 	lds	r25, 0x00A8	; 0x8000a8 <low+0x1>
+ 994:	9c 01       	movw	r18, r24
+ 996:	25 50       	subi	r18, 0x05	; 5
+ 998:	31 09       	sbc	r19, r1
+ 99a:	23 30       	cpi	r18, 0x03	; 3
+ 99c:	31 05       	cpc	r19, r1
+ 99e:	28 f4       	brcc	.+10     	; 0x9aa <Omega_slave+0x4e>
+ 9a0:	10 92 a8 00 	sts	0x00A8, r1	; 0x8000a8 <low+0x1>
+ 9a4:	10 92 a7 00 	sts	0x00A7, r1	; 0x8000a7 <low>
+ 9a8:	2e c0       	rjmp	.+92     	; 0xa06 <Omega_slave+0xaa>
 	  if((10<=low)&& (low<=12)){low=1;}   // интерпритация единицы
- 84e:	0a 97       	sbiw	r24, 0x0a	; 10
- 850:	03 97       	sbiw	r24, 0x03	; 3
- 852:	38 f4       	brcc	.+14     	; 0x862 <Omega_slave+0x62>
- 854:	81 e0       	ldi	r24, 0x01	; 1
- 856:	90 e0       	ldi	r25, 0x00	; 0
- 858:	90 93 a8 00 	sts	0x00A8, r25	; 0x8000a8 <low+0x1>
- 85c:	80 93 a7 00 	sts	0x00A7, r24	; 0x8000a7 <low>
- 860:	42 c0       	rjmp	.+132    	; 0x8e6 <Omega_slave+0xe6>
+ 9aa:	0a 97       	sbiw	r24, 0x0a	; 10
+ 9ac:	03 97       	sbiw	r24, 0x03	; 3
+ 9ae:	38 f4       	brcc	.+14     	; 0x9be <Omega_slave+0x62>
+ 9b0:	81 e0       	ldi	r24, 0x01	; 1
+ 9b2:	90 e0       	ldi	r25, 0x00	; 0
+ 9b4:	90 93 a8 00 	sts	0x00A8, r25	; 0x8000a8 <low+0x1>
+ 9b8:	80 93 a7 00 	sts	0x00A7, r24	; 0x8000a7 <low>
+ 9bc:	42 c0       	rjmp	.+132    	; 0xa42 <Omega_slave+0xe6>
 	  if((14<=low)&& (low<17)){low=2;tct=0; input_bit=0;adress_t=0;directive=0;}  // команда начала приёма	 
- 862:	80 91 a7 00 	lds	r24, 0x00A7	; 0x8000a7 <low>
- 866:	90 91 a8 00 	lds	r25, 0x00A8	; 0x8000a8 <low+0x1>
- 86a:	0e 97       	sbiw	r24, 0x0e	; 14
- 86c:	03 97       	sbiw	r24, 0x03	; 3
- 86e:	e8 f4       	brcc	.+58     	; 0x8aa <Omega_slave+0xaa>
- 870:	82 e0       	ldi	r24, 0x02	; 2
- 872:	90 e0       	ldi	r25, 0x00	; 0
- 874:	90 93 a8 00 	sts	0x00A8, r25	; 0x8000a8 <low+0x1>
- 878:	80 93 a7 00 	sts	0x00A7, r24	; 0x8000a7 <low>
- 87c:	10 92 6b 00 	sts	0x006B, r1	; 0x80006b <tct+0x1>
- 880:	10 92 6a 00 	sts	0x006A, r1	; 0x80006a <tct>
- 884:	10 92 70 00 	sts	0x0070, r1	; 0x800070 <input_bit+0x1>
- 888:	10 92 6f 00 	sts	0x006F, r1	; 0x80006f <input_bit>
- 88c:	10 92 86 00 	sts	0x0086, r1	; 0x800086 <adress_t+0x1>
- 890:	10 92 85 00 	sts	0x0085, r1	; 0x800085 <adress_t>
- 894:	10 92 b8 00 	sts	0x00B8, r1	; 0x8000b8 <directive+0x1>
- 898:	10 92 b7 00 	sts	0x00B7, r1	; 0x8000b7 <directive>
+ 9be:	80 91 a7 00 	lds	r24, 0x00A7	; 0x8000a7 <low>
+ 9c2:	90 91 a8 00 	lds	r25, 0x00A8	; 0x8000a8 <low+0x1>
+ 9c6:	0e 97       	sbiw	r24, 0x0e	; 14
+ 9c8:	03 97       	sbiw	r24, 0x03	; 3
+ 9ca:	e8 f4       	brcc	.+58     	; 0xa06 <Omega_slave+0xaa>
+ 9cc:	82 e0       	ldi	r24, 0x02	; 2
+ 9ce:	90 e0       	ldi	r25, 0x00	; 0
+ 9d0:	90 93 a8 00 	sts	0x00A8, r25	; 0x8000a8 <low+0x1>
+ 9d4:	80 93 a7 00 	sts	0x00A7, r24	; 0x8000a7 <low>
+ 9d8:	10 92 69 00 	sts	0x0069, r1	; 0x800069 <tct+0x1>
+ 9dc:	10 92 68 00 	sts	0x0068, r1	; 0x800068 <tct>
+ 9e0:	10 92 6e 00 	sts	0x006E, r1	; 0x80006e <input_bit+0x1>
+ 9e4:	10 92 6d 00 	sts	0x006D, r1	; 0x80006d <input_bit>
+ 9e8:	10 92 84 00 	sts	0x0084, r1	; 0x800084 <adress_t+0x1>
+ 9ec:	10 92 83 00 	sts	0x0083, r1	; 0x800083 <adress_t>
+ 9f0:	10 92 b8 00 	sts	0x00B8, r1	; 0x8000b8 <directive+0x1>
+ 9f4:	10 92 b7 00 	sts	0x00B7, r1	; 0x8000b7 <directive>
 		 
 	 if(low>1000){tct=0; input_bit=0;adress_t=0;directive=0;low=0;external=0;}
 	 detect[tct]=low;
- 89c:	20 e0       	ldi	r18, 0x00	; 0
- 89e:	30 e0       	ldi	r19, 0x00	; 0
- 8a0:	90 93 e9 00 	sts	0x00E9, r25	; 0x8000e9 <detect+0x1>
- 8a4:	80 93 e8 00 	sts	0x00E8, r24	; 0x8000e8 <detect>
- 8a8:	82 c0       	rjmp	.+260    	; 0x9ae <Omega_slave+0x1ae>
+ 9f8:	20 e0       	ldi	r18, 0x00	; 0
+ 9fa:	30 e0       	ldi	r19, 0x00	; 0
+ 9fc:	90 93 e9 00 	sts	0x00E9, r25	; 0x8000e9 <detect+0x1>
+ a00:	80 93 e8 00 	sts	0x00E8, r24	; 0x8000e8 <detect>
+ a04:	82 c0       	rjmp	.+260    	; 0xb0a <Omega_slave+0x1ae>
 		 
 	  if((5<=low)&& (low<=7)){low=0;}    // интерпритация нуля
 	  if((10<=low)&& (low<=12)){low=1;}   // интерпритация единицы
 	  if((14<=low)&& (low<17)){low=2;tct=0; input_bit=0;adress_t=0;directive=0;}  // команда начала приёма	 
 		 
 	 if(low>1000){tct=0; input_bit=0;adress_t=0;directive=0;low=0;external=0;}
- 8aa:	80 91 a7 00 	lds	r24, 0x00A7	; 0x8000a7 <low>
- 8ae:	90 91 a8 00 	lds	r25, 0x00A8	; 0x8000a8 <low+0x1>
- 8b2:	89 3e       	cpi	r24, 0xE9	; 233
- 8b4:	93 40       	sbci	r25, 0x03	; 3
- 8b6:	bc f0       	brlt	.+46     	; 0x8e6 <Omega_slave+0xe6>
- 8b8:	10 92 6b 00 	sts	0x006B, r1	; 0x80006b <tct+0x1>
- 8bc:	10 92 6a 00 	sts	0x006A, r1	; 0x80006a <tct>
- 8c0:	10 92 70 00 	sts	0x0070, r1	; 0x800070 <input_bit+0x1>
- 8c4:	10 92 6f 00 	sts	0x006F, r1	; 0x80006f <input_bit>
- 8c8:	10 92 86 00 	sts	0x0086, r1	; 0x800086 <adress_t+0x1>
- 8cc:	10 92 85 00 	sts	0x0085, r1	; 0x800085 <adress_t>
- 8d0:	10 92 b8 00 	sts	0x00B8, r1	; 0x8000b8 <directive+0x1>
- 8d4:	10 92 b7 00 	sts	0x00B7, r1	; 0x8000b7 <directive>
- 8d8:	10 92 b2 00 	sts	0x00B2, r1	; 0x8000b2 <external>
+ a06:	80 91 a7 00 	lds	r24, 0x00A7	; 0x8000a7 <low>
+ a0a:	90 91 a8 00 	lds	r25, 0x00A8	; 0x8000a8 <low+0x1>
+ a0e:	89 3e       	cpi	r24, 0xE9	; 233
+ a10:	93 40       	sbci	r25, 0x03	; 3
+ a12:	bc f0       	brlt	.+46     	; 0xa42 <Omega_slave+0xe6>
+ a14:	10 92 69 00 	sts	0x0069, r1	; 0x800069 <tct+0x1>
+ a18:	10 92 68 00 	sts	0x0068, r1	; 0x800068 <tct>
+ a1c:	10 92 6e 00 	sts	0x006E, r1	; 0x80006e <input_bit+0x1>
+ a20:	10 92 6d 00 	sts	0x006D, r1	; 0x80006d <input_bit>
+ a24:	10 92 84 00 	sts	0x0084, r1	; 0x800084 <adress_t+0x1>
+ a28:	10 92 83 00 	sts	0x0083, r1	; 0x800083 <adress_t>
+ a2c:	10 92 b8 00 	sts	0x00B8, r1	; 0x8000b8 <directive+0x1>
+ a30:	10 92 b7 00 	sts	0x00B7, r1	; 0x8000b7 <directive>
+ a34:	10 92 b2 00 	sts	0x00B2, r1	; 0x8000b2 <external>
 	 detect[tct]=low;
- 8dc:	10 92 e9 00 	sts	0x00E9, r1	; 0x8000e9 <detect+0x1>
- 8e0:	10 92 e8 00 	sts	0x00E8, r1	; 0x8000e8 <detect>
- 8e4:	73 c0       	rjmp	.+230    	; 0x9cc <Omega_slave+0x1cc>
- 8e6:	20 91 6a 00 	lds	r18, 0x006A	; 0x80006a <tct>
- 8ea:	30 91 6b 00 	lds	r19, 0x006B	; 0x80006b <tct+0x1>
- 8ee:	f9 01       	movw	r30, r18
- 8f0:	ee 0f       	add	r30, r30
- 8f2:	ff 1f       	adc	r31, r31
- 8f4:	e8 51       	subi	r30, 0x18	; 24
- 8f6:	ff 4f       	sbci	r31, 0xFF	; 255
- 8f8:	80 91 a7 00 	lds	r24, 0x00A7	; 0x8000a7 <low>
- 8fc:	90 91 a8 00 	lds	r25, 0x00A8	; 0x8000a8 <low+0x1>
- 900:	91 83       	std	Z+1, r25	; 0x01
- 902:	80 83       	st	Z, r24
+ a38:	10 92 e9 00 	sts	0x00E9, r1	; 0x8000e9 <detect+0x1>
+ a3c:	10 92 e8 00 	sts	0x00E8, r1	; 0x8000e8 <detect>
+ a40:	73 c0       	rjmp	.+230    	; 0xb28 <Omega_slave+0x1cc>
+ a42:	20 91 68 00 	lds	r18, 0x0068	; 0x800068 <tct>
+ a46:	30 91 69 00 	lds	r19, 0x0069	; 0x800069 <tct+0x1>
+ a4a:	f9 01       	movw	r30, r18
+ a4c:	ee 0f       	add	r30, r30
+ a4e:	ff 1f       	adc	r31, r31
+ a50:	e8 51       	subi	r30, 0x18	; 24
+ a52:	ff 4f       	sbci	r31, 0xFF	; 255
+ a54:	80 91 a7 00 	lds	r24, 0x00A7	; 0x8000a7 <low>
+ a58:	90 91 a8 00 	lds	r25, 0x00A8	; 0x8000a8 <low+0x1>
+ a5c:	91 83       	std	Z+1, r25	; 0x01
+ a5e:	80 83       	st	Z, r24
 	 
 	 if (tct==8)
- 904:	28 30       	cpi	r18, 0x08	; 8
- 906:	31 05       	cpc	r19, r1
- 908:	09 f0       	breq	.+2      	; 0x90c <Omega_slave+0x10c>
- 90a:	51 c0       	rjmp	.+162    	; 0x9ae <Omega_slave+0x1ae>
+ a60:	28 30       	cpi	r18, 0x08	; 8
+ a62:	31 05       	cpc	r19, r1
+ a64:	09 f0       	breq	.+2      	; 0xa68 <Omega_slave+0x10c>
+ a66:	51 c0       	rjmp	.+162    	; 0xb0a <Omega_slave+0x1ae>
 	 {
 		 adress_t|= (detect[2]<<6)|(detect[3]<<5)|(detect[4]<<4)|(detect[5]<<3)|(detect[6]<<2)|(detect[7]<<1)|(detect[8]) ;
- 90c:	e8 ee       	ldi	r30, 0xE8	; 232
- 90e:	f0 e0       	ldi	r31, 0x00	; 0
- 910:	20 89       	ldd	r18, Z+16	; 0x10
- 912:	31 89       	ldd	r19, Z+17	; 0x11
- 914:	80 91 85 00 	lds	r24, 0x0085	; 0x800085 <adress_t>
- 918:	90 91 86 00 	lds	r25, 0x0086	; 0x800086 <adress_t+0x1>
- 91c:	82 2b       	or	r24, r18
- 91e:	93 2b       	or	r25, r19
- 920:	24 81       	ldd	r18, Z+4	; 0x04
- 922:	35 81       	ldd	r19, Z+5	; 0x05
- 924:	00 24       	eor	r0, r0
- 926:	36 95       	lsr	r19
- 928:	27 95       	ror	r18
- 92a:	07 94       	ror	r0
- 92c:	36 95       	lsr	r19
- 92e:	27 95       	ror	r18
- 930:	07 94       	ror	r0
- 932:	32 2f       	mov	r19, r18
- 934:	20 2d       	mov	r18, r0
- 936:	82 2b       	or	r24, r18
- 938:	93 2b       	or	r25, r19
- 93a:	26 81       	ldd	r18, Z+6	; 0x06
- 93c:	37 81       	ldd	r19, Z+7	; 0x07
- 93e:	22 0f       	add	r18, r18
- 940:	33 1f       	adc	r19, r19
- 942:	22 95       	swap	r18
- 944:	32 95       	swap	r19
- 946:	30 7f       	andi	r19, 0xF0	; 240
- 948:	32 27       	eor	r19, r18
- 94a:	20 7f       	andi	r18, 0xF0	; 240
- 94c:	32 27       	eor	r19, r18
- 94e:	82 2b       	or	r24, r18
- 950:	93 2b       	or	r25, r19
- 952:	20 85       	ldd	r18, Z+8	; 0x08
- 954:	31 85       	ldd	r19, Z+9	; 0x09
- 956:	22 95       	swap	r18
- 958:	32 95       	swap	r19
- 95a:	30 7f       	andi	r19, 0xF0	; 240
- 95c:	32 27       	eor	r19, r18
- 95e:	20 7f       	andi	r18, 0xF0	; 240
- 960:	32 27       	eor	r19, r18
- 962:	82 2b       	or	r24, r18
- 964:	93 2b       	or	r25, r19
- 966:	22 85       	ldd	r18, Z+10	; 0x0a
- 968:	33 85       	ldd	r19, Z+11	; 0x0b
- 96a:	22 0f       	add	r18, r18
- 96c:	33 1f       	adc	r19, r19
- 96e:	22 0f       	add	r18, r18
- 970:	33 1f       	adc	r19, r19
- 972:	22 0f       	add	r18, r18
- 974:	33 1f       	adc	r19, r19
- 976:	82 2b       	or	r24, r18
- 978:	93 2b       	or	r25, r19
- 97a:	24 85       	ldd	r18, Z+12	; 0x0c
- 97c:	35 85       	ldd	r19, Z+13	; 0x0d
- 97e:	22 0f       	add	r18, r18
- 980:	33 1f       	adc	r19, r19
- 982:	22 0f       	add	r18, r18
- 984:	33 1f       	adc	r19, r19
- 986:	82 2b       	or	r24, r18
- 988:	93 2b       	or	r25, r19
- 98a:	26 85       	ldd	r18, Z+14	; 0x0e
- 98c:	37 85       	ldd	r19, Z+15	; 0x0f
- 98e:	22 0f       	add	r18, r18
- 990:	33 1f       	adc	r19, r19
- 992:	82 2b       	or	r24, r18
- 994:	93 2b       	or	r25, r19
- 996:	90 93 86 00 	sts	0x0086, r25	; 0x800086 <adress_t+0x1>
- 99a:	80 93 85 00 	sts	0x0085, r24	; 0x800085 <adress_t>
+ a68:	e8 ee       	ldi	r30, 0xE8	; 232
+ a6a:	f0 e0       	ldi	r31, 0x00	; 0
+ a6c:	20 89       	ldd	r18, Z+16	; 0x10
+ a6e:	31 89       	ldd	r19, Z+17	; 0x11
+ a70:	80 91 83 00 	lds	r24, 0x0083	; 0x800083 <adress_t>
+ a74:	90 91 84 00 	lds	r25, 0x0084	; 0x800084 <adress_t+0x1>
+ a78:	82 2b       	or	r24, r18
+ a7a:	93 2b       	or	r25, r19
+ a7c:	24 81       	ldd	r18, Z+4	; 0x04
+ a7e:	35 81       	ldd	r19, Z+5	; 0x05
+ a80:	00 24       	eor	r0, r0
+ a82:	36 95       	lsr	r19
+ a84:	27 95       	ror	r18
+ a86:	07 94       	ror	r0
+ a88:	36 95       	lsr	r19
+ a8a:	27 95       	ror	r18
+ a8c:	07 94       	ror	r0
+ a8e:	32 2f       	mov	r19, r18
+ a90:	20 2d       	mov	r18, r0
+ a92:	82 2b       	or	r24, r18
+ a94:	93 2b       	or	r25, r19
+ a96:	26 81       	ldd	r18, Z+6	; 0x06
+ a98:	37 81       	ldd	r19, Z+7	; 0x07
+ a9a:	22 0f       	add	r18, r18
+ a9c:	33 1f       	adc	r19, r19
+ a9e:	22 95       	swap	r18
+ aa0:	32 95       	swap	r19
+ aa2:	30 7f       	andi	r19, 0xF0	; 240
+ aa4:	32 27       	eor	r19, r18
+ aa6:	20 7f       	andi	r18, 0xF0	; 240
+ aa8:	32 27       	eor	r19, r18
+ aaa:	82 2b       	or	r24, r18
+ aac:	93 2b       	or	r25, r19
+ aae:	20 85       	ldd	r18, Z+8	; 0x08
+ ab0:	31 85       	ldd	r19, Z+9	; 0x09
+ ab2:	22 95       	swap	r18
+ ab4:	32 95       	swap	r19
+ ab6:	30 7f       	andi	r19, 0xF0	; 240
+ ab8:	32 27       	eor	r19, r18
+ aba:	20 7f       	andi	r18, 0xF0	; 240
+ abc:	32 27       	eor	r19, r18
+ abe:	82 2b       	or	r24, r18
+ ac0:	93 2b       	or	r25, r19
+ ac2:	22 85       	ldd	r18, Z+10	; 0x0a
+ ac4:	33 85       	ldd	r19, Z+11	; 0x0b
+ ac6:	22 0f       	add	r18, r18
+ ac8:	33 1f       	adc	r19, r19
+ aca:	22 0f       	add	r18, r18
+ acc:	33 1f       	adc	r19, r19
+ ace:	22 0f       	add	r18, r18
+ ad0:	33 1f       	adc	r19, r19
+ ad2:	82 2b       	or	r24, r18
+ ad4:	93 2b       	or	r25, r19
+ ad6:	24 85       	ldd	r18, Z+12	; 0x0c
+ ad8:	35 85       	ldd	r19, Z+13	; 0x0d
+ ada:	22 0f       	add	r18, r18
+ adc:	33 1f       	adc	r19, r19
+ ade:	22 0f       	add	r18, r18
+ ae0:	33 1f       	adc	r19, r19
+ ae2:	82 2b       	or	r24, r18
+ ae4:	93 2b       	or	r25, r19
+ ae6:	26 85       	ldd	r18, Z+14	; 0x0e
+ ae8:	37 85       	ldd	r19, Z+15	; 0x0f
+ aea:	22 0f       	add	r18, r18
+ aec:	33 1f       	adc	r19, r19
+ aee:	82 2b       	or	r24, r18
+ af0:	93 2b       	or	r25, r19
+ af2:	90 93 84 00 	sts	0x0084, r25	; 0x800084 <adress_t+0x1>
+ af6:	80 93 83 00 	sts	0x0083, r24	; 0x800083 <adress_t>
 		 if(adress_t==0){adres_call=0;}
- 99e:	00 97       	sbiw	r24, 0x00	; 0
- 9a0:	09 f0       	breq	.+2      	; 0x9a4 <Omega_slave+0x1a4>
- 9a2:	9b c0       	rjmp	.+310    	; 0xada <Omega_slave+0x2da>
- 9a4:	10 92 88 00 	sts	0x0088, r1	; 0x800088 <adres_call+0x1>
- 9a8:	10 92 87 00 	sts	0x0087, r1	; 0x800087 <adres_call>
- 9ac:	96 c0       	rjmp	.+300    	; 0xada <Omega_slave+0x2da>
+ afa:	00 97       	sbiw	r24, 0x00	; 0
+ afc:	09 f0       	breq	.+2      	; 0xb00 <Omega_slave+0x1a4>
+ afe:	9b c0       	rjmp	.+310    	; 0xc36 <Omega_slave+0x2da>
+ b00:	10 92 86 00 	sts	0x0086, r1	; 0x800086 <adres_call+0x1>
+ b04:	10 92 85 00 	sts	0x0085, r1	; 0x800085 <adres_call>
+ b08:	96 c0       	rjmp	.+300    	; 0xc36 <Omega_slave+0x2da>
 	 }
 
 	 if((adress_t==adress)&&(tct>=8)) {protocol();}
- 9ae:	40 91 85 00 	lds	r20, 0x0085	; 0x800085 <adress_t>
- 9b2:	50 91 86 00 	lds	r21, 0x0086	; 0x800086 <adress_t+0x1>
- 9b6:	80 91 bb 00 	lds	r24, 0x00BB	; 0x8000bb <adress>
- 9ba:	90 91 bc 00 	lds	r25, 0x00BC	; 0x8000bc <adress+0x1>
- 9be:	48 17       	cp	r20, r24
- 9c0:	59 07       	cpc	r21, r25
- 9c2:	21 f4       	brne	.+8      	; 0x9cc <Omega_slave+0x1cc>
- 9c4:	28 30       	cpi	r18, 0x08	; 8
- 9c6:	31 05       	cpc	r19, r1
- 9c8:	0c f0       	brlt	.+2      	; 0x9cc <Omega_slave+0x1cc>
- 9ca:	00 dc       	rcall	.-2048   	; 0x1cc <protocol>
+ b0a:	40 91 83 00 	lds	r20, 0x0083	; 0x800083 <adress_t>
+ b0e:	50 91 84 00 	lds	r21, 0x0084	; 0x800084 <adress_t+0x1>
+ b12:	80 91 bb 00 	lds	r24, 0x00BB	; 0x8000bb <adress>
+ b16:	90 91 bc 00 	lds	r25, 0x00BC	; 0x8000bc <adress+0x1>
+ b1a:	48 17       	cp	r20, r24
+ b1c:	59 07       	cpc	r21, r25
+ b1e:	21 f4       	brne	.+8      	; 0xb28 <Omega_slave+0x1cc>
+ b20:	28 30       	cpi	r18, 0x08	; 8
+ b22:	31 05       	cpc	r19, r1
+ b24:	0c f0       	brlt	.+2      	; 0xb28 <Omega_slave+0x1cc>
+ b26:	5f db       	rcall	.-2370   	; 0x1e6 <protocol>
 	   
 	 bit_flag=1;
- 9cc:	81 e0       	ldi	r24, 0x01	; 1
- 9ce:	80 93 a6 00 	sts	0x00A6, r24	; 0x8000a6 <bit_flag>
+ b28:	81 e0       	ldi	r24, 0x01	; 1
+ b2a:	80 93 a4 00 	sts	0x00A4, r24	; 0x8000a4 <bit_flag>
 	 hi_flag=0;
- 9d2:	10 92 bf 00 	sts	0x00BF, r1	; 0x8000bf <hi_flag>
+ b2e:	10 92 bf 00 	sts	0x00BF, r1	; 0x8000bf <hi_flag>
 	 low=0;
- 9d6:	10 92 a8 00 	sts	0x00A8, r1	; 0x8000a8 <low+0x1>
- 9da:	10 92 a7 00 	sts	0x00A7, r1	; 0x8000a7 <low>
+ b32:	10 92 a8 00 	sts	0x00A8, r1	; 0x8000a8 <low+0x1>
+ b36:	10 92 a7 00 	sts	0x00A7, r1	; 0x8000a7 <low>
 	 temp_ID=0;
- 9de:	10 92 7c 00 	sts	0x007C, r1	; 0x80007c <temp_ID+0x1>
- 9e2:	10 92 7b 00 	sts	0x007B, r1	; 0x80007b <temp_ID>
+ b3a:	10 92 7a 00 	sts	0x007A, r1	; 0x80007a <temp_ID+0x1>
+ b3e:	10 92 79 00 	sts	0x0079, r1	; 0x800079 <temp_ID>
 	 if((detect[1]==1)&&(detect[2]==0)&&(tct==2))
- 9e6:	80 91 ea 00 	lds	r24, 0x00EA	; 0x8000ea <detect+0x2>
- 9ea:	90 91 eb 00 	lds	r25, 0x00EB	; 0x8000eb <detect+0x3>
- 9ee:	01 97       	sbiw	r24, 0x01	; 1
- 9f0:	11 f5       	brne	.+68     	; 0xa36 <Omega_slave+0x236>
- 9f2:	80 91 ec 00 	lds	r24, 0x00EC	; 0x8000ec <detect+0x4>
- 9f6:	90 91 ed 00 	lds	r25, 0x00ED	; 0x8000ed <detect+0x5>
- 9fa:	89 2b       	or	r24, r25
- 9fc:	e1 f4       	brne	.+56     	; 0xa36 <Omega_slave+0x236>
- 9fe:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- a02:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- a06:	02 97       	sbiw	r24, 0x02	; 2
- a08:	b1 f4       	brne	.+44     	; 0xa36 <Omega_slave+0x236>
+ b42:	80 91 ea 00 	lds	r24, 0x00EA	; 0x8000ea <detect+0x2>
+ b46:	90 91 eb 00 	lds	r25, 0x00EB	; 0x8000eb <detect+0x3>
+ b4a:	01 97       	sbiw	r24, 0x01	; 1
+ b4c:	11 f5       	brne	.+68     	; 0xb92 <Omega_slave+0x236>
+ b4e:	80 91 ec 00 	lds	r24, 0x00EC	; 0x8000ec <detect+0x4>
+ b52:	90 91 ed 00 	lds	r25, 0x00ED	; 0x8000ed <detect+0x5>
+ b56:	89 2b       	or	r24, r25
+ b58:	e1 f4       	brne	.+56     	; 0xb92 <Omega_slave+0x236>
+ b5a:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ b5e:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ b62:	02 97       	sbiw	r24, 0x02	; 2
+ b64:	b1 f4       	brne	.+44     	; 0xb92 <Omega_slave+0x236>
 	  {
 		 adres_call=adres_call+1;
- a0a:	80 91 87 00 	lds	r24, 0x0087	; 0x800087 <adres_call>
- a0e:	90 91 88 00 	lds	r25, 0x0088	; 0x800088 <adres_call+0x1>
- a12:	01 96       	adiw	r24, 0x01	; 1
- a14:	90 93 88 00 	sts	0x0088, r25	; 0x800088 <adres_call+0x1>
- a18:	80 93 87 00 	sts	0x0087, r24	; 0x800087 <adres_call>
+ b66:	80 91 85 00 	lds	r24, 0x0085	; 0x800085 <adres_call>
+ b6a:	90 91 86 00 	lds	r25, 0x0086	; 0x800086 <adres_call+0x1>
+ b6e:	01 96       	adiw	r24, 0x01	; 1
+ b70:	90 93 86 00 	sts	0x0086, r25	; 0x800086 <adres_call+0x1>
+ b74:	80 93 85 00 	sts	0x0085, r24	; 0x800085 <adres_call>
 		 if(adres_call==adress)
- a1c:	20 91 bb 00 	lds	r18, 0x00BB	; 0x8000bb <adress>
- a20:	30 91 bc 00 	lds	r19, 0x00BC	; 0x8000bc <adress+0x1>
- a24:	82 17       	cp	r24, r18
- a26:	93 07       	cpc	r25, r19
- a28:	31 f4       	brne	.+12     	; 0xa36 <Omega_slave+0x236>
+ b78:	20 91 bb 00 	lds	r18, 0x00BB	; 0x8000bb <adress>
+ b7c:	30 91 bc 00 	lds	r19, 0x00BC	; 0x8000bc <adress+0x1>
+ b80:	82 17       	cp	r24, r18
+ b82:	93 07       	cpc	r25, r19
+ b84:	31 f4       	brne	.+12     	; 0xb92 <Omega_slave+0x236>
 		    {
 			 adress_t=adres_call;{PORTB|=(1 <<PB1); PORTB|=(1 <<PB4);} 	          
- a2a:	90 93 86 00 	sts	0x0086, r25	; 0x800086 <adress_t+0x1>
- a2e:	80 93 85 00 	sts	0x0085, r24	; 0x800085 <adress_t>
- a32:	c1 9a       	sbi	0x18, 1	; 24
- a34:	c4 9a       	sbi	0x18, 4	; 24
+ b86:	90 93 84 00 	sts	0x0084, r25	; 0x800084 <adress_t+0x1>
+ b8a:	80 93 83 00 	sts	0x0083, r24	; 0x800083 <adress_t>
+ b8e:	c1 9a       	sbi	0x18, 1	; 24
+ b90:	c4 9a       	sbi	0x18, 4	; 24
 		    }
 	  }
 		 tct=tct+1;
- a36:	80 91 6a 00 	lds	r24, 0x006A	; 0x80006a <tct>
- a3a:	90 91 6b 00 	lds	r25, 0x006B	; 0x80006b <tct+0x1>
- a3e:	01 96       	adiw	r24, 0x01	; 1
- a40:	90 93 6b 00 	sts	0x006B, r25	; 0x80006b <tct+0x1>
- a44:	80 93 6a 00 	sts	0x006A, r24	; 0x80006a <tct>
+ b92:	80 91 68 00 	lds	r24, 0x0068	; 0x800068 <tct>
+ b96:	90 91 69 00 	lds	r25, 0x0069	; 0x800069 <tct+0x1>
+ b9a:	01 96       	adiw	r24, 0x01	; 1
+ b9c:	90 93 69 00 	sts	0x0069, r25	; 0x800069 <tct+0x1>
+ ba0:	80 93 68 00 	sts	0x0068, r24	; 0x800068 <tct>
 	 }
 	 
 	 
 	 if (( stats ==1)&&(bit_flag==1))
- a48:	20 91 ce 00 	lds	r18, 0x00CE	; 0x8000ce <stats>
- a4c:	30 91 cf 00 	lds	r19, 0x00CF	; 0x8000cf <stats+0x1>
- a50:	21 30       	cpi	r18, 0x01	; 1
- a52:	31 05       	cpc	r19, r1
- a54:	09 f4       	brne	.+2      	; 0xa58 <Omega_slave+0x258>
- a56:	4a c0       	rjmp	.+148    	; 0xaec <Omega_slave+0x2ec>
- a58:	10 c0       	rjmp	.+32     	; 0xa7a <Omega_slave+0x27a>
+ ba4:	20 91 ce 00 	lds	r18, 0x00CE	; 0x8000ce <stats>
+ ba8:	30 91 cf 00 	lds	r19, 0x00CF	; 0x8000cf <stats+0x1>
+ bac:	21 30       	cpi	r18, 0x01	; 1
+ bae:	31 05       	cpc	r19, r1
+ bb0:	09 f4       	brne	.+2      	; 0xbb4 <Omega_slave+0x258>
+ bb2:	4a c0       	rjmp	.+148    	; 0xc48 <Omega_slave+0x2ec>
+ bb4:	10 c0       	rjmp	.+32     	; 0xbd6 <Omega_slave+0x27a>
 	 {
 		 active =active+1;	 
- a5a:	80 91 83 00 	lds	r24, 0x0083	; 0x800083 <active>
- a5e:	90 91 84 00 	lds	r25, 0x0084	; 0x800084 <active+0x1>
- a62:	01 96       	adiw	r24, 0x01	; 1
- a64:	90 93 84 00 	sts	0x0084, r25	; 0x800084 <active+0x1>
- a68:	80 93 83 00 	sts	0x0083, r24	; 0x800083 <active>
+ bb6:	80 91 81 00 	lds	r24, 0x0081	; 0x800081 <active>
+ bba:	90 91 82 00 	lds	r25, 0x0082	; 0x800082 <active+0x1>
+ bbe:	01 96       	adiw	r24, 0x01	; 1
+ bc0:	90 93 82 00 	sts	0x0082, r25	; 0x800082 <active+0x1>
+ bc4:	80 93 81 00 	sts	0x0081, r24	; 0x800081 <active>
 		 bit_flag=0;
 		 active=0;
 		 input_bit=0;//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	 }
 	 
 	 if (( stats ==0)&&(hi_flag==1))
- a6c:	80 91 ce 00 	lds	r24, 0x00CE	; 0x8000ce <stats>
- a70:	90 91 cf 00 	lds	r25, 0x00CF	; 0x8000cf <stats+0x1>
- a74:	89 2b       	or	r24, r25
- a76:	f1 f0       	breq	.+60     	; 0xab4 <Omega_slave+0x2b4>
- a78:	2e c0       	rjmp	.+92     	; 0xad6 <Omega_slave+0x2d6>
+ bc8:	80 91 ce 00 	lds	r24, 0x00CE	; 0x8000ce <stats>
+ bcc:	90 91 cf 00 	lds	r25, 0x00CF	; 0x8000cf <stats+0x1>
+ bd0:	89 2b       	or	r24, r25
+ bd2:	f1 f0       	breq	.+60     	; 0xc10 <Omega_slave+0x2b4>
+ bd4:	2e c0       	rjmp	.+92     	; 0xc32 <Omega_slave+0x2d6>
 	 {
 		 active =active+1;	 
 	 }
 	 
 	 
 	 if (( stats ==0)&&(hi_flag==0))
- a7a:	23 2b       	or	r18, r19
- a7c:	61 f5       	brne	.+88     	; 0xad6 <Omega_slave+0x2d6>
- a7e:	80 91 bf 00 	lds	r24, 0x00BF	; 0x8000bf <hi_flag>
- a82:	81 11       	cpse	r24, r1
- a84:	17 c0       	rjmp	.+46     	; 0xab4 <Omega_slave+0x2b4>
+ bd6:	23 2b       	or	r18, r19
+ bd8:	61 f5       	brne	.+88     	; 0xc32 <Omega_slave+0x2d6>
+ bda:	80 91 bf 00 	lds	r24, 0x00BF	; 0x8000bf <hi_flag>
+ bde:	81 11       	cpse	r24, r1
+ be0:	17 c0       	rjmp	.+46     	; 0xc10 <Omega_slave+0x2b4>
 	 {
 		  PORTB &=~ (1 <<PB1);                // digitalWrite(13,LOW);
- a86:	c1 98       	cbi	0x18, 1	; 24
+ be2:	c1 98       	cbi	0x18, 1	; 24
 		  PORTB&=~ (1 <<PB4);
- a88:	c4 98       	cbi	0x18, 4	; 24
+ be4:	c4 98       	cbi	0x18, 4	; 24
 		   PORTB&=~ (1 <<PB5);
- a8a:	c5 98       	cbi	0x18, 5	; 24
+ be6:	c5 98       	cbi	0x18, 5	; 24
 		 hi_flag=1;
- a8c:	81 e0       	ldi	r24, 0x01	; 1
- a8e:	80 93 bf 00 	sts	0x00BF, r24	; 0x8000bf <hi_flag>
+ be8:	81 e0       	ldi	r24, 0x01	; 1
+ bea:	80 93 bf 00 	sts	0x00BF, r24	; 0x8000bf <hi_flag>
 		 bit_flag=0;
- a92:	10 92 a6 00 	sts	0x00A6, r1	; 0x8000a6 <bit_flag>
+ bee:	10 92 a4 00 	sts	0x00A4, r1	; 0x8000a4 <bit_flag>
 		 active=0;
- a96:	10 92 84 00 	sts	0x0084, r1	; 0x800084 <active+0x1>
- a9a:	10 92 83 00 	sts	0x0083, r1	; 0x800083 <active>
+ bf2:	10 92 82 00 	sts	0x0082, r1	; 0x800082 <active+0x1>
+ bf6:	10 92 81 00 	sts	0x0081, r1	; 0x800081 <active>
 		 input_bit=0;//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
- a9e:	10 92 70 00 	sts	0x0070, r1	; 0x800070 <input_bit+0x1>
- aa2:	10 92 6f 00 	sts	0x006F, r1	; 0x80006f <input_bit>
+ bfa:	10 92 6e 00 	sts	0x006E, r1	; 0x80006e <input_bit+0x1>
+ bfe:	10 92 6d 00 	sts	0x006D, r1	; 0x80006d <input_bit>
 	 }
 	 
 	 if (( stats ==0)&&(hi_flag==1))
- aa6:	80 91 ce 00 	lds	r24, 0x00CE	; 0x8000ce <stats>
- aaa:	90 91 cf 00 	lds	r25, 0x00CF	; 0x8000cf <stats+0x1>
- aae:	89 2b       	or	r24, r25
- ab0:	29 f0       	breq	.+10     	; 0xabc <Omega_slave+0x2bc>
- ab2:	11 c0       	rjmp	.+34     	; 0xad6 <Omega_slave+0x2d6>
- ab4:	80 91 bf 00 	lds	r24, 0x00BF	; 0x8000bf <hi_flag>
- ab8:	81 30       	cpi	r24, 0x01	; 1
- aba:	69 f4       	brne	.+26     	; 0xad6 <Omega_slave+0x2d6>
+ c02:	80 91 ce 00 	lds	r24, 0x00CE	; 0x8000ce <stats>
+ c06:	90 91 cf 00 	lds	r25, 0x00CF	; 0x8000cf <stats+0x1>
+ c0a:	89 2b       	or	r24, r25
+ c0c:	29 f0       	breq	.+10     	; 0xc18 <Omega_slave+0x2bc>
+ c0e:	11 c0       	rjmp	.+34     	; 0xc32 <Omega_slave+0x2d6>
+ c10:	80 91 bf 00 	lds	r24, 0x00BF	; 0x8000bf <hi_flag>
+ c14:	81 30       	cpi	r24, 0x01	; 1
+ c16:	69 f4       	brne	.+26     	; 0xc32 <Omega_slave+0x2d6>
 	 {	 
 		 active=0;
- abc:	10 92 84 00 	sts	0x0084, r1	; 0x800084 <active+0x1>
- ac0:	10 92 83 00 	sts	0x0083, r1	; 0x800083 <active>
+ c18:	10 92 82 00 	sts	0x0082, r1	; 0x800082 <active+0x1>
+ c1c:	10 92 81 00 	sts	0x0081, r1	; 0x800081 <active>
 		 low=low+1;
- ac4:	80 91 a7 00 	lds	r24, 0x00A7	; 0x8000a7 <low>
- ac8:	90 91 a8 00 	lds	r25, 0x00A8	; 0x8000a8 <low+0x1>
- acc:	01 96       	adiw	r24, 0x01	; 1
- ace:	90 93 a8 00 	sts	0x00A8, r25	; 0x8000a8 <low+0x1>
- ad2:	80 93 a7 00 	sts	0x00A7, r24	; 0x8000a7 <low>
+ c20:	80 91 a7 00 	lds	r24, 0x00A7	; 0x8000a7 <low>
+ c24:	90 91 a8 00 	lds	r25, 0x00A8	; 0x8000a8 <low+0x1>
+ c28:	01 96       	adiw	r24, 0x01	; 1
+ c2a:	90 93 a8 00 	sts	0x00A8, r25	; 0x8000a8 <low+0x1>
+ c2e:	80 93 a7 00 	sts	0x00A7, r24	; 0x8000a7 <low>
 	 }
 
 	PORTD &=~(1 <<PD0);  // Вспомогательная строб-индикация состояния 
- ad6:	90 98       	cbi	0x12, 0	; 18
+ c32:	90 98       	cbi	0x12, 0	; 18
 	 
 	 }
- ad8:	08 95       	ret
+ c34:	08 95       	ret
 	 {
 		 adress_t|= (detect[2]<<6)|(detect[3]<<5)|(detect[4]<<4)|(detect[5]<<3)|(detect[6]<<2)|(detect[7]<<1)|(detect[8]) ;
 		 if(adress_t==0){adres_call=0;}
 	 }
 
 	 if((adress_t==adress)&&(tct>=8)) {protocol();}
- ada:	20 91 bb 00 	lds	r18, 0x00BB	; 0x8000bb <adress>
- ade:	30 91 bc 00 	lds	r19, 0x00BC	; 0x8000bc <adress+0x1>
- ae2:	82 17       	cp	r24, r18
- ae4:	93 07       	cpc	r25, r19
- ae6:	09 f0       	breq	.+2      	; 0xaea <Omega_slave+0x2ea>
- ae8:	71 cf       	rjmp	.-286    	; 0x9cc <Omega_slave+0x1cc>
- aea:	6f cf       	rjmp	.-290    	; 0x9ca <Omega_slave+0x1ca>
+ c36:	20 91 bb 00 	lds	r18, 0x00BB	; 0x8000bb <adress>
+ c3a:	30 91 bc 00 	lds	r19, 0x00BC	; 0x8000bc <adress+0x1>
+ c3e:	82 17       	cp	r24, r18
+ c40:	93 07       	cpc	r25, r19
+ c42:	09 f0       	breq	.+2      	; 0xc46 <Omega_slave+0x2ea>
+ c44:	71 cf       	rjmp	.-286    	; 0xb28 <Omega_slave+0x1cc>
+ c46:	6f cf       	rjmp	.-290    	; 0xb26 <Omega_slave+0x1ca>
 	  }
 		 tct=tct+1;
 	 }
 	 
 	 
 	 if (( stats ==1)&&(bit_flag==1))
- aec:	80 91 a6 00 	lds	r24, 0x00A6	; 0x8000a6 <bit_flag>
- af0:	81 30       	cpi	r24, 0x01	; 1
- af2:	09 f4       	brne	.+2      	; 0xaf6 <Omega_slave+0x2f6>
- af4:	b2 cf       	rjmp	.-156    	; 0xa5a <Omega_slave+0x25a>
- af6:	ef cf       	rjmp	.-34     	; 0xad6 <Omega_slave+0x2d6>
+ c48:	80 91 a4 00 	lds	r24, 0x00A4	; 0x8000a4 <bit_flag>
+ c4c:	81 30       	cpi	r24, 0x01	; 1
+ c4e:	09 f4       	brne	.+2      	; 0xc52 <Omega_slave+0x2f6>
+ c50:	b2 cf       	rjmp	.-156    	; 0xbb6 <Omega_slave+0x25a>
+ c52:	ef cf       	rjmp	.-34     	; 0xc32 <Omega_slave+0x2d6>
 
-00000af8 <_exit>:
- af8:	f8 94       	cli
+00000c54 <_exit>:
+ c54:	f8 94       	cli
 
-00000afa <__stop_program>:
- afa:	ff cf       	rjmp	.-2      	; 0xafa <__stop_program>
+00000c56 <__stop_program>:
+ c56:	ff cf       	rjmp	.-2      	; 0xc56 <__stop_program>
