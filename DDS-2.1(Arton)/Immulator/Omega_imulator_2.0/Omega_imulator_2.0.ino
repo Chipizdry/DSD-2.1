@@ -89,6 +89,30 @@ ISR(TIMER0_COMPA_vect){
 
 
 
+             if((tct>=23)&&(tct<32))  //Уровень тревоги 
+             {   
+        
+              temp_ID|=((1)>>(30-tct))&(0b1);
+              if(temp_ID==1){digitalWrite(13, HIGH);}
+              if(temp_ID==0){digitalWrite(13,LOW);}
+             }  
+
+
+
+
+
+
+             if((tct>=32)&&(tct<41))  //Уровень тревоги -ЗАГРЯЗНЕНИЕ КАМЕРЫ
+             {   
+        
+              temp_ID|=((25)>>(39-tct))&(0b1);
+              if(temp_ID==1){digitalWrite(13, HIGH);}
+              if(temp_ID==0){digitalWrite(13,LOW);}
+             }  
+
+
+
+
          if((tct>=41)&&(tct<50))  //Уровень дыма
              {   
         
@@ -108,12 +132,12 @@ ISR(TIMER0_COMPA_vect){
           if((tct>=59)&&(tct<68))  //Смещение
              {   
         
-              temp_ID|=((63)>>(66-tct))&(0b1);
+              temp_ID|=((33)>>(66-tct))&(0b1);
               if(temp_ID==1){digitalWrite(13, HIGH);}
               if(temp_ID==0){digitalWrite(13,LOW);}
              }  
 
-          
+          /*
           if((tct>=68)&&(tct<77))  //Смещение
              {   
         
@@ -205,7 +229,7 @@ ISR(TIMER0_COMPA_vect){
   
   if (( stats ==0)&&(hi_flag==1))
   {
-     if((retn>17)&(retn<21))       // if((retn<300)&&(retn>16))
+     if((retn>11)&(retn<21))       // if((retn<300)&&(retn>16))
      {
      result[tct]=1;
      }
