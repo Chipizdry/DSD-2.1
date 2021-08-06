@@ -84,9 +84,64 @@ ISR(TIMER0_COMPA_vect){
     if((adress_t==adress)&&(tct==58)){digitalWrite(13, HIGH);}
     if((adress_t==adress)&&(tct==67)){digitalWrite(13, HIGH);}
     if((adress_t==adress)&&(tct==76)){digitalWrite(13, HIGH);}
+    if((adress_t==adress)&&(tct==85)){digitalWrite(13, HIGH);}
+    if((adress_t==adress)&&(tct==94)){digitalWrite(13, HIGH);}
 
 
 
+         if((tct>=41)&&(tct<50))  //Уровень дыма
+             {   
+        
+              temp_ID|=((37)>>(48-tct))&(0b1);
+              if(temp_ID==1){digitalWrite(13, HIGH);}
+              if(temp_ID==0){digitalWrite(13,LOW);}
+             }  
+             
+         if((tct>=50)&&(tct<59))  //Уровень нуля
+             {   
+        
+              temp_ID|=((123)>>(57-tct))&(0b1);
+              if(temp_ID==1){digitalWrite(13, HIGH);}
+              if(temp_ID==0){digitalWrite(13,LOW);}
+             }  
+
+          if((tct>=59)&&(tct<68))  //Смещение
+             {   
+        
+              temp_ID|=((63)>>(66-tct))&(0b1);
+              if(temp_ID==1){digitalWrite(13, HIGH);}
+              if(temp_ID==0){digitalWrite(13,LOW);}
+             }  
+
+          
+          if((tct>=68)&&(tct<77))  //Смещение
+             {   
+        
+              temp_ID|=((24)>>(75-tct))&(0b1);
+              if(temp_ID==1){digitalWrite(13, HIGH);}
+              if(temp_ID==0){digitalWrite(13,LOW);}
+             }  
+           
+
+         
+         /* 
+           if((tct>=77)&&(tct<86))  //Ток светодиода
+          {
+          
+        // int current=0;
+            temp_ID|=((10)>>(84-tct))&(0b1);
+            if(temp_ID==1){digitalWrite(13, HIGH);}
+            if(temp_ID==0){digitalWrite(13,LOW);}
+          }
+       */
+         
+          if((tct>=86)&&(tct<95))  //Напряжение питания
+             {   
+         int   volts=127;
+              temp_ID|=((volts)>>(93-tct))&(0b1);
+              if(temp_ID==1){digitalWrite(13, HIGH);}
+              if(temp_ID==0){digitalWrite(13,LOW);}
+             }  
 
 
 

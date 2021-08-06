@@ -47,7 +47,7 @@ int main(void)
 	ADMUX &= (0 << REFS1);
 	ADMUX|=(1 << REFS0); //выставляем внешнее  опорное напряжение
 	ADMUX |= ~(1 <<ADLAR);//Правостороннее выравнивание
-	ADCSRA |=(0<<ADPS0)|(1<<ADPS1)|(1<<ADPS2)|(0<<ADFR); //частота предделителя
+	ADCSRA |=(0<<ADPS0)|(0<<ADPS1)|(0<<ADPS2)|(0<<ADFR); //частота предделителя
    // ACSR |= (1 << ACD);//отключаем аналоговый компаратор
     // Настройка портов ввода/вывода
     DDRC = 0b00000000;
@@ -95,24 +95,16 @@ int main(void)
     while (1) 
 	
   {
-	  if(timing>=10000){
-	   cli(); 
-	 smoke=read_adc(0);
-	PORTB|=(1<<PB3);
-	//_delay_us(20);
-	fire=read_adc(0); //Чтение состояния входа ПОЖАР
-	sei();
-	current=read_adc(6); //Ток светодиода
-	PORTB&=~(1<<PB3);
-	timing=0;
+	//PORTB|=(PB3>>1);
+   
+   
+   //PORTB&=~(PB3>>1);
 }
 	
-	volts =read_adc(7); // Чтение напряжения питания 
-	//current=read_adc(6); //Ток светодиода
-	//PORTB&=~(1<<PB3);
-	_delay_ms(200);
+	
+	
   }
   
   
   
- }
+ 

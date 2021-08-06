@@ -28,7 +28,7 @@ int temp_ID;
 
 int frame;
 int answer;
-
+int trigg;
 
 int detect[145];
 

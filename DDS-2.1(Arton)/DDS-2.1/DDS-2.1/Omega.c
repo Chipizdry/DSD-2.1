@@ -9,7 +9,7 @@
  void Omega_slave() {
  
  
-  PORTD|= (1 <<PD0); // Вспомогательная строб-индикация состояния 
+  PORTD|= (1 <<PD0);// PORTB|=(1<<PB3); // Вспомогательная строб-индикация состояния 
  stats= (PINB & 0b0000001); //Чтение состояния входа
  stats1=(PINB & 0b0000100);
  if ((stats==1)&&(bit_flag==0))
@@ -22,10 +22,12 @@
 		 
 	  if((5<=low)&& (low<=7)){low=0;}    // интерпритация нуля
 	  if((10<=low)&& (low<=12)){low=1;}   // интерпритация единицы
-	  if((14<=low)&& (low<17)){low=2;tct=0; input_bit=0;adress_t=0;directive=0;}  // команда начала приёма	 
+	  if((14<=low)&& (low<17)){low=2;tct=0;trigg=0; input_bit=0;adress_t=0;directive=0;}  // команда начала приёма	 
 		 
 	 if(low>1000){tct=0; input_bit=0;adress_t=0;directive=0;low=0;external=0;}
 	 detect[tct]=low;
+	 
+	// if((tct==0)&&(trigg==0)) {volts =read_adc(7);current=read_adc(6);trigg=1;} // Чтение напряжения питания }
 	 
 	 if (tct==8)
 	 {
@@ -75,7 +77,7 @@
 	 }
 
 	PORTD &=~(1 <<PD0);  // Вспомогательная строб-индикация состояния 
-	 
+	 // PORTB&=~(1<<PB3);
 	 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	 
 	 void protocol(void)
@@ -143,7 +145,7 @@
 		   if(tct==67){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  // Импульс синхронизации
 		   if(tct==76){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  // Импульс синхронизации
 		   if(tct==85){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  // Импульс синхронизации
-		   if(tct==95){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                  // Импульс синхронизации
+		   if(tct==95){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);trigg=0;}                  // Импульс синхронизации
 		
 	   	   if((tct>=14)&&(tct<22))   //индентификатор устройства
 			    {
@@ -223,7 +225,7 @@
 				}
 		   if((tct>=69)&&(tct<76))  //Температура 
 			    {
-				temp_ID|=((25)>>(75-tct))&(0b1);
+				temp_ID|=((26)>>(75-tct))&(0b1);
 				if(temp_ID==1){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}                
 				if(temp_ID==0){  PORTB &=~ (1 <<PB1);}               
 			    } 
@@ -231,19 +233,22 @@
 				
 		  if((tct>=78)&&(tct<86))  //Ток светодиода
 			    {
-				    temp_ID|=((current*3)>>(84-tct))&(0b1);
-				    if(temp_ID==1){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}
+					
+					current=26;
+				    temp_ID|=((current)>>(84-tct))&(0b1);
+				    if(temp_ID==1){  PORTB |= (1 <<PB1);}
 				    if(temp_ID==0){  PORTB &=~ (1 <<PB1);}
 			    }
 			
 			
-		  if((tct>=86)&&(tct<95))  //Напряжение питания
-		       {
-			        temp_ID|=((volts)>>(93-tct))&(0b1);
-			        if(temp_ID==1){  PORTB |= (1 <<PB1); PORTC|= (1 <<PC5);}
-			        if(temp_ID==0){  PORTB &=~ (1 <<PB1);}
-		       }	
-				
+		         if((tct>=86)&&(tct<95))  //Напряжение питания
+		         {   
+				    volts=27;
+			        temp_ID|=((volts)>>(94-tct))&(0b1);
+			        if(temp_ID==1){PORTB |= (1 <<PB1);}
+			        if(temp_ID==0){PORTB &=~ (1 <<PB1);}
+		         }	
+				 
 		   break;
 		   
 		   case 14 :
