@@ -30,13 +30,122 @@ int adress=8;
 int directive=0;
 int device_ID=25;// 157-блок коммутации ,89-СПРА ,108-БСА,25-СПДОТА
 int temp_ID;
-int result[145];
-int out[145];
-int detect[145]={0,0,0,0,0};
-int detect_2[145]={0,0,0,0,0};
-int bffr[145];
-int bffr_2[145];
+int result[180];
+int out[180];
+int detect[180]={0,0,0,0,0};
+int detect_2[180]={0,0,0,0,0};
+int bffr[180];
+int bffr_2[180];
 int cnt_buff=0;
+void protocol();
+
+void protocol(void){
+  
+       
+    
+    if((adress_t==adress)&&(tct==13)){digitalWrite(13, HIGH);}
+    if((adress_t==adress)&&(tct==22)){digitalWrite(13, HIGH);}
+    if((adress_t==adress)&&(tct==31)){digitalWrite(13, HIGH);}
+    if((adress_t==adress)&&(tct==40)){digitalWrite(13, HIGH);}
+    if((adress_t==adress)&&(tct==49)){digitalWrite(13, HIGH);}
+    if((adress_t==adress)&&(tct==58)){digitalWrite(13, HIGH);}
+    if((adress_t==adress)&&(tct==67)){digitalWrite(13, HIGH);}
+    if((adress_t==adress)&&(tct==76)){digitalWrite(13, HIGH);}
+    if((adress_t==adress)&&(tct==85)){digitalWrite(13, HIGH);}
+    if((adress_t==adress)&&(tct==94)){digitalWrite(13, HIGH);}
+    if((adress_t==adress)&&(tct==103)){digitalWrite(13, HIGH);}
+ 
+
+             if((adress_t==adress)&&(directive==3)&&(tct>=14)&&(tct<22))//   ID  устройства 
+             {         
+              temp_ID|=(device_ID>>(21-tct))&(0b1);
+              if(temp_ID==1){digitalWrite(13, HIGH);} 
+              if(temp_ID==0){digitalWrite(13,LOW);} 
+             }
+
+             if((tct>=23)&&(tct<=30))  //Уровень тревоги 
+             {   
+        
+              temp_ID|=((38)>>(30-tct))&(0b1);
+              if(temp_ID==1){digitalWrite(13, HIGH);}
+              if(temp_ID==0){digitalWrite(13,LOW);}
+             }  
+
+
+
+
+
+
+             if((tct>=32)&&(tct<=39))  //ЗАГРЯЗНЕНИЕ КАМЕРЫ
+             {   
+        
+              temp_ID|=((1)>>(39-tct))&(0b1);
+              if(temp_ID==1){digitalWrite(13, HIGH);}
+              if(temp_ID==0){digitalWrite(13,LOW);}
+             }  
+
+
+
+
+             if((tct>=41)&&(tct<=48))  //Уровень дыма
+             {   
+        
+              temp_ID|=((38)>>(48-tct))&(0b1);
+              if(temp_ID==1){digitalWrite(13, HIGH);}
+              if(temp_ID==0){digitalWrite(13,LOW);}
+             }  
+             
+         if((tct>=50)&&(tct<=57))  //Уровень нуля
+             {   
+        
+              temp_ID|=((218)>>(57-tct))&(0b1);
+              if(temp_ID==1){digitalWrite(13, HIGH);}
+              if(temp_ID==0){digitalWrite(13,LOW);}
+             }  
+
+          if((tct>=59)&&(tct<=66))  //Смещение
+             {   
+        
+              temp_ID|=((46)>>(66-tct))&(0b1);
+              if(temp_ID==1){digitalWrite(13, HIGH);}
+              if(temp_ID==0){digitalWrite(13,LOW);}
+             }  
+
+          
+          if((tct>=68)&&(tct<=75))  //Температура
+             {   
+        
+              temp_ID|=((24)>>(75-tct))&(0b1);
+              if(temp_ID==1){digitalWrite(13, HIGH);}
+              if(temp_ID==0){digitalWrite(13,LOW);}
+             }  
+           
+
+         
+          
+           if((tct>=77)&&(tct<=84))  //Ток светодиода
+          {
+          
+        // int current=0;
+            temp_ID|=((118)>>(84-tct))&(0b1);
+            if(temp_ID==1){digitalWrite(13, HIGH);}
+            if(temp_ID==0){digitalWrite(13,LOW);}
+          }
+       
+         
+          if((tct>=86)&&(tct<=93))  //Напряжение питания
+             {   
+         int   volts=255;
+              temp_ID|=((volts)>>(93-tct))&(0b1);
+              if(temp_ID==1){digitalWrite(13, HIGH);}
+              if(temp_ID==0){digitalWrite(13,LOW);}
+             }  
+
+  
+  
+  
+  
+  }
 
 ISR(TIMER0_COMPA_vect){
  digitalWrite(4,HIGH);
@@ -75,6 +184,9 @@ ISR(TIMER0_COMPA_vect){
     if((adress_t==adress)&&(tct==9)){digitalWrite(12, HIGH);}
 
          // if((adress_t==adress)&&(tct==14)){digitalWrite(13, HIGH);}//СОСТОЯНИЕ ТРЕВОГИ 
+    if((adress_t==adress)&&(tct>=9)){protocol();}
+
+      /*
     
     if((adress_t==adress)&&(tct==13)){digitalWrite(13, HIGH);}
     if((adress_t==adress)&&(tct==22)){digitalWrite(13, HIGH);}
@@ -105,7 +217,7 @@ ISR(TIMER0_COMPA_vect){
              if((tct>=32)&&(tct<41))  //Уровень тревоги -ЗАГРЯЗНЕНИЕ КАМЕРЫ
              {   
         
-              temp_ID|=((25)>>(39-tct))&(0b1);
+              temp_ID|=((15)>>(39-tct))&(0b1);
               if(temp_ID==1){digitalWrite(13, HIGH);}
               if(temp_ID==0){digitalWrite(13,LOW);}
              }  
@@ -113,32 +225,32 @@ ISR(TIMER0_COMPA_vect){
 
 
 
-         if((tct>=41)&&(tct<50))  //Уровень дыма
+         if((tct>=41)&&(tct<=48))  //Уровень дыма
              {   
         
-              temp_ID|=((37)>>(48-tct))&(0b1);
+              temp_ID|=((38)>>(48-tct))&(0b1);
               if(temp_ID==1){digitalWrite(13, HIGH);}
               if(temp_ID==0){digitalWrite(13,LOW);}
              }  
              
-         if((tct>=50)&&(tct<59))  //Уровень нуля
+         if((tct>=50)&&(tct<=57))  //Уровень нуля
              {   
         
-              temp_ID|=((123)>>(57-tct))&(0b1);
+              temp_ID|=((218)>>(57-tct))&(0b1);
               if(temp_ID==1){digitalWrite(13, HIGH);}
               if(temp_ID==0){digitalWrite(13,LOW);}
              }  
 
-          if((tct>=59)&&(tct<68))  //Смещение
+          if((tct>=59)&&(tct<=66))  //Смещение
              {   
         
-              temp_ID|=((33)>>(66-tct))&(0b1);
+              temp_ID|=((46)>>(66-tct))&(0b1);
               if(temp_ID==1){digitalWrite(13, HIGH);}
               if(temp_ID==0){digitalWrite(13,LOW);}
              }  
 
-          /*
-          if((tct>=68)&&(tct<77))  //Смещение
+          
+          if((tct>=68)&&(tct<=75))  //Температура
              {   
         
               temp_ID|=((24)>>(75-tct))&(0b1);
@@ -148,26 +260,26 @@ ISR(TIMER0_COMPA_vect){
            
 
          
-         /* 
-           if((tct>=77)&&(tct<86))  //Ток светодиода
+          
+           if((tct>=77)&&(tct<=84))  //Ток светодиода
           {
           
         // int current=0;
-            temp_ID|=((10)>>(84-tct))&(0b1);
+            temp_ID|=((118)>>(84-tct))&(0b1);
             if(temp_ID==1){digitalWrite(13, HIGH);}
             if(temp_ID==0){digitalWrite(13,LOW);}
           }
-       */
+       
          
-          if((tct>=86)&&(tct<95))  //Напряжение питания
+          if((tct>=86)&&(tct<=93))  //Напряжение питания
              {   
-         int   volts=127;
+         int   volts=255;
               temp_ID|=((volts)>>(93-tct))&(0b1);
               if(temp_ID==1){digitalWrite(13, HIGH);}
               if(temp_ID==0){digitalWrite(13,LOW);}
              }  
 
-
+    */
 
 
 
@@ -296,7 +408,7 @@ int main(void)
     if(out[g]==1)
     { Serial.print( bffr[g]);
   
-     if((g==14)||(g==23)||(g==32)||(g==41)||(g==50)||(g==59)||(g==68)||(g==77)||(g==86)||(g==95)||(g==104)||(g==113)||(g==122)||(g==131)||(g==140))
+     if((g==14)||(g==23)||(g==32)||(g==41)||(g==50)||(g==59)||(g==68)||(g==77)||(g==86)||(g==95)||(g==104)||(g==113)||(g==122)||(g==131)||(g==140)||(g==149))
       {
         Serial.println(";strobe");
       }
