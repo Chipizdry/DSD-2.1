@@ -33,15 +33,132 @@ int temp_ID;
 int result[180];
 int out[180];
 int detect[180]={0,0,0,0,0};
-int detect_2[180]={0,0,0,0,0};
+//int detect_2[180]={0,0,0,0,0};
 int bffr[180];
-int bffr_2[180];
+//int bffr_2[180];
 int cnt_buff=0;
 void protocol();
 
 void protocol(void){
-  
+
+
+   if (tct==13)
+     {
+       directive|=(detect[10]<<3)|(detect[11]<<2)|(detect[12]<<1)|(detect[13]) ; //Определение типа запроса 
+     }
+   switch(directive)
+      {
+    case(0<=3):
+
+    if((adress_t==adress)&&(tct==13)){digitalWrite(13, HIGH);}
+    if((adress_t==adress)&&(tct==22)){digitalWrite(13, HIGH);}
+    if((adress_t==adress)&&(tct==31)){digitalWrite(13, HIGH);}
+    if((adress_t==adress)&&(tct==40)){digitalWrite(13, HIGH);}
+    if((adress_t==adress)&&(tct==49)){digitalWrite(13, HIGH);}
+    if((adress_t==adress)&&(tct==58)){digitalWrite(13, HIGH);}
+    if((adress_t==adress)&&(tct==67)){digitalWrite(13, HIGH);}
+    if((adress_t==adress)&&(tct==76)){digitalWrite(13, HIGH);}
+    if((adress_t==adress)&&(tct==85)){digitalWrite(13, HIGH);}
+    if((adress_t==adress)&&(tct==94)){digitalWrite(13, HIGH);}
+    if((adress_t==adress)&&(tct==103)){digitalWrite(13, HIGH);}
+    if((adress_t==adress)&&(tct==112)){digitalWrite(13, HIGH);}
+
+             if((adress_t==adress)&&(directive==3)&&(tct>=14)&&(tct<22))//   ID  устройства 
+             {         
+              temp_ID|=(device_ID>>(21-tct))&(0b1);
+              if(temp_ID==1){digitalWrite(13, HIGH);} 
+              if(temp_ID==0){digitalWrite(13,LOW);} 
+             }
+
+             if((tct>=23)&&(tct<=30))  //Уровень тревоги 
+             {   
+        
+              temp_ID|=((38)>>(30-tct))&(0b1);
+              if(temp_ID==1){digitalWrite(13, HIGH);}
+              if(temp_ID==0){digitalWrite(13,LOW);}
+             }  
+             
+             if((tct>=32)&&(tct<=39))  //ЗАГРЯЗНЕНИЕ КАМЕРЫ
+             {   
+        
+              temp_ID|=((1)>>(39-tct))&(0b1);
+              if(temp_ID==1){digitalWrite(13, HIGH);}
+              if(temp_ID==0){digitalWrite(13,LOW);}
+             }  
+
+             if((tct>=41)&&(tct<=48))  //Уровень дыма
+             {   
+        
+              temp_ID|=((38)>>(48-tct))&(0b1);
+              if(temp_ID==1){digitalWrite(13, HIGH);}
+              if(temp_ID==0){digitalWrite(13,LOW);}
+             }  
+             
+         if((tct>=50)&&(tct<=57))  //Уровень нуля
+             {   
+        
+              temp_ID|=((218)>>(57-tct))&(0b1);
+              if(temp_ID==1){digitalWrite(13, HIGH);}
+              if(temp_ID==0){digitalWrite(13,LOW);}
+             }  
+
+          if((tct>=59)&&(tct<=66))  //Смещение
+             {   
+        
+              temp_ID|=((46)>>(66-tct))&(0b1);
+              if(temp_ID==1){digitalWrite(13, HIGH);}
+              if(temp_ID==0){digitalWrite(13,LOW);}
+             }  
+
+          
+          if((tct>=68)&&(tct<=75))  //Температура
+             {   
+        
+              temp_ID|=((24)>>(75-tct))&(0b1);
+              if(temp_ID==1){digitalWrite(13, HIGH);}
+              if(temp_ID==0){digitalWrite(13,LOW);}
+             }  
+           
+
+         
+          
+           if((tct>=77)&&(tct<=84))  //Ток светодиода
+          {
+          
+        // int current=0;
+            temp_ID|=((118)>>(84-tct))&(0b1);
+            if(temp_ID==1){digitalWrite(13, HIGH);}
+            if(temp_ID==0){digitalWrite(13,LOW);}
+          }
        
+         
+          if((tct>=86)&&(tct<=93))  //Напряжение питания
+             {   
+         int   volts=255;
+              temp_ID|=((volts)>>(93-tct))&(0b1);
+              if(temp_ID==1){digitalWrite(13, HIGH);}
+              if(temp_ID==0){digitalWrite(13,LOW);}
+             }  
+             
+
+    break;
+
+
+       case(7):
+       
+
+
+
+
+
+
+
+
+
+
+    break;
+         
+      }
     
     if((adress_t==adress)&&(tct==13)){digitalWrite(13, HIGH);}
     if((adress_t==adress)&&(tct==22)){digitalWrite(13, HIGH);}
@@ -302,20 +419,28 @@ int main(void)
     
     Serial.print(g);
     Serial.print(":");
+   // if(g==14){Serial.print("Cmd:");Serial.println(directive);};
     if(out[g]==0)
-    { Serial.println( bffr[g]);}
+    {
+    if(g!=14)Serial.println( bffr[g]);
+    if(g==14){Serial.print( bffr[g]);Serial.print(";Cmd:");Serial.println(directive);}}
     if(out[g]==1)
     { Serial.print( bffr[g]);
   
      if((g==14)||(g==23)||(g==32)||(g==41)||(g==50)||(g==59)||(g==68)||(g==77)||(g==86)||(g==95)||(g==104)||(g==113)||(g==122)||(g==131)||(g==140)||(g==149))
       {
-        Serial.println(";strobe");
+       // Serial.println(";strobe");
+       if(g!=14)Serial.println(";strobe");
+       if(g==14){Serial.print(";strobe;Cmd:");Serial.println(directive);};
       }
+
+     
+      
       else{ 
       Serial.print(";ans:");Serial.println( out[g]) ; }
       }
     
-     if(g==(frame-1)){rd=rd+1;Serial.print("Adr:");Serial.println(adress_t);Serial.print("Cmd:");Serial.println(directive);Serial.print("Search:");Serial.println(adres_call);Serial.print("Cnt:");Serial.println(cnt_buff); Serial.print("Rst:");Serial.println(rd);}
+     if(g==(frame-1)){rd=rd+1;Serial.print("Adr:");Serial.println(adress_t);Serial.print("Search:");Serial.println(adres_call);Serial.print("Cnt:");Serial.println(cnt_buff); Serial.print("Rst:");Serial.println(rd);}
    } 
    
    frame=0;
