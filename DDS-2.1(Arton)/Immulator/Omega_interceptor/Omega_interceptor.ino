@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include <EEPROM.h>
 
 #define OMEGA_PORT        PORTC
 #define OMEGA_DDR         DDRC
@@ -27,6 +28,8 @@ int answer=0;
 int retn=0;
 int adress_t;
 int adress=3;
+int new_adress;
+int new_adress_test;
 int directive=0;
 int device_ID=26;// 157-блок коммутации ,89-СПРА ,108-БСА,25-СПДОТА
 int temp_ID;
@@ -287,12 +290,38 @@ void protocol(void){
               if(temp_ID==1){digitalWrite(13, HIGH);} 
               if(temp_ID==0){digitalWrite(13,LOW);} 
              }
+         break;
+              
+         case(8):    //Сброс компенсатора 
+         strobe_command();
 
+           if (tct==39)
+         {
+         new_adress_test|=((detect[32]<<6)|(detect[33]<<5)|(detect[34]<<4)|(detect[35]<<3)|(detect[36]<<2)|(detect[37]<<1)|(detect[38])) ; //Определение типа запроса 
+         
+         }
+
+           if (tct==46)
+         {
+         new_adress|=((detect[39]<<6)|(detect[40]<<5)|(detect[41]<<4)|(detect[42]<<3)|(detect[43]<<2)|(detect[44]<<1)|(detect[45])) ; //Определение типа запроса 
+          if(new_adress_test==new_adress){
+         adress=new_adress;
+          EEPROM.put(0,adress);new_adress=0;new_adress_test=0; }
+        }
+       
+         
+         break;
             
-        break;
-          case(9):    
+       
+         case(9):    
          strobe_command();
          break;
+
+         case(14):    //Активация изолятора 
+         strobe_command();  
+          break;
+         
+         
       }
   
   }
@@ -411,6 +440,8 @@ ISR(TIMER0_COMPA_vect){
 }
 
 
+
+
 int main(void)
 {
   TCCR0A  = 0x00;
@@ -432,8 +463,11 @@ int main(void)
    pinMode(13, OUTPUT); 
    digitalWrite(13, LOW);       // вsключить подтягивающий резистор
    //digitalWrite(A3,HIGH);
+   adress = EEPROM.read(0);
+   if (adress==255){adress=0;}
     sei();
      OMEGA_DDR &= ~(1 << OMEGA_DQ); // вход
+     
     while (1) 
     {
       
