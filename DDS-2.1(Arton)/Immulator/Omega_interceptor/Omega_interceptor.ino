@@ -30,6 +30,7 @@ int adress_t;
 int adress=3;
 int new_adress;
 int new_adress_test;
+bool isolator;
 int directive=0;
 int device_ID=26;// 157-блок коммутации ,89-СПРА ,108-БСА,25-СПДОТА
 int temp_ID;
@@ -292,7 +293,7 @@ void protocol(void){
              }
          break;
               
-         case(8):    //Сброс компенсатора 
+         case(8):    //Смена адреса 
          strobe_command();
 
            if (tct==39)
@@ -319,6 +320,12 @@ void protocol(void){
 
          case(14):    //Активация изолятора 
          strobe_command();  
+
+            if (tct==46)
+         {
+           if((detect[36]==1)&&(detect[43]==1)){isolator=1;EEPROM.put(1,isolator);  }
+           if((detect[36]==0)&&(detect[43]==0)){isolator=0;EEPROM.put(1,isolator);  }
+         }
           break;
          
          
@@ -464,7 +471,9 @@ int main(void)
    digitalWrite(13, LOW);       // вsключить подтягивающий резистор
    //digitalWrite(A3,HIGH);
    adress = EEPROM.read(0);
+   isolator = EEPROM.read(1);
    if (adress==255){adress=0;}
+   if (isolator>=2){isolator=0;}
     sei();
      OMEGA_DDR &= ~(1 << OMEGA_DQ); // вход
      
