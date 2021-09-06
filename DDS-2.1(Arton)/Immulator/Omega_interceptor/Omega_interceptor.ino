@@ -32,6 +32,7 @@ int new_adress;
 int new_adress_test;
 bool isolator;
 bool led_status;
+bool alarm_status;
 int directive=0;
 int device_ID=26;// 157-блок коммутации ,89-СПРА ,108-БСА,25-СПДОТА
 int temp_ID;
@@ -131,7 +132,7 @@ void protocol(void){
      break;   
 
         case(1):
-        led_status=1;//EEPROM.put(2,led_status); 
+        led_status=1;
         strobe_tact();
         
          break; 
@@ -184,18 +185,20 @@ void protocol(void){
 
             if(tct==29)  //Светодиод 
              {   
-                //1 Тревога 
-                //2 Светодиод
-                //4 Изолятор разомкнут
-                //8 Програмное размыкание 
-                //16 EEPROM  
-              
-                 //led_status = EEPROM.read(2);
-               // led_status = 1;
               if(led_status==1){digitalWrite(13, HIGH);}
               if(led_status==0){digitalWrite(13,LOW);}
              }  
            ///////////////////////////////////////////////////
+
+             if(tct==30)  //Тревога  
+            // alarm_status=1;
+             {   
+              alarm_status=1;
+              if(alarm_status==1){digitalWrite(13, HIGH);}
+              if(alarm_status==0){digitalWrite(13,LOW);}
+             }  
+           ///////////////////////////////////////////////////
+           
            /*
              if((tct>=26)&&(tct<=30))  //Состояния устройства
              {   
