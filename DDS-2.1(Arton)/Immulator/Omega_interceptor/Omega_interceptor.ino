@@ -31,6 +31,7 @@ int adress=3;
 int new_adress;
 int new_adress_test;
 bool isolator;
+bool led_status;
 int directive=0;
 int device_ID=26;// 157-блок коммутации ,89-СПРА ,108-БСА,25-СПДОТА
 int temp_ID;
@@ -128,8 +129,15 @@ void protocol(void){
       strobe_tact();
     
      break;   
-     case(2):
 
+        case(1):
+        led_status=1;//EEPROM.put(2,led_status); 
+        strobe_tact();
+        
+         break; 
+     
+          case(2):
+          
            if((tct>=14)&&(tct<22))//   ID  устройства 
              {         
               temp_ID|=(device_ID>>(21-tct))&(0b1);
@@ -150,18 +158,62 @@ void protocol(void){
               if(temp_ID==0){digitalWrite(13,LOW);} 
              }
 
-             if((tct>=23)&&(tct<=30))  //Уровень тревоги 
+             if((tct>=23)&&(tct<=25))  //Загрязнение камеры %%
              {   
-        
-              temp_ID|=((38)>>(30-tct))&(0b1);
+                //32 Камера 50%
+                //64 Камера 25%
+              temp_ID|=((6)>>(25-tct))&(0b1);
               if(temp_ID==1){digitalWrite(13, HIGH);}
               if(temp_ID==0){digitalWrite(13,LOW);}
              }  
-             
+
+///////////////////////////////////////////////////////////////////
+              if(tct==27)  //Изолятор устройства
+             {   
+                //1 Тревога 
+                //2 Светодиод
+                //4 Изолятор разомкнут
+                //8 Програмное размыкание 
+                //16 EEPROM  
+                //isolator =1;
+              // isolator = EEPROM.read(1);
+              if(isolator==1){digitalWrite(13, HIGH);}
+              if(isolator==0){digitalWrite(13,LOW);}
+             }  
+           ///////////////////////////////////////////////////
+
+            if(tct==29)  //Светодиод 
+             {   
+                //1 Тревога 
+                //2 Светодиод
+                //4 Изолятор разомкнут
+                //8 Програмное размыкание 
+                //16 EEPROM  
+              
+                 //led_status = EEPROM.read(2);
+               // led_status = 1;
+              if(led_status==1){digitalWrite(13, HIGH);}
+              if(led_status==0){digitalWrite(13,LOW);}
+             }  
+           ///////////////////////////////////////////////////
+           /*
+             if((tct>=26)&&(tct<=30))  //Состояния устройства
+             {   
+                //1 Тревога 
+                //2 Светодиод
+                //4 Изолятор разомкнут
+                //8 Програмное размыкание 
+                //16 EEPROM  
+              temp_ID|=((0)>>(30-tct))&(0b1);
+              if(temp_ID==1){digitalWrite(13, HIGH);}
+              if(temp_ID==0){digitalWrite(13,LOW);}
+             }  
+           */  
+////////////////////////////////////////////////////////////////           
              if((tct>=32)&&(tct<=39))  //ЗАГРЯЗНЕНИЕ КАМЕРЫ
              {   
         
-              temp_ID|=((1)>>(39-tct))&(0b1);
+              temp_ID|=((10)>>(39-tct))&(0b1);
               if(temp_ID==1){digitalWrite(13, HIGH);}
               if(temp_ID==0){digitalWrite(13,LOW);}
              }  
@@ -472,8 +524,10 @@ int main(void)
    //digitalWrite(A3,HIGH);
    adress = EEPROM.read(0);
    isolator = EEPROM.read(1);
+ //  led_status = EEPROM.read(2);
    if (adress==255){adress=0;}
    if (isolator>=2){isolator=0;}
+   if (led_status>=2){led_status=0;}
     sei();
      OMEGA_DDR &= ~(1 << OMEGA_DQ); // вход
      
